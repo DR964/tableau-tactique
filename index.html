@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau Tactique - ES Marbres & Granits</title>
+    <title>Tableau Tactique v0.6.25 - ES Marbres & Granits</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏭</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -2018,6 +2018,666 @@
             transform: translateY(-4px);
             box-shadow: 0 12px 48px rgba(99, 102, 241, 0.6);
         }
+        
+        /* ==================== V0.6.25 - AMÉLIRATIONS UX ==================== */
+        
+        /* Quick Stats Bar - Barre de stats rapides toujours visible */
+        .quick-stats-bar {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elevated) 100%);
+            border: 1px solid var(--border-default);
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .quick-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .quick-stat-icon {
+            font-size: 1.2em;
+        }
+        .quick-stat-label {
+            font-size: 0.75em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .quick-stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1em;
+        }
+        .quick-stat-value.positive { color: var(--success); }
+        .quick-stat-value.negative { color: var(--danger); }
+        .quick-stat-value.warning { color: var(--warning); }
+        .quick-stat-value.neutral { color: var(--text-primary); }
+        
+        /* Decision Assistant Panel */
+        .decision-assistant {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-primary);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        .decision-assistant::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+        }
+        .decision-assistant-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .decision-assistant-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: var(--accent-tertiary);
+        }
+        .decision-assistant-title .icon {
+            font-size: 1.4em;
+        }
+        .decision-assistant-toggle {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-default);
+            border-radius: 8px;
+            padding: 6px 12px;
+            color: var(--text-secondary);
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .decision-assistant-toggle:hover {
+            background: var(--accent-primary);
+            color: white;
+        }
+        .decision-tips {
+            display: grid;
+            gap: 12px;
+        }
+        .decision-tip {
+            background: var(--bg-elevated);
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            border-left: 3px solid var(--accent-primary);
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        .decision-tip.warning {
+            border-left-color: var(--warning);
+            background: rgba(245, 158, 11, 0.08);
+        }
+        .decision-tip.danger {
+            border-left-color: var(--danger);
+            background: rgba(239, 68, 68, 0.08);
+        }
+        .decision-tip.success {
+            border-left-color: var(--success);
+            background: rgba(34, 197, 94, 0.08);
+        }
+        .decision-tip-icon {
+            font-size: 1.3em;
+            flex-shrink: 0;
+        }
+        .decision-tip-content {
+            flex: 1;
+        }
+        .decision-tip-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .decision-tip-text {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+        
+        /* Card Filters */
+        .card-filters {
+            background: var(--bg-card);
+            border: 1px solid var(--border-default);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-label {
+            font-size: 0.8em;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .filter-btn {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-default);
+            border-radius: 8px;
+            padding: 8px 14px;
+            color: var(--text-secondary);
+            font-size: 0.85em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover {
+            background: var(--bg-card);
+            border-color: var(--accent-primary);
+            color: var(--text-primary);
+        }
+        .filter-btn.active {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            color: white;
+        }
+        .filter-select {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-default);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: var(--text-primary);
+            font-size: 0.85em;
+            cursor: pointer;
+        }
+        .filter-search {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-default);
+            border-radius: 8px;
+            padding: 8px 14px;
+            color: var(--text-primary);
+            font-size: 0.85em;
+            min-width: 180px;
+        }
+        .filter-search::placeholder {
+            color: var(--text-muted);
+        }
+        
+        /* Card Impact Preview */
+        .card-impact-preview {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            border: 1px solid var(--accent-primary);
+            border-radius: 12px;
+            padding: 16px;
+            min-width: 280px;
+            z-index: 100;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            margin-bottom: 8px;
+        }
+        .action-card:hover .card-impact-preview {
+            opacity: 1;
+            visibility: visible;
+        }
+        .impact-preview-title {
+            font-weight: 700;
+            color: var(--accent-tertiary);
+            margin-bottom: 12px;
+            font-size: 0.85em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .impact-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        .impact-preview-item {
+            background: var(--bg-elevated);
+            border-radius: 6px;
+            padding: 8px 10px;
+            text-align: center;
+        }
+        .impact-preview-label {
+            font-size: 0.7em;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+        .impact-preview-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+        .impact-preview-value.positive { color: var(--success); }
+        .impact-preview-value.negative { color: var(--danger); }
+        .impact-preview-value.neutral { color: var(--text-secondary); }
+        
+        /* Card Risk Badge */
+        .card-risk-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 5;
+        }
+        .card-risk-badge.high-risk {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+        .card-risk-badge.medium-risk {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+        .card-risk-badge.low-risk {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+        .card-risk-badge.best-choice {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3));
+            color: var(--accent-tertiary);
+            border: 1px solid var(--accent-primary);
+            animation: pulse-best 2s infinite;
+        }
+        @keyframes pulse-best {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+            50% { box-shadow: 0 0 12px 4px rgba(99, 102, 241, 0.2); }
+        }
+        
+        /* Card Comparison Mode */
+        .comparison-mode-active .action-card {
+            cursor: pointer;
+        }
+        .action-card.selected-for-compare {
+            border: 2px solid var(--info) !important;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3) !important;
+        }
+        .action-card.selected-for-compare::after {
+            content: '✓';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            width: 24px;
+            height: 24px;
+            background: var(--info);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8em;
+            font-weight: 700;
+        }
+        
+        /* Comparison Panel */
+        .comparison-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border-top: 2px solid var(--info);
+            padding: 20px;
+            z-index: 500;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            box-shadow: 0 -8px 32px rgba(0,0,0,0.4);
+        }
+        .comparison-panel.active {
+            transform: translateY(0);
+        }
+        .comparison-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .comparison-title {
+            font-weight: 700;
+            color: var(--info);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .comparison-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .comparison-card {
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid var(--border-default);
+        }
+        .comparison-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .comparison-card-emoji {
+            font-size: 1.5em;
+        }
+        .comparison-card-name {
+            font-weight: 700;
+            flex: 1;
+        }
+        .comparison-card-cost {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--warning);
+            font-weight: 700;
+        }
+        .comparison-metrics {
+            display: grid;
+            gap: 8px;
+        }
+        .comparison-metric {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+        }
+        .comparison-metric-label {
+            color: var(--text-muted);
+        }
+        .comparison-metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+        
+        /* Simulation Mode Button */
+        .btn-simulate {
+            background: linear-gradient(135deg, var(--info), #0ea5e9);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .btn-simulate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(6, 182, 212, 0.4);
+        }
+        
+        /* Simulation Modal */
+        .simulation-results {
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+        }
+        .simulation-comparison {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+        .simulation-before, .simulation-after {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .simulation-before {
+            border: 1px solid var(--text-muted);
+        }
+        .simulation-after {
+            border: 1px solid var(--success);
+        }
+        .simulation-title {
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .simulation-before .simulation-title {
+            color: var(--text-muted);
+        }
+        .simulation-after .simulation-title {
+            color: var(--success);
+        }
+        .simulation-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: var(--accent-primary);
+        }
+        .simulation-metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 0.9em;
+        }
+        .simulation-metric-row:last-child {
+            border-bottom: none;
+        }
+        .simulation-change {
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .simulation-change.positive {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--success);
+        }
+        .simulation-change.negative {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+        
+        /* Strategy Summary Panel */
+        .strategy-summary {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid var(--accent-primary);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        .strategy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .strategy-title {
+            font-weight: 700;
+            color: var(--accent-tertiary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .strategy-objectives {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+        .strategy-objective {
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        .strategy-objective-label {
+            font-size: 0.75em;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .strategy-objective-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+        .strategy-objective-status {
+            font-size: 0.75em;
+            margin-top: 4px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .strategy-objective-status.on-track {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--success);
+        }
+        .strategy-objective-status.at-risk {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+        .strategy-objective-status.off-track {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+        
+        /* Card Recommendation Badge */
+        .card-recommendation {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.9);
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 0.75em;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.2s;
+        }
+        .action-card:hover .card-recommendation {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .card-recommendation.recommended {
+            border: 1px solid var(--success);
+        }
+        .card-recommendation.caution {
+            border: 1px solid var(--warning);
+        }
+        
+        /* Decision Score */
+        .decision-score {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-top: 10px;
+        }
+        .decision-score-label {
+            font-size: 0.75em;
+            color: var(--text-muted);
+        }
+        .decision-score-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--bg-card);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .decision-score-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        .decision-score-fill.excellent { background: var(--success); }
+        .decision-score-fill.good { background: var(--info); }
+        .decision-score-fill.medium { background: var(--warning); }
+        .decision-score-fill.poor { background: var(--danger); }
+        .decision-score-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.85em;
+        }
+        
+        /* Impact Timeline in History */
+        .impact-timeline {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-default);
+        }
+        .impact-timeline-title {
+            font-weight: 700;
+            color: var(--accent-tertiary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .impact-chart {
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 200px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .quick-stats-bar {
+                padding: 10px 14px;
+                gap: 12px;
+            }
+            .quick-stat {
+                flex: 1;
+                min-width: 100px;
+            }
+            .card-filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-group {
+                flex-wrap: wrap;
+            }
+            .comparison-panel {
+                padding: 12px;
+            }
+            .simulation-comparison {
+                grid-template-columns: 1fr;
+            }
+            .simulation-arrow {
+                transform: rotate(90deg);
+                padding: 10px 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2190,6 +2850,10 @@
             <label class="dev-toggle">
                 <input type="checkbox" id="infiniteBudgetToggle" onchange="toggleInfiniteBudget()">
                 <span>Tours/Budget infini</span>
+            </label>
+            <label class="dev-toggle">
+                <input type="checkbox" id="riskBadgesToggle" onchange="toggleRiskBadges()">
+                <span>Afficher badges Recommandé/Risqué</span>
             </label>
         </div>
         
@@ -2633,7 +3297,7 @@
         <div class="game-header">
             <div class="header-content">
                 <div class="logo-section">
-                    <h1>📋 TABLEAU TACTIQUE</h1>
+                    <h1>📋 TABLEAU TACTIQUE <span style="font-size: 0.5em; opacity: 0.7; font-weight: 400;">v0.6.25</span></h1>
                     <div style="font-size: 0.85em; opacity: 0.8;">ES Marbres & Granits - Simulation de Management</div>
                 </div>
                 <div class="controls">
@@ -2677,6 +3341,25 @@
                 <h3>🤝 MODE COLLABORATION ACTIVÉ</h3>
                 <p>Toutes les cartes sont maintenant communes. Budget partagé : <strong id="budgetCommun">50 pts</strong></p>
                 <p>Décidez ENSEMBLE pour maximiser l'amélioration de la PIG !</p>
+            </div>
+            
+            <!-- V0.6.25 - Quick Stats Bar -->
+            <div class="quick-stats-bar" id="quickStatsBar"></div>
+            
+            <!-- V0.6.25 - Decision Assistant -->
+            <div class="decision-assistant" id="decisionAssistant">
+                <div class="decision-assistant-header">
+                    <div class="decision-assistant-title">
+                        <span class="icon">🧠</span>
+                        <span>Assistant de Décision</span>
+                    </div>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <button class="decision-assistant-toggle" onclick="uxState.showAssistant = !uxState.showAssistant; render();">
+                            Masquer
+                        </button>
+                    </div>
+                </div>
+                <div class="decision-tips" id="assistantTips"></div>
             </div>
             
             <!-- Section Mix des Ventes - Visible pour tous les joueurs en Manche 1 -->
@@ -2725,6 +3408,8 @@
                         </div>
                         <div id="budgetDisplay" style="font-weight: 700; color: var(--yellow);"></div>
                     </div>
+                    <!-- V0.6.25 - Card Filters -->
+                    <div class="card-filters" id="cardFilters"></div>
                     <div class="cards-grid" id="cardsGrid"></div>
                 </div>
             </div>
@@ -2830,6 +3515,71 @@
         return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     }
     
+    // ==================== SEUILS ET LIMITES (centralisés) ====================
+    
+    const SEUILS = {
+        // Seuils pour le goulet/TRG
+        goulet: {
+            critique: 95,       // Rouge - Surcharge
+            alerte: 80,         // Orange - Attention
+            avertissement: 70   // Jaune - À surveiller
+        },
+        // Seuils pour le TRG
+        trg: {
+            bon: 70,
+            moyen: 50
+        },
+        // Seuils pour la conformité (1 - TR)
+        conformite: {
+            bon: 90,
+            moyen: 80
+        },
+        // Seuils pour le BFR
+        bfr: {
+            alerte: 90,
+            avertissement: 70
+        },
+        // Seuils pour le Lead Time (jours)
+        leadTime: {
+            bon: 60,
+            moyen: 90
+        },
+        // Seuils pour le taux de rebut (%)
+        rebut: {
+            bon: 5,
+            moyen: 10
+        },
+        // Seuils pour le budget
+        budgetBas: 30
+    };
+    
+    // Fonction helper pour obtenir la couleur selon les seuils
+    function getSeuilColor(valeur, seuils, inverse = false) {
+        if (inverse) {
+            // Plus bas = mieux (ex: rebut, coûts)
+            if (valeur <= seuils.bon) return 'var(--success)';
+            if (valeur <= seuils.moyen) return 'var(--warning)';
+            return 'var(--danger)';
+        } else {
+            // Plus haut = mieux (ex: TRG, conformité)
+            if (valeur >= seuils.bon) return 'var(--success)';
+            if (valeur >= seuils.moyen) return 'var(--warning)';
+            return 'var(--danger)';
+        }
+    }
+    
+    function getSeuilClass(valeur, seuils, inverse = false) {
+        if (inverse) {
+            if (valeur <= seuils.bon) return 'positive';
+            if (valeur <= seuils.moyen) return 'warning';
+            return 'negative';
+        } else {
+            if (valeur >= seuils.bon) return 'positive';
+            if (valeur >= seuils.moyen) return 'warning';
+            return 'negative';
+        }
+    }
+    
     // ==================== CONFIGURATION JOUEURS ====================
     
     // ==================== MICRO-FLUX (PRODUITS) - Données du tableau Excel ====================
@@ -2840,18 +3590,18 @@
             emoji: "⬜",
             PV: 2500,           // Prix de vente
             DA: 1400,           // Dépenses d'achat
-            tM1: 1.0,           // Temps machine 1 (heures)
-            tM2: 2.0,           // Temps machine 2 (heures)
-            tM3: 0.5,           // Temps machine 3 (heures)
-            tM4: 1.0,           // Temps machine 4 (heures) - GOULET
-            tM5: 1.5,           // Temps machine 5 (heures)
-            LT: 60,             // Lead Time (jours) - bas pour montrer l'impact
-            Tr: 0.08,           // Taux de rebus global (8%) - bas au départ
+            tM1: 0.8,           // Temps machine 1 (heures)
+            tM2: 1.5,           // Temps machine 2 (heures)
+            tM3: 0.4,           // Temps machine 3 (heures)
+            tM4: 0.8,           // Temps machine 4 (heures) - GOULET
+            tM5: 1.0,           // Temps machine 5 (heures)
+            LT: 60,             // Lead Time (jours)
+            Tr: 0.08,           // Taux de rebus global (8%)
             delaiClient: 90,    // Délai client (jours)
             delaiFournisseur: 60, // Délai fournisseur (jours)
             venteMin: 100,
-            venteMax: 500,
-            QV: 200,            // Quantité vendue initiale
+            venteMax: 800,
+            QV: 250,            // Quantité vendue initiale
             // Indicateurs SQR par micro-flux (Manche 3)
             s: 0.60,            // Vitesse/réactivité
             q: 0.70,            // Satisfaction client
@@ -2862,18 +3612,18 @@
             emoji: "💎",
             PV: 5000,           // Prix de vente (premium)
             DA: 2400,           // Dépenses d'achat
-            tM1: 2.5,           // Temps machine 1 (heures) - travail plus fin
-            tM2: 2.5,           // Temps machine 2 (heures)
-            tM3: 1.5,           // Temps machine 3 (heures)
-            tM4: 5.0,           // Temps machine 4 (heures) - GOULET (long pour luxe)
-            tM5: 2.5,           // Temps machine 5 (heures)
-            LT: 80,             // Lead Time (jours) - bas au départ
-            Tr: 0.10,           // Taux de rebus global (10%) - bas au départ
+            tM1: 1.5,           // Temps machine 1 (heures) - travail plus fin
+            tM2: 2.0,           // Temps machine 2 (heures)
+            tM3: 1.0,           // Temps machine 3 (heures)
+            tM4: 2.5,           // Temps machine 4 (heures) - GOULET (réduit pour équilibre)
+            tM5: 1.8,           // Temps machine 5 (heures)
+            LT: 80,             // Lead Time (jours)
+            Tr: 0.10,           // Taux de rebus global (10%)
             delaiClient: 120,   // Délai client (jours)
             delaiFournisseur: 60, // Délai fournisseur (jours)
-            venteMin: 50,
-            venteMax: 500,
-            QV: 100,            // Quantité vendue initiale
+            venteMin: 100,
+            venteMax: 400,
+            QV: 200,            // Quantité vendue initiale
             s: 0.50,            // Plus lent (produit complexe)
             q: 0.75,
             r: 0.45             // Plus polluant (matière rare)
@@ -2883,11 +3633,11 @@
     // ==================== COÛTS DE MAINTENANCE PAR MACHINE (€/h) ====================
     
     const MAINTENANCE_MACHINES = {
-        M1: 150,    // Coût maintenance machine 1 (€/h)
-        M2: 140,    // Coût maintenance machine 2 (€/h)
-        M3: 120,    // Coût maintenance machine 3 (€/h)
-        M4: 250,    // Coût maintenance machine 4 (€/h) - Goulet (critique)
-        M5: 100     // Coût maintenance machine 5 (€/h)
+        M1: 100,    // Coût maintenance machine 1 (€/h)
+        M2: 90,     // Coût maintenance machine 2 (€/h)
+        M3: 70,     // Coût maintenance machine 3 (€/h)
+        M4: 180,    // Coût maintenance machine 4 (€/h) - Goulet (critique)
+        M5: 80      // Coût maintenance machine 5 (€/h)
     };
     
     // ==================== CAPACITÉS MACHINES (heures) ====================
@@ -2906,16 +3656,17 @@
     
     // ==================== FORCE DE VENTE MAX ====================
     
-    const FORCE_VENTE_MAX = 5000;
+    const FORCE_VENTE_MAX = 1500;  // Max = MF1 max (800) + MF2 max (400) + marge
     
     // ==================== MACHINES (5 machines - VSM) ====================
+    // Utilise CAPACITES_MACHINES pour éviter les doublons
     
     const MACHINES = {
-        M1: { nom: "Coupe Initiale", emoji: "✂️", capacite: 1800, charge: 0 },
-        M2: { nom: "Polissage", emoji: "✨", capacite: 1800, charge: 0 },
-        M3: { nom: "Démarcation", emoji: "📐", capacite: 1200, charge: 0 },
-        M4: { nom: "Coupe Finale", emoji: "🎯", capacite: 1200, charge: 0 },  // GOULET
-        M5: { nom: "Finition", emoji: "💎", capacite: 1500, charge: 0 }
+        M1: { nom: "M1 - Coupe Initiale", emoji: "✂️", capacite: CAPACITES_MACHINES.M1, charge: 0 },
+        M2: { nom: "M2 - Polissage", emoji: "✨", capacite: CAPACITES_MACHINES.M2, charge: 0 },
+        M3: { nom: "M3 - Démarcation", emoji: "📐", capacite: CAPACITES_MACHINES.M3, charge: 0 },
+        M4: { nom: "M4 - Coupe Finale", emoji: "🎯", capacite: CAPACITES_MACHINES.M4, charge: 0 },  // GOULET
+        M5: { nom: "M5 - Finition", emoji: "💎", capacite: CAPACITES_MACHINES.M5, charge: 0 }
     };
     
     // ==================== CONTRAINTES ====================
@@ -4357,6 +5108,7 @@
         budgets: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }, // Dépenses par joueur (pour tracking)
         budgetManche1: 300, // Budget commun partagé pour la Manche 1
         budgetCommun: 0, // Budget pour Manche 2+
+        mixValideJ1: false, // J1 doit valider le mix avant de jouer des cartes
         processus: JSON.parse(JSON.stringify(PROCESSUS_INITIAL)),
         indicateurs: JSON.parse(JSON.stringify(INDICATEURS_JOUEUR_INITIAL)),
         hidden: JSON.parse(JSON.stringify(HIDDEN_INITIAL)),
@@ -4392,7 +5144,8 @@
         showHidden: false,
         unlockVSM: false,
         infiniteBudget: false,
-        authenticated: false
+        authenticated: false,
+        showRiskBadges: false  // Afficher les badges recommandé/risqué sur les cartes
     };
     
     function toggleDevPanel() {
@@ -4553,7 +5306,17 @@
         calculerChargesMachines();
         const gouletInfo = identifierGoulet();
         
-        let html = `<p style="font-size: 0.75em; opacity: 0.7; margin-bottom: 10px;">⚠️ Ventes limitées par le goulet (${gameState.machines[gouletInfo.goulet]?.nom || 'N/A'} à ${Math.min(100, gouletInfo.chargePercent).toFixed(0)}%)</p>`;
+        // Message adapté selon la charge
+        let gouletMsg = '';
+        if (gouletInfo.chargePercent >= SEUILS.goulet.critique) {
+            gouletMsg = `<p style="font-size: 0.75em; color: var(--danger); margin-bottom: 10px;">🔴 SURCHARGE! ${gameState.machines[gouletInfo.goulet]?.nom || 'N/A'} à ${Math.min(100, gouletInfo.chargePercent).toFixed(0)}%</p>`;
+        } else if (gouletInfo.chargePercent >= 80) {
+            gouletMsg = `<p style="font-size: 0.75em; color: var(--warning); margin-bottom: 10px;">⚠️ Attention: ${gameState.machines[gouletInfo.goulet]?.nom || 'N/A'} à ${gouletInfo.chargePercent.toFixed(0)}%</p>`;
+        } else {
+            gouletMsg = `<p style="font-size: 0.75em; opacity: 0.7; margin-bottom: 10px;">✅ Capacité OK (${gameState.machines[gouletInfo.goulet]?.nom || 'N/A'} à ${gouletInfo.chargePercent.toFixed(0)}%)</p>`;
+        }
+        
+        let html = gouletMsg;
         
         for (const [mfId, mf] of Object.entries(gameState.microFlux)) {
             const capaciteMax = calculerCapaciteVenteMax(mfId);
@@ -4590,7 +5353,7 @@
         for (const [mId, machine] of Object.entries(gameState.machines)) {
             const chargePercent = machine.capacite > 0 ? (machine.charge / machine.capacite * 100) : 0;
             const isGoulet = mId === gouletInfo.goulet && chargePercent >= 80;
-            const barColor = chargePercent >= 95 ? 'var(--danger)' : chargePercent >= 70 ? 'var(--warning)' : 'var(--success)';
+            const barColor = chargePercent >= SEUILS.goulet.critique ? 'var(--danger)' : chargePercent >= SEUILS.goulet.avertissement ? 'var(--warning)' : 'var(--success)';
             
             html += `
                 <div class="dev-indicator" style="${isGoulet ? 'border: 2px solid var(--danger); background: rgba(239, 68, 68, 0.1);' : ''}">
@@ -4772,6 +5535,31 @@
         
         grid.innerHTML = html;
         
+        // Bouton de validation du mix pour J1 en Manche 1
+        if (manche === 1 && joueur === 1 && !gameState.mixValideJ1 && !gameState.phaseDebriefing) {
+            const validationBtn = document.createElement('div');
+            validationBtn.style.cssText = 'grid-column: 1 / -1; margin-top: 16px; text-align: center;';
+            validationBtn.innerHTML = `
+                <button onclick="validerMixJ1()" style="
+                    background: var(--gradient-success);
+                    color: #000;
+                    border: none;
+                    padding: 16px 32px;
+                    border-radius: 12px;
+                    font-size: 1.1em;
+                    font-weight: 700;
+                    cursor: pointer;
+                    box-shadow: 0 4px 16px rgba(34, 197, 94, 0.4);
+                ">
+                    ✅ Valider le Mix de Ventes
+                </button>
+                <p style="color: var(--text-muted); font-size: 0.85em; margin-top: 8px;">
+                    Vous devez valider le mix avant de pouvoir jouer des cartes
+                </p>
+            `;
+            grid.appendChild(validationBtn);
+        }
+        
         // Afficher l'avertissement du goulet si > 80% (seulement manche 2+ ou mode dev)
         if (gouletInfo.chargePercent >= 80 && (manche >= 2 || devMode.showHidden)) {
             const gouletMachine = gameState.machines[gouletInfo.goulet];
@@ -4811,6 +5599,12 @@
         mf.QV = nouvelleValeur;
         calculerChargesMachines();
         renderDevPanel();
+        render();
+    }
+    
+    function validerMixJ1() {
+        gameState.mixValideJ1 = true;
+        showToast('✅ Mix de ventes validé ! Vous pouvez maintenant jouer des cartes.', 'success');
         render();
     }
     
@@ -5163,9 +5957,9 @@
             gameState.revelationShown = true;
         }
         if (manche === 2) {
-            gameState.budgetCommun = gameState.budgetCommun || 50;
+            gameState.budgetCommun = gameState.budgetCommun || 300;
         } else if (manche === 3) {
-            gameState.budgetCommun = gameState.budgetCommun || 40;
+            gameState.budgetCommun = gameState.budgetCommun || 300;
         }
         for (let i = 1; i <= 5; i++) gameState.joueursReady[i] = false;
         showToast(`Manche ${manche} activée !`, 'success');
@@ -5185,6 +5979,8 @@
         intro.style.opacity = '0';
         setTimeout(() => {
             intro.classList.add('hidden');
+            // Initialiser le mix au maximum possible
+            initialiserMixMaximum();
             // Commencer avec le joueur 1, tour 1
             gameState.joueurActuel = 1;
             gameState.tourActuel = 1;
@@ -5193,6 +5989,89 @@
             // Afficher le modal du premier tour
             showPlayerTurnModal(1);
         }, 500);
+    }
+    
+    // Initialiser le mix de ventes au maximum possible (limité par le goulet)
+    function initialiserMixMaximum() {
+        // Trouver le goulet (machine limitante)
+        let gouletId = null;
+        let minRatio = Infinity;
+        
+        for (const machineId in gameState.machines) {
+            const machine = gameState.machines[machineId];
+            // Calculer le temps total nécessaire pour les venteMax
+            let tempsTotal = 0;
+            for (const mfId in gameState.microFlux) {
+                const mf = gameState.microFlux[mfId];
+                const temps = mf[`t${machineId}`] || 0;
+                tempsTotal += mf.venteMax * temps;
+            }
+            const ratio = machine.capacite / tempsTotal;
+            if (ratio < minRatio) {
+                minRatio = ratio;
+                gouletId = machineId;
+            }
+        }
+        
+        if (!gouletId) return;
+        
+        const capaciteGoulet = gameState.machines[gouletId].capacite;
+        
+        // Calculer la marge par heure de goulet pour chaque produit
+        const produitsParEfficicacite = [];
+        for (const mfId in gameState.microFlux) {
+            const mf = gameState.microFlux[mfId];
+            const tempsGoulet = mf[`t${gouletId}`] || 0;
+            if (tempsGoulet > 0) {
+                const marge = mf.PV - mf.DA;
+                const efficacite = marge / tempsGoulet; // €/heure de goulet
+                produitsParEfficicacite.push({
+                    mfId,
+                    mf,
+                    tempsGoulet,
+                    efficacite,
+                    venteMax: mf.venteMax,
+                    venteMin: mf.venteMin
+                });
+            }
+        }
+        
+        // Trier par efficacité décroissante (plus rentable d'abord)
+        produitsParEfficicacite.sort((a, b) => b.efficacite - a.efficacite);
+        
+        // Répartir la capacité du goulet
+        let capaciteRestante = capaciteGoulet * 0.95; // Garder 5% de marge
+        
+        for (const produit of produitsParEfficicacite) {
+            // Combien d'unités peut-on faire avec la capacité restante?
+            const unitesMax = Math.floor(capaciteRestante / produit.tempsGoulet);
+            // Limiter au venteMax
+            const unites = Math.min(unitesMax, produit.venteMax);
+            // Assurer au moins le venteMin
+            const unitesFinal = Math.max(produit.venteMin, unites);
+            
+            // Appliquer
+            produit.mf.QV = unitesFinal;
+            
+            // Réduire la capacité restante
+            capaciteRestante -= unitesFinal * produit.tempsGoulet;
+            
+            // Si plus de capacité, arrêter (les produits restants auront leur venteMin)
+            if (capaciteRestante <= 0) {
+                // Mettre les produits restants à leur venteMin
+                const index = produitsParEfficicacite.indexOf(produit);
+                for (let i = index + 1; i < produitsParEfficicacite.length; i++) {
+                    produitsParEfficicacite[i].mf.QV = produitsParEfficicacite[i].venteMin;
+                }
+                break;
+            }
+        }
+        
+        // Recalculer les charges
+        calculerChargesMachines();
+        
+        console.log('Mix initialisé au maximum:', 
+            Object.entries(gameState.microFlux).map(([id, mf]) => `${id}: ${mf.QV}`).join(', '));
     }
     
     function selectPlayer(joueur) {
@@ -5222,6 +6101,7 @@
             budgets: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }, // Dépenses par joueur
             budgetManche1: 300, // Budget commun partagé
             budgetCommun: 0,
+            mixValideJ1: false, // J1 doit valider le mix avant de jouer des cartes
             processus: JSON.parse(JSON.stringify(PROCESSUS_INITIAL)),
             indicateurs: JSON.parse(JSON.stringify(INDICATEURS_JOUEUR_INITIAL)),
             hidden: JSON.parse(JSON.stringify(HIDDEN_INITIAL)),
@@ -5243,6 +6123,8 @@
             carteEnAttente: null,
             cibleSelectionnee: null
         };
+        // Initialiser le mix au maximum possible
+        initialiserMixMaximum();
         gameState.hidden.pig = calculerPIG();
         showToast('Jeu réinitialisé !', 'success');
         render();
@@ -5277,6 +6159,12 @@
         renderDevPanel();
     }
     
+    function toggleRiskBadges() {
+        devMode.showRiskBadges = document.getElementById('riskBadgesToggle').checked;
+        showToast(devMode.showRiskBadges ? '🏷️ Badges de risque activés' : '🏷️ Badges de risque désactivés', 'info');
+        render();
+    }
+    
     function updateHiddenFromSlider(key, value) {
         // S, R, Q - plafonner à 95%
         const cappedValue = Math.min(95, parseFloat(value));
@@ -5300,7 +6188,7 @@
     function resetBudgets() {
         gameState.budgetManche1 = 300;
         gameState.budgets = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-        gameState.budgetCommun = 50;
+        gameState.budgetCommun = 300;
         showToast('Budgets réinitialisés', 'success');
         render();
         renderDevPanel();
@@ -5661,7 +6549,7 @@
                     // Afficher alerte si réduction CGE
                     if (carte.impacts.global.CGE < 0) {
                         setTimeout(() => {
-                            showToast('⚠️ ATTENTION : Réduire les CGE peut fragiliser l\'entreprise ! Les CGE financent la maintenance, la formation et la qualité.', 'warning', 6000);
+                            // CGE réduit - pas de notification
                         }, 1000);
                     }
                     
@@ -5756,6 +6644,9 @@
         
         // Recalculer les charges machines après modification
         calculerChargesMachines();
+        
+        // NOUVEAU: Ajuster automatiquement le mix si le goulet dépasse la capacité
+        ajusterMixPourGoulet();
         
         gameState.hidden.pig = calculerPIG();
         
@@ -5891,6 +6782,94 @@
             if (gameState.machines.M3) gameState.machines.M3.charge += mf.QV * (mf.tM3 || 0);
             if (gameState.machines.M4) gameState.machines.M4.charge += mf.QV * (mf.tM4 || 0);
             if (gameState.machines.M5) gameState.machines.M5.charge += mf.QV * (mf.tM5 || 0);
+        }
+    }
+    
+    // Ajuster automatiquement le mix de vente pour ne pas dépasser la capacité du goulet
+    function ajusterMixPourGoulet() {
+        calculerChargesMachines();
+        
+        // Trouver la machine la plus chargée (goulet)
+        let maxChargeRatio = 0;
+        let gouletId = null;
+        
+        for (const [machineId, machine] of Object.entries(gameState.machines)) {
+            if (machine.capacite > 0) {
+                const ratio = machine.charge / machine.capacite;
+                if (ratio > maxChargeRatio) {
+                    maxChargeRatio = ratio;
+                    gouletId = machineId;
+                }
+            }
+        }
+        
+        // Si pas de surcharge, rien à faire
+        if (maxChargeRatio <= 1.0 || !gouletId) {
+            return;
+        }
+        
+        const machine = gameState.machines[gouletId];
+        const exces = machine.charge - machine.capacite;
+        
+        // Collecter les infos sur chaque micro-flux
+        const mfInfos = [];
+        for (const mfId in gameState.microFlux) {
+            const mf = gameState.microFlux[mfId];
+            const tempsGoulet = mf[`t${gouletId}`] || 0;
+            if (tempsGoulet > 0 && mf.QV > mf.venteMin) {
+                // Calculer la marge unitaire (PV - DA)
+                const margeUnitaire = mf.PV - mf.DA;
+                // Efficacité = marge par heure de goulet utilisée
+                const efficacite = margeUnitaire / tempsGoulet;
+                mfInfos.push({
+                    mfId,
+                    mf,
+                    tempsGoulet,
+                    efficacite,
+                    reductionPossible: mf.QV - mf.venteMin
+                });
+            }
+        }
+        
+        // Trier par efficacité croissante (on réduit d'abord les moins rentables)
+        mfInfos.sort((a, b) => a.efficacite - b.efficacite);
+        
+        // Réduire progressivement les QV pour éliminer l'excès
+        let excesRestant = exces;
+        const reductions = [];
+        
+        for (const info of mfInfos) {
+            if (excesRestant <= 0) break;
+            
+            // Combien d'unités peut-on retirer pour ce micro-flux?
+            const unitesARetirer = Math.min(
+                info.reductionPossible,
+                Math.ceil(excesRestant / info.tempsGoulet)
+            );
+            
+            if (unitesARetirer > 0) {
+                const tempsLibere = unitesARetirer * info.tempsGoulet;
+                excesRestant -= tempsLibere;
+                
+                // Appliquer la réduction
+                info.mf.QV -= unitesARetirer;
+                reductions.push({
+                    nom: info.mf.nom,
+                    emoji: info.mf.emoji,
+                    reduction: unitesARetirer,
+                    nouveauQV: info.mf.QV
+                });
+            }
+        }
+        
+        // Recalculer les charges après ajustement
+        calculerChargesMachines();
+        
+        // Notifier l'utilisateur si des ajustements ont été faits
+        if (reductions.length > 0) {
+            const details = reductions.map(r => `${r.emoji} ${r.nom}: -${r.reduction} → ${r.nouveauQV}`).join('\n');
+            showToast(`⚠️ Mix ajusté automatiquement (goulet ${gouletId})`, 'warning');
+            console.log('Ajustements automatiques du mix:', details);
         }
     }
     
@@ -6139,8 +7118,8 @@
         gameState.phaseDebriefing = false;
         gameState.manche = 2;
         
-        // Budget commun de 50 pts pour la collaboration
-        gameState.budgetCommun = 50;
+        // Budget commun de 300 pts pour la collaboration
+        gameState.budgetCommun = 300;
         
         // Réinitialiser les états
         for (let i = 1; i <= 5; i++) {
@@ -6356,11 +7335,11 @@
         
         if (gameState.manche === 2) {
             // Passage à la manche 2 : Focus RBE
-            gameState.budgetCommun = 50;
+            gameState.budgetCommun = 300;
             showToast('💰 Manche 2 : Maximisez le RBE !', 'success');
         } else if (gameState.manche === 3) {
             // Passage à la manche 3 : Focus PIG
-            gameState.budgetCommun = 40;
+            gameState.budgetCommun = 300;
             showToast('🌿 Manche 3 : Maximisez le PIG !', 'success');
         }
         render();
@@ -6504,6 +7483,20 @@
         const teg = calculerTEG();
         const tegInitial = 1.0; // TEG initial théorique
         
+        // Calculer VAG, CGE et RBE
+        const vagActuel = calculerVAGTotal();
+        const cgeActuel = calculerCGETotal();
+        const rbeActuel = calculerRBE();
+        
+        // Valeurs initiales (approximatives)
+        let vagInitial = 0, cgeInitial = 0;
+        for (const mfId in MICRO_FLUX) {
+            const mf = MICRO_FLUX[mfId];
+            vagInitial += calculerVAG(mf) * mf.QV;
+        }
+        for (const key in CGE_INITIAL) cgeInitial += CGE_INITIAL[key];
+        const rbeInitial = vagInitial - cgeInitial;
+        
         // Calculer PIG actuel et initial
         const pigActuel = h.s * h.q * h.r * teg;
         const pigInitial = hi.s * hi.q * hi.r * tegInitial;
@@ -6514,6 +7507,8 @@
         const sChange = h.s - hi.s;
         const qChange = h.q - hi.q;
         const rChange = h.r - hi.r;
+        const vagChange = vagActuel - vagInitial;
+        const rbeChange = rbeActuel - rbeInitial;
         
         // Commentaires sur s (Réactivité/Vitesse)
         let sComment = '';
@@ -6563,6 +7558,20 @@
         }
         
         statsDiv.innerHTML = `
+            <div class="modal-stat" style="background: ${vagChange < 0 ? 'rgba(239, 68, 68, 0.2)' : 'rgba(34, 197, 94, 0.2)'};">
+                <div class="modal-stat-label">📈 VAG Totale (Valeur Ajoutée)</div>
+                <div class="modal-stat-value ${vagChange < 0 ? 'negative' : 'positive'}" style="font-size: 1.2em;">
+                    €${formatNumber(Math.round(vagInitial))} → €${formatNumber(Math.round(vagActuel))}
+                    <span style="font-size: 0.7em; margin-left: 8px;">(${vagChange >= 0 ? '+' : ''}€${formatNumber(Math.round(vagChange))})</span>
+                </div>
+            </div>
+            <div class="modal-stat" style="background: ${rbeChange < 0 ? 'rgba(239, 68, 68, 0.2)' : 'rgba(34, 197, 94, 0.2)'};">
+                <div class="modal-stat-label">💰 RBE (Résultat Brut)</div>
+                <div class="modal-stat-value ${rbeChange < 0 ? 'negative' : 'positive'}" style="font-size: 1.2em;">
+                    €${formatNumber(Math.round(rbeInitial))} → €${formatNumber(Math.round(rbeActuel))}
+                    <span style="font-size: 0.7em; margin-left: 8px;">(${rbeChange >= 0 ? '+' : ''}€${formatNumber(Math.round(rbeChange))})</span>
+                </div>
+            </div>
             <div class="modal-stat">
                 <div class="modal-stat-label">⚡ Réactivité (s)</div>
                 <div class="modal-stat-value ${sChange < 0 ? 'negative' : 'positive'}" style="font-size: 1.2em;">
@@ -6604,7 +7613,7 @@
         
         gameState.phaseDebriefing2 = false;
         gameState.manche = 3;
-        gameState.budgetCommun = 40;
+        gameState.budgetCommun = 300;
         
         // Réinitialiser les états
         for (let i = 1; i <= 5; i++) {
@@ -7934,22 +8943,60 @@
                     const opacity = c.purchased ? '0.5' : (!c.canAfford ? '0.7' : '1');
                     const buyText = c.purchased ? '✓ Jouée' : (c.canAfford ? '🎴 Acheter' : '💸 Insuffisant');
                     
+                    // V0.6.25: Calculer score et risque
+                    const impacts = typeof analyzeCardImpacts === 'function' ? analyzeCardImpacts(c) : { score: 50 };
+                    const risk = typeof evaluateCardRisk === 'function' ? evaluateCardRisk(c) : { riskLevel: 'low-risk' };
+                    
+                    let scoreBarClass = 'poor';
+                    if (impacts.score >= 70) scoreBarClass = 'excellent';
+                    else if (impacts.score >= 55) scoreBarClass = 'good';
+                    else if (impacts.score >= 40) scoreBarClass = 'medium';
+                    
+                    // Badge de risque
+                    let riskBadge = '';
+                    if (!c.purchased && c.canAfford) {
+                        if (risk.riskLevel === 'high-risk') {
+                            riskBadge = `<span style="font-size: 0.7em; padding: 2px 6px; border-radius: 4px; background: rgba(239, 68, 68, 0.2); color: var(--danger); margin-left: 6px;">⚠️</span>`;
+                        }
+                    }
+                    
                     html += `
-                        <div class="shop-card" style="flex: 1 1 280px; max-width: 340px; background: var(--bg-card); border-radius: 12px; padding: 14px; opacity: ${opacity}; border: 1px solid ${config.color}30; transition: all 0.2s;">
+                        <div class="shop-card action-card" style="flex: 1 1 280px; max-width: 340px; background: var(--bg-card); border-radius: 12px; padding: 14px; opacity: ${opacity}; border: 1px solid ${config.color}30; transition: all 0.2s; position: relative;">
                             <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
-                                <div style="font-weight: 700; font-size: 0.95em; color: var(--text-primary); flex: 1;">${c.emoji} ${c.nom}</div>
+                                <div style="font-weight: 700; font-size: 0.95em; color: var(--text-primary); flex: 1;">${c.emoji} ${c.nom}${riskBadge}</div>
                                 <span style="background: ${config.color}; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.8em; font-weight: 700;">${c.cout} pts</span>
                             </div>
                             <div style="font-size: 0.85em; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.5;">${c.description}</div>
                             ${c.effetVisible ? `<div style="font-size: 0.8em; color: var(--success); margin-bottom: 10px; padding: 6px 10px; background: rgba(34, 197, 94, 0.1); border-radius: 6px;">✨ ${c.effetVisible}</div>` : ''}
-                            <button onclick="acheterCarte('${c.id}')" ${c.purchased || !c.canAfford ? 'disabled' : ''}
-                                style="width: 100%; padding: 10px; border-radius: 8px; font-size: 0.85em; font-weight: 600;
-                                background: ${c.purchased ? 'var(--bg-elevated)' : (c.canAfford ? config.color : 'var(--bg-elevated)')};
-                                color: ${c.purchased || !c.canAfford ? 'var(--text-muted)' : 'white'};
-                                border: 1px solid ${c.purchased || !c.canAfford ? 'var(--border-default)' : config.color};
-                                cursor: ${c.purchased || !c.canAfford ? 'not-allowed' : 'pointer'};">
-                                ${buyText}
-                            </button>
+                            
+                            <!-- V0.6.25: Score de décision -->
+                            ${!c.purchased ? `
+                            <div class="decision-score" style="margin-bottom: 10px;">
+                                <span class="decision-score-label">Score</span>
+                                <div class="decision-score-bar">
+                                    <div class="decision-score-fill ${scoreBarClass}" style="width: ${impacts.score}%"></div>
+                                </div>
+                                <span class="decision-score-value" style="color: ${impacts.score >= 60 ? 'var(--success)' : impacts.score >= 40 ? 'var(--warning)' : 'var(--danger)'}">
+                                    ${impacts.score}
+                                </span>
+                            </div>
+                            ` : ''}
+                            
+                            <div style="display: flex; gap: 8px;">
+                                ${!c.purchased && c.canAfford ? `
+                                <button onclick="simulateCardPurchase('${c.id}')" class="btn-simulate" style="padding: 8px 12px; font-size: 0.8em;">
+                                    🔍
+                                </button>
+                                ` : ''}
+                                <button onclick="acheterCarte('${c.id}')" ${c.purchased || !c.canAfford ? 'disabled' : ''}
+                                    style="flex: 1; padding: 10px; border-radius: 8px; font-size: 0.85em; font-weight: 600;
+                                    background: ${c.purchased ? 'var(--bg-elevated)' : (c.canAfford ? config.color : 'var(--bg-elevated)')};
+                                    color: ${c.purchased || !c.canAfford ? 'var(--text-muted)' : 'white'};
+                                    border: 1px solid ${c.purchased || !c.canAfford ? 'var(--border-default)' : config.color};
+                                    cursor: ${c.purchased || !c.canAfford ? 'not-allowed' : 'pointer'};">
+                                    ${buyText}
+                                </button>
+                            </div>
                         </div>
                     `;
                 });
@@ -7965,18 +9012,53 @@
             return;
         }
         
-        // Manche 1 : affichage classique
-        // Trier les cartes : disponibles en haut, fonds insuffisants au milieu, utilisées en bas
-        const cartesTriees = cartes.map(c => {
+        // Manche 1 : affichage classique avec fonctionnalités V0.6.25
+        // Bloquer les cartes pour J1 si le mix n'est pas validé
+        if (manche === 1 && j === 1 && !gameState.mixValideJ1 && !gameState.phaseDebriefing) {
+            document.getElementById('cardsGrid').innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; background: rgba(99, 102, 241, 0.1); border: 2px dashed var(--accent-primary); border-radius: 16px;">
+                    <div style="font-size: 3em; margin-bottom: 16px;">🎯</div>
+                    <div style="font-size: 1.2em; font-weight: 700; color: var(--accent-primary); margin-bottom: 12px;">Validez d'abord le Mix de Ventes</div>
+                    <div style="color: var(--text-muted); max-width: 400px; margin: 0 auto;">
+                        Ajustez les quantités à vendre pour chaque produit dans la section ci-dessus, puis cliquez sur "Valider le Mix de Ventes" pour débloquer les cartes.
+                    </div>
+                </div>
+            `;
+            return;
+        }
+        
+        // V0.6.25: Appliquer filtres et tri
+        let cartesFiltrées = cartes.map(c => {
             const purchased = cartesAchetees.includes(c.id);
             const canAfford = budget >= c.cout;
             return { ...c, purchased, canAfford };
-        }).sort((a, b) => {
+        });
+        
+        // Appliquer les filtres UX
+        if (typeof filterCards === 'function') {
+            cartesFiltrées = filterCards(cartesFiltrées);
+        }
+        
+        // Trier les cartes : disponibles en haut, fonds insuffisants au milieu, utilisées en bas
+        const cartesTriees = cartesFiltrées.sort((a, b) => {
             // Ordre: disponibles (0), insuffisants (1), utilisées (2)
             const orderA = a.purchased ? 2 : (a.canAfford ? 0 : 1);
             const orderB = b.purchased ? 2 : (b.canAfford ? 0 : 1);
-            return orderA - orderB;
+            if (orderA !== orderB) return orderA - orderB;
+            
+            // Si même catégorie et tri par score activé
+            if (uxState && uxState.cardSort === 'score-desc') {
+                const scoreA = typeof analyzeCardImpacts === 'function' ? analyzeCardImpacts(a).score : 0;
+                const scoreB = typeof analyzeCardImpacts === 'function' ? analyzeCardImpacts(b).score : 0;
+                return scoreB - scoreA;
+            }
+            return 0;
         });
+        
+        // V0.6.25: Identifier les meilleures cartes pour les badges
+        const recommendedCards = typeof getRecommendedCards === 'function' ? 
+            getRecommendedCards(cartesTriees.filter(c => !c.purchased && c.canAfford), 2) : [];
+        const recommendedIds = recommendedCards.map(r => r.carte.id);
         
         // Compter les cartes par catégorie
         const nbDisponibles = cartesTriees.filter(c => !c.purchased && c.canAfford).length;
@@ -8001,13 +9083,44 @@
                 }
             }
             
-            // En Manche 1, ne pas afficher le prix (système de tours)
+            // V0.6.25: Calculer le risque et le score de la carte
+            const risk = typeof evaluateCardRisk === 'function' ? evaluateCardRisk(c) : { riskLevel: 'low-risk' };
+            const impacts = typeof analyzeCardImpacts === 'function' ? analyzeCardImpacts(c) : { score: 50 };
+            const isRecommended = recommendedIds.includes(c.id);
+            const isSelectedForCompare = uxState && uxState.selectedForComparison && uxState.selectedForComparison.includes(c.id);
+            
+            // Badge de risque ou recommandation (seulement si activé dans devMode)
+            let riskBadgeHTML = '';
+            if (!c.purchased && c.canAfford && devMode.showRiskBadges) {
+                if (isRecommended) {
+                    riskBadgeHTML = `<div class="card-risk-badge best-choice">⭐ Recommandée</div>`;
+                } else if (risk.riskLevel === 'high-risk') {
+                    riskBadgeHTML = `<div class="card-risk-badge high-risk">⚠️ Risqué</div>`;
+                } else if (risk.riskLevel === 'medium-risk') {
+                    riskBadgeHTML = `<div class="card-risk-badge medium-risk">⚡ Modéré</div>`;
+                }
+            }
+            
+            // Score de décision
+            let scoreBarClass = 'poor';
+            if (impacts.score >= 70) scoreBarClass = 'excellent';
+            else if (impacts.score >= 55) scoreBarClass = 'good';
+            else if (impacts.score >= 40) scoreBarClass = 'medium';
+            
             const priceDisplay = `<div class="card-price" style="background: var(--accent-primary); color: white; padding: 4px 10px; border-radius: 8px; font-weight: 700;">${c.cout} pts</div>`;
             const buyText = c.purchased ? '✓ Jouée' : 
                             (c.canAfford ? '🎴 Acheter cette carte' : '💸 Budget insuffisant');
             
+            // V0.6.25: Ajouter class pour sélection de comparaison
+            const compareClass = isSelectedForCompare ? 'selected-for-compare' : '';
+            const compareHandler = uxState && uxState.comparisonMode && !c.purchased ? 
+                `onclick="toggleCardComparison('${c.id}')" style="cursor: pointer;"` : '';
+            
             html += `
-                <div class="card ${c.purchased ? 'purchased' : ''}" style="${!c.canAfford && !c.purchased ? 'opacity: 0.7;' : ''}">
+                <div class="card action-card ${c.purchased ? 'purchased' : ''} ${compareClass}" 
+                    ${compareHandler}
+                    style="${!c.canAfford && !c.purchased ? 'opacity: 0.7;' : ''} position: relative;">
+                    ${riskBadgeHTML}
                     <div class="card-header">
                         <div class="card-title"><span class="card-emoji">${c.emoji}</span>${c.nom}</div>
                         ${priceDisplay}
@@ -8016,9 +9129,30 @@
                     ${c.effetVisible ? `<div class="card-effect" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(16, 185, 129, 0.15)); border: 1px solid var(--success); padding: 8px 12px; border-radius: 8px; margin-top: 8px;">
                         <span style="color: var(--success); font-weight: 600;">✨ Effet :</span> ${c.effetVisible}
                     </div>` : ''}
-                    <button class="btn-buy" onclick="acheterCarte('${c.id}')" ${c.purchased || !c.canAfford ? 'disabled' : ''}>
-                        ${buyText}
-                    </button>
+                    
+                    <!-- V0.6.25: Score de décision -->
+                    ${!c.purchased ? `
+                    <div class="decision-score">
+                        <span class="decision-score-label">Score</span>
+                        <div class="decision-score-bar">
+                            <div class="decision-score-fill ${scoreBarClass}" style="width: ${impacts.score}%"></div>
+                        </div>
+                        <span class="decision-score-value" style="color: ${impacts.score >= 60 ? 'var(--success)' : impacts.score >= 40 ? 'var(--warning)' : 'var(--danger)'}">
+                            ${impacts.score}
+                        </span>
+                    </div>
+                    ` : ''}
+                    
+                    <div style="display: flex; gap: 8px; margin-top: 10px;">
+                        ${!c.purchased && c.canAfford ? `
+                        <button class="btn-simulate" onclick="event.stopPropagation(); simulateCardPurchase('${c.id}')">
+                            🔍 Simuler
+                        </button>
+                        ` : ''}
+                        <button class="btn-buy" onclick="event.stopPropagation(); acheterCarte('${c.id}')" ${c.purchased || !c.canAfford ? 'disabled' : ''} style="flex: 1;">
+                            ${buyText}
+                        </button>
+                    </div>
                 </div>
             `;
         });
@@ -8574,7 +9708,7 @@
             <div class="history-stat-card">
                 <div class="history-stat-icon">💰</div>
                 <div class="history-stat-label">Dépenses Totales</div>
-                <div class="history-stat-value">€${formatNumber(totalCost)}</div>
+                <div class="history-stat-value">${totalCost} pts</div>
             </div>
             <div class="history-stat-card ${negativeCount > 0 ? 'negative' : ''}">
                 <div class="history-stat-icon">⚠️</div>
@@ -8916,9 +10050,1202 @@
         }
     });
     
+    // ==================== V0.6.25 - NOUVELLES FONCTIONNALITÉS UX ====================
+    
+    // État des nouvelles fonctionnalités
+    const uxState = {
+        comparisonMode: false,
+        selectedForComparison: [],
+        showAssistant: true,
+        cardFilter: 'all',
+        cardSort: 'default',
+        searchQuery: ''
+    };
+    
+    // Toggle mode comparaison
+    function toggleComparisonMode() {
+        uxState.comparisonMode = !uxState.comparisonMode;
+        uxState.selectedForComparison = [];
+        document.body.classList.toggle('comparison-mode-active', uxState.comparisonMode);
+        updateComparisonPanel();
+        showToast(uxState.comparisonMode ? '⚖️ Mode comparaison activé - Sélectionnez jusqu\'à 3 cartes' : 'Mode comparaison désactivé', 'info');
+        render();
+    }
+    
+    // Sélectionner une carte pour comparaison
+    function toggleCardComparison(carteId) {
+        if (!uxState.comparisonMode) return;
+        
+        const index = uxState.selectedForComparison.indexOf(carteId);
+        if (index > -1) {
+            uxState.selectedForComparison.splice(index, 1);
+        } else if (uxState.selectedForComparison.length < 3) {
+            uxState.selectedForComparison.push(carteId);
+        } else {
+            showToast('Maximum 3 cartes pour la comparaison', 'warning');
+            return;
+        }
+        
+        updateComparisonPanel();
+        render();
+    }
+    
+    // Mettre à jour le panneau de comparaison
+    function updateComparisonPanel() {
+        const panel = document.getElementById('comparisonPanel');
+        if (!panel) return;
+        
+        if (!uxState.comparisonMode || uxState.selectedForComparison.length === 0) {
+            panel.classList.remove('active');
+            return;
+        }
+        
+        panel.classList.add('active');
+        const manche = gameState.manche;
+        
+        const cardsHTML = uxState.selectedForComparison.map(carteId => {
+            const carte = findCarteById(carteId);
+            if (!carte) return '';
+            
+            const impacts = analyzeCardImpacts(carte);
+            const risk = evaluateCardRisk(carte);
+            
+            // Métriques différentes selon la manche
+            let metricsHTML = '';
+            
+            if (manche === 1 && !gameState.phaseDebriefing) {
+                // Manche 1: métriques visibles uniquement
+                // J2 (Approvisionnement) ne voit pas le Lead Time
+                const joueur = gameState.joueurActuel;
+                const showLT = joueur !== 2;
+                
+                metricsHTML = `
+                    ${showLT ? `
+                    <div class="comparison-metric">
+                        <span class="comparison-metric-label">Lead Time</span>
+                        <span class="comparison-metric-value" style="color: ${impacts.ltImpact <= 0 ? 'var(--success)' : 'var(--danger)'}">
+                            ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact}j
+                        </span>
+                    </div>
+                    ` : ''}
+                    <div class="comparison-metric">
+                        <span class="comparison-metric-label">Impact Rebut</span>
+                        <span class="comparison-metric-value" style="color: ${impacts.qualityImpact >= 0 ? 'var(--success)' : 'var(--danger)'}">
+                            ${impacts.qualityImpact >= 0 ? '+' : ''}${impacts.qualityImpact.toFixed(0)}%
+                        </span>
+                    </div>
+                    <div class="comparison-metric">
+                        <span class="comparison-metric-label">Risque</span>
+                        <span class="comparison-metric-value" style="color: ${risk.riskLevel === 'low-risk' ? 'var(--success)' : risk.riskLevel === 'medium-risk' ? 'var(--warning)' : 'var(--danger)'}">
+                            ${risk.riskLevel === 'low-risk' ? '✅ Faible' : risk.riskLevel === 'medium-risk' ? '⚡ Modéré' : '⚠️ Élevé'}
+                        </span>
+                    </div>
+                    <div class="comparison-metric">
+                        <span class="comparison-metric-label">Score</span>
+                        <span class="comparison-metric-value" style="color: var(--accent-primary)">
+                            ${impacts.score}/100
+                        </span>
+                    </div>
+                `;
+            } else {
+                // Manche 2+: on peut montrer VAG
+                metricsHTML = `
+                    <div class="comparison-metric">
+                        <span class="comparison-metric-label">Impact VAG</span>
+                        <span class="comparison-metric-value" style="color: ${impacts.vagImpact >= 0 ? 'var(--success)' : 'var(--danger)'}">
+                            ${impacts.vagImpact >= 0 ? '+' : ''}${impacts.vagImpact.toFixed(0)}%
+                        </span>
+                    </div>
+                    <div class="comparison-metric">
+                        <span class="comparison-metric-label">Impact LT</span>
+                        <span class="comparison-metric-value" style="color: ${impacts.ltImpact <= 0 ? 'var(--success)' : 'var(--danger)'}">
+                            ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact}j
+                        </span>
+                    </div>
+                    <div class="comparison-metric">
+                        <span class="comparison-metric-label">Impact Qualité</span>
+                        <span class="comparison-metric-value" style="color: ${impacts.qualityImpact >= 0 ? 'var(--success)' : 'var(--danger)'}">
+                            ${impacts.qualityImpact >= 0 ? '+' : ''}${impacts.qualityImpact.toFixed(0)}%
+                        </span>
+                    </div>
+                    <div class="comparison-metric">
+                        <span class="comparison-metric-label">Score Décision</span>
+                        <span class="comparison-metric-value" style="color: var(--accent-primary)">
+                            ${impacts.score}/100
+                        </span>
+                    </div>
+                `;
+            }
+            
+            return `
+                <div class="comparison-card">
+                    <div class="comparison-card-header">
+                        <span class="comparison-card-emoji">${carte.emoji}</span>
+                        <span class="comparison-card-name">${carte.nom}</span>
+                        <span class="comparison-card-cost">${carte.cout} pts</span>
+                    </div>
+                    <div class="comparison-metrics">
+                        ${metricsHTML}
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        document.getElementById('comparisonCards').innerHTML = cardsHTML;
+    }
+    
+    // Trouver une carte par son ID
+    function findCarteById(carteId) {
+        // Chercher dans Manche 1
+        for (let joueur = 1; joueur <= 5; joueur++) {
+            const cartes = CARTES_MANCHE1[joueur] || [];
+            const carte = cartes.find(c => c.id === carteId);
+            if (carte) return carte;
+        }
+        // Chercher dans Manche 2
+        const m2 = CARTES_MANCHE2.find(c => c.id === carteId);
+        if (m2) return m2;
+        // Chercher dans Manche 3
+        const m3 = CARTES_MANCHE3.find(c => c.id === carteId);
+        if (m3) return m3;
+        return null;
+    }
+    
+    // Analyser les impacts d'une carte
+    function analyzeCardImpacts(carte) {
+        let vagImpact = 0;
+        let ltImpact = carte.LT_effect || 0;
+        let qualityImpact = 0;
+        let cgeImpact = 0;
+        
+        if (carte.impacts) {
+            if (carte.impacts.global) {
+                vagImpact += (carte.impacts.global.PV || 0) * 100;
+                vagImpact -= (carte.impacts.global.DA || 0) * 100;
+                qualityImpact -= (carte.impacts.global.Tr || 0) * 100;
+                cgeImpact += (carte.impacts.global.CGE || 0);
+                ltImpact += carte.impacts.global.LT || 0;
+            }
+            if (carte.impacts.hidden || carte.impacts.cache) {
+                const h = carte.impacts.hidden || carte.impacts.cache;
+                qualityImpact += (h.q || 0) * 100;
+            }
+        }
+        
+        // Calculer un score de décision basé sur plusieurs facteurs
+        let score = 50;
+        score += vagImpact * 2;
+        score -= ltImpact * 0.5;
+        score += qualityImpact;
+        score -= cgeImpact * 0.3;
+        score -= carte.cout * 0.2;
+        score = Math.max(0, Math.min(100, Math.round(score)));
+        
+        return { vagImpact, ltImpact, qualityImpact, cgeImpact, score };
+    }
+    
+    // Évaluer le risque d'une carte
+    function evaluateCardRisk(carte) {
+        const impacts = analyzeCardImpacts(carte);
+        let riskLevel = 'low-risk';
+        let riskScore = 0;
+        
+        // Facteurs de risque
+        if (impacts.ltImpact > 30) riskScore += 2;
+        else if (impacts.ltImpact > 15) riskScore += 1;
+        
+        if (impacts.qualityImpact < -5) riskScore += 2;
+        else if (impacts.qualityImpact < -2) riskScore += 1;
+        
+        if (carte.cout > 50) riskScore += 1;
+        
+        if (carte.impacts?.bfr && carte.impacts.bfr > 0.2) riskScore += 2;
+        
+        // Vérifier les impacts cachés négatifs
+        const hidden = carte.impacts?.hidden || carte.impacts?.cache;
+        if (hidden) {
+            if (hidden.s && hidden.s < -0.05) riskScore += 2;
+            if (hidden.q && hidden.q < -0.05) riskScore += 2;
+            if (hidden.r && hidden.r < -0.05) riskScore += 1;
+        }
+        
+        if (riskScore >= 4) riskLevel = 'high-risk';
+        else if (riskScore >= 2) riskLevel = 'medium-risk';
+        
+        return { riskLevel, riskScore };
+    }
+    
+    // Générer des conseils contextuels
+    function generateContextualTips() {
+        const tips = [];
+        const manche = gameState.manche;
+        const joueur = gameState.joueurActuel;
+        const budget = manche === 1 ? gameState.budgetManche1 : gameState.budgetCommun;
+        
+        // Conseil sur le budget
+        if (manche === 1 && budget < SEUILS.budgetBas) {
+            tips.push({
+                type: 'warning',
+                icon: '💰',
+                title: 'Budget limité',
+                text: `Il ne reste que ${budget} points. Priorisez les cartes à fort impact ou passez votre tour.`
+            });
+        }
+        
+        // Conseil sur le goulet d'étranglement
+        calculerChargesMachines();
+        const goulet = identifierGoulet();
+        if (goulet && goulet.surcharge) {
+            tips.push({
+                type: 'danger',
+                icon: '⚠️',
+                title: `Goulet sur ${goulet.machine}`,
+                text: `La charge (${goulet.charge}%) dépasse la capacité. Cherchez des cartes pour réduire la charge ou augmenter la capacité.`
+            });
+        }
+        
+        // Conseils spécifiques par joueur avec orientation KPI (Manche 1)
+        if (manche === 1) {
+            if (joueur === 1) {
+                // J1 COMMERCIAL - KPI: Marge
+                const marge = calculerMargeTotal();
+                let recettes = 0, couts = 0;
+                for (const mfId in gameState.microFlux) {
+                    const mf = gameState.microFlux[mfId];
+                    recettes += mf.PV * mf.QV;
+                    couts += mf.DA * mf.QV;
+                }
+                const tauxMarge = recettes > 0 ? ((marge / recettes) * 100).toFixed(1) : 0;
+                
+                tips.push({
+                    type: tauxMarge >= 40 ? 'success' : tauxMarge >= 25 ? 'info' : 'warning',
+                    icon: '💵',
+                    title: `📊 Votre KPI : MARGE (${tauxMarge}%)`,
+                    text: `Marge actuelle: €${formatNumber(Math.round(marge))}. Votre objectif est de MAXIMISER la marge brute.`
+                });
+                
+                tips.push({
+                    type: 'info',
+                    icon: '🎯',
+                    title: 'Comment améliorer votre marge ?',
+                    text: `<strong>↗️ Augmenter PV</strong> : cartes "prix premium", "image de marque"<br>
+                           <strong>↘️ Réduire DA</strong> : cartes "négociation fournisseur", "achats groupés"<br>
+                           <strong>📦 Optimiser le mix</strong> : privilégiez les produits à forte marge unitaire`
+                });
+                
+                // Analyser les cartes disponibles pour le commercial
+                const cartesJ1 = (CARTES_MANCHE1[1] || []).filter(c => !c.purchased && c.cout <= budget);
+                const cartesMargeUp = cartesJ1.filter(c => 
+                    c.impacts?.global?.PV > 0 || c.impacts?.global?.DA < 0
+                );
+                if (cartesMargeUp.length > 0) {
+                    tips.push({
+                        type: 'success',
+                        icon: '⭐',
+                        title: `${cartesMargeUp.length} carte(s) améliorent votre marge`,
+                        text: cartesMargeUp.slice(0, 2).map(c => `${c.emoji} ${c.nom}`).join(', ')
+                    });
+                }
+                
+            } else if (joueur === 2) {
+                // J2 APPROVISIONNEMENT - KPI: Coût de Revient
+                let crTotal = 0, qvTotal = 0;
+                for (const mfId in gameState.microFlux) {
+                    const mf = gameState.microFlux[mfId];
+                    crTotal += calculerDDP(mf) * mf.QV;
+                    qvTotal += mf.QV;
+                }
+                const crMoyen = qvTotal > 0 ? crTotal / qvTotal : 0;
+                
+                tips.push({
+                    type: crMoyen <= 1800 ? 'success' : crMoyen <= 2200 ? 'info' : 'warning',
+                    icon: '📦',
+                    title: `📊 Votre KPI : COÛT DE REVIENT (€${formatNumber(Math.round(crMoyen))})`,
+                    text: `Coût de revient moyen par unité. Votre objectif est de MINIMISER ce coût.`
+                });
+                
+                tips.push({
+                    type: 'info',
+                    icon: '🎯',
+                    title: 'Comment réduire le coût de revient ?',
+                    text: `<strong>↘️ Réduire DA</strong> : négociation, achats groupés, nouveaux fournisseurs<br>
+                           <strong>↘️ Réduire délais</strong> : cartes "délai fournisseur" réduisent le BFR<br>
+                           <strong>⚠️ Attention</strong> : évitez les cartes qui augmentent le taux de rebut !`
+                });
+                
+                const cartesJ2 = (CARTES_MANCHE1[2] || []).filter(c => !c.purchased && c.cout <= budget);
+                const cartesCRDown = cartesJ2.filter(c => 
+                    c.impacts?.global?.DA < 0 || c.impacts?.global?.delaiFournisseur < 0
+                );
+                if (cartesCRDown.length > 0) {
+                    tips.push({
+                        type: 'success',
+                        icon: '⭐',
+                        title: `${cartesCRDown.length} carte(s) réduisent vos coûts`,
+                        text: cartesCRDown.slice(0, 2).map(c => `${c.emoji} ${c.nom}`).join(', ')
+                    });
+                }
+                
+            } else if (joueur === 3) {
+                // J3 LOGISTIQUE - KPI: Lead Time
+                const ltMoyen = calculerLTMoyen();
+                let bfrTotal = 0;
+                for (const mfId in gameState.microFlux) {
+                    bfrTotal += calculerBFR(gameState.microFlux[mfId]);
+                }
+                
+                tips.push({
+                    type: ltMoyen <= SEUILS.leadTime.bon ? 'success' : ltMoyen <= SEUILS.leadTime.moyen ? 'info' : 'warning',
+                    icon: '🚚',
+                    title: `📊 Votre KPI : LEAD TIME (${ltMoyen.toFixed(0)} jours)`,
+                    text: `Délai moyen de livraison. Votre objectif est de MINIMISER ce délai.`
+                });
+                
+                tips.push({
+                    type: 'info',
+                    icon: '🎯',
+                    title: 'Comment réduire le Lead Time ?',
+                    text: `<strong>↘️ Réduire LT</strong> : cartes "flux tiré", "kanban", "optimisation stock"<br>
+                           <strong>↘️ Réduire BFR</strong> : BFR actuel = €${formatNumber(Math.round(bfrTotal))}<br>
+                           <strong>⚠️ Attention</strong> : le LT impacte directement la satisfaction client !`
+                });
+                
+                const cartesJ3 = (CARTES_MANCHE1[3] || []).filter(c => !c.purchased && c.cout <= budget);
+                const cartesLTDown = cartesJ3.filter(c => 
+                    c.impacts?.global?.LT < 0 || c.impacts?.microflux?.LT < 0
+                );
+                if (cartesLTDown.length > 0) {
+                    tips.push({
+                        type: 'success',
+                        icon: '⭐',
+                        title: `${cartesLTDown.length} carte(s) réduisent le Lead Time`,
+                        text: cartesLTDown.slice(0, 2).map(c => `${c.emoji} ${c.nom}`).join(', ')
+                    });
+                }
+                
+            } else if (joueur === 4) {
+                // J4 PRODUCTION - KPI: TRG
+                let trgSum = 0, machineCount = 0;
+                for (const [machineId, machine] of Object.entries(gameState.machines)) {
+                    const chargePercent = machine.capacite > 0 ? Math.min(100, (machine.charge / machine.capacite * 100)) : 0;
+                    trgSum += chargePercent;
+                    machineCount++;
+                }
+                const trgMoyen = machineCount > 0 ? trgSum / machineCount : 0;
+                
+                tips.push({
+                    type: trgMoyen >= SEUILS.trg.bon ? 'success' : trgMoyen >= SEUILS.trg.moyen ? 'info' : 'warning',
+                    icon: '🏭',
+                    title: `📊 Votre KPI : TRG MOYEN (${trgMoyen.toFixed(0)}%)`,
+                    text: `Taux de Rendement Global des machines. Objectif : OPTIMISER entre 70-85%.`
+                });
+                
+                tips.push({
+                    type: 'info',
+                    icon: '🎯',
+                    title: 'Comment optimiser le TRG ?',
+                    text: `<strong>↗️ Augmenter capacité</strong> : cartes "investissement machine", "maintenance préventive"<br>
+                           <strong>↘️ Réduire temps cycle</strong> : cartes "lean", "SMED", "automatisation"<br>
+                           <strong>⚠️ Goulet actuel</strong> : ${goulet.machine} à ${goulet.charge}%`
+                });
+                
+                const cartesJ4 = (CARTES_MANCHE1[4] || []).filter(c => !c.purchased && c.cout <= budget);
+                const cartesTRGUp = cartesJ4.filter(c => 
+                    c.impacts?.global?.CAP > 0 || c.impacts?.global?.TC < 0 || c.impacts?.machineCapacite
+                );
+                if (cartesTRGUp.length > 0) {
+                    tips.push({
+                        type: 'success',
+                        icon: '⭐',
+                        title: `${cartesTRGUp.length} carte(s) améliorent la production`,
+                        text: cartesTRGUp.slice(0, 2).map(c => `${c.emoji} ${c.nom}`).join(', ')
+                    });
+                }
+                
+            } else if (joueur === 5) {
+                // J5 QUALITÉ - KPI: Conformité (1 - TR)
+                let trTotal = 0;
+                const mfCount = Object.keys(gameState.microFlux).length;
+                for (const mfId in gameState.microFlux) {
+                    trTotal += gameState.microFlux[mfId].Tr;
+                }
+                const trMoyen = mfCount > 0 ? (trTotal / mfCount) * 100 : 0;
+                const conformite = 100 - trMoyen;
+                
+                tips.push({
+                    type: conformite >= SEUILS.conformite.bon ? 'success' : conformite >= SEUILS.conformite.moyen ? 'info' : 'warning',
+                    icon: '✅',
+                    title: `📊 Votre KPI : CONFORMITÉ (${conformite.toFixed(1)}%)`,
+                    text: `Taux de conformité (100% - rebut). Votre objectif est de MAXIMISER ce taux.`
+                });
+                
+                tips.push({
+                    type: 'info',
+                    icon: '🎯',
+                    title: 'Comment améliorer la conformité ?',
+                    text: `<strong>↘️ Réduire TR</strong> : cartes "contrôle qualité", "formation", "6 sigma"<br>
+                           <strong>Taux de rebut actuel</strong> : ${trMoyen.toFixed(1)}%<br>
+                           <strong>⚠️ Attention</strong> : certaines cartes "pas chères" augmentent le TR !`
+                });
+                
+                const cartesJ5 = (CARTES_MANCHE1[5] || []).filter(c => !c.purchased && c.cout <= budget);
+                const cartesTRDown = cartesJ5.filter(c => 
+                    c.impacts?.global?.Tr < 0 || c.impacts?.microflux?.Tr < 0
+                );
+                if (cartesTRDown.length > 0) {
+                    tips.push({
+                        type: 'success',
+                        icon: '⭐',
+                        title: `${cartesTRDown.length} carte(s) améliorent la qualité`,
+                        text: cartesTRDown.slice(0, 2).map(c => `${c.emoji} ${c.nom}`).join(', ')
+                    });
+                }
+            }
+        }
+        
+        // Conseil sur la manche collaborative
+        if (manche === 2) {
+            const rbe = calculerRBE();
+            tips.push({
+                type: rbe >= 0 ? 'success' : 'danger',
+                icon: '🤝',
+                title: `Mode Collaboratif - RBE: €${formatNumber(Math.round(rbe))}`,
+                text: 'Discutez avec l\'équipe ! Les décisions affectent tout le monde. Visez à maximiser le RBE.'
+            });
+            
+            tips.push({
+                type: 'info',
+                icon: '🎯',
+                title: 'Stratégie d\'équipe',
+                text: `<strong>RBE = VAG - CGE</strong><br>
+                       ↗️ Augmenter VAG : volume × marge<br>
+                       ↘️ Réduire CGE : charges fixes et variables`
+            });
+        }
+        
+        if (manche === 3) {
+            const pig = gameState.hidden?.pig || calculerPIG();
+            tips.push({
+                type: pig >= 0.7 ? 'success' : pig >= 0.5 ? 'info' : 'warning',
+                icon: '🌿',
+                title: `Excellence & Durabilité - PIG: ${(pig * 100).toFixed(0)}%`,
+                text: 'Pensez long terme : les cartes vertes améliorent l\'image et la performance PIG.'
+            });
+            
+            tips.push({
+                type: 'info',
+                icon: '🎯',
+                title: 'Objectifs Manche 3',
+                text: `<strong>S (Speed)</strong> : Réactivité et délais<br>
+                       <strong>Q (Quality)</strong> : Satisfaction client<br>
+                       <strong>R (RSE)</strong> : Responsabilité environnementale`
+            });
+        }
+        
+        return tips;
+    }
+    
+    // Calculer la marge totale
+    function calculerMargeTotal() {
+        let marge = 0;
+        for (const mfId in gameState.microFlux) {
+            const mf = gameState.microFlux[mfId];
+            marge += (mf.PV - mf.DA) * mf.QV;
+        }
+        return marge;
+    }
+    
+    // Identifier le goulet d'étranglement (version améliorée compatible)
+    function identifierGoulet() {
+        let maxCharge = 0;
+        let gouletMachine = null;
+        
+        for (const [machineId, machine] of Object.entries(gameState.machines)) {
+            const chargePercent = machine.capacite > 0 ? (machine.charge / machine.capacite * 100) : 0;
+            if (chargePercent > maxCharge) {
+                maxCharge = chargePercent;
+                gouletMachine = machineId;
+            }
+        }
+        
+        return {
+            // Propriétés compatibles avec l'ancienne version
+            goulet: gouletMachine,
+            chargePercent: maxCharge,
+            // Nouvelles propriétés pour v0.6.25
+            machine: gouletMachine,
+            charge: Math.round(maxCharge),
+            surcharge: maxCharge > SEUILS.goulet.critique
+        };
+    }
+    
+    // Filtrer les cartes
+    function filterCards(cartes) {
+        let filtered = [...cartes];
+        
+        // Filtre par recherche
+        if (uxState.searchQuery) {
+            const query = uxState.searchQuery.toLowerCase();
+            filtered = filtered.filter(c => 
+                c.nom.toLowerCase().includes(query) ||
+                c.description.toLowerCase().includes(query) ||
+                (c.secteur && c.secteur.toLowerCase().includes(query))
+            );
+        }
+        
+        // Filtre par type
+        if (uxState.cardFilter !== 'all') {
+            if (uxState.cardFilter === 'low-cost') {
+                filtered = filtered.filter(c => c.cout <= 20);
+            } else if (uxState.cardFilter === 'high-impact') {
+                filtered = filtered.filter(c => {
+                    const impacts = analyzeCardImpacts(c);
+                    return impacts.score >= 60;
+                });
+            } else if (uxState.cardFilter === 'low-risk') {
+                filtered = filtered.filter(c => {
+                    const risk = evaluateCardRisk(c);
+                    return risk.riskLevel === 'low-risk';
+                });
+            }
+        }
+        
+        // Tri
+        if (uxState.cardSort === 'cost-asc') {
+            filtered.sort((a, b) => a.cout - b.cout);
+        } else if (uxState.cardSort === 'cost-desc') {
+            filtered.sort((a, b) => b.cout - a.cout);
+        } else if (uxState.cardSort === 'score-desc') {
+            filtered.sort((a, b) => {
+                const scoreA = analyzeCardImpacts(a).score;
+                const scoreB = analyzeCardImpacts(b).score;
+                return scoreB - scoreA;
+            });
+        }
+        
+        return filtered;
+    }
+    
+    // Mettre à jour le filtre
+    function setCardFilter(filter) {
+        uxState.cardFilter = filter;
+        render();
+    }
+    
+    // Mettre à jour le tri
+    function setCardSort(sort) {
+        uxState.cardSort = sort;
+        render();
+    }
+    
+    // Mettre à jour la recherche
+    function setCardSearch(query) {
+        uxState.searchQuery = query;
+        render();
+    }
+    
+    // Simuler l'achat d'une carte (prévisualisation)
+    function simulateCardPurchase(carteId) {
+        const carte = findCarteById(carteId);
+        if (!carte) return;
+        
+        const modal = document.getElementById('simulationModal');
+        if (!modal) return;
+        
+        const manche = gameState.manche;
+        const joueur = gameState.joueurActuel;
+        const impacts = analyzeCardImpacts(carte);
+        const risk = evaluateCardRisk(carte);
+        
+        let metricsHTML = '';
+        
+        // En Manche 1: afficher des métriques VISIBLES spécifiques au joueur
+        if (manche === 1) {
+            // Métriques communes visibles
+            const ltBefore = calculerLTMoyen();
+            const ltAfter = ltBefore + impacts.ltImpact;
+            
+            // Calculer TR moyen
+            let trTotal = 0;
+            let mfCount = Object.keys(gameState.microFlux).length;
+            for (const mfId in gameState.microFlux) {
+                trTotal += gameState.microFlux[mfId].Tr;
+            }
+            const trBefore = mfCount > 0 ? (trTotal / mfCount) * 100 : 0;
+            const trAfter = Math.max(0, trBefore + impacts.qualityImpact);
+            
+            // Capacité (affectée par certaines cartes)
+            const capImpact = carte.impacts?.global?.CAP ? (carte.impacts.global.CAP * 100) : 0;
+            
+            // Budget impact
+            const budgetBefore = gameState.budgetManche1;
+            const budgetAfter = budgetBefore - carte.cout;
+            
+            // Métriques spécifiques selon le joueur
+            if (joueur === 1) {
+                // J1 Commercial: Marge
+                let margeBefore = 0;
+                for (const mfId in gameState.microFlux) {
+                    const mf = gameState.microFlux[mfId];
+                    margeBefore += (mf.PV - mf.DA) * mf.QV;
+                }
+                const pvImpact = carte.impacts?.global?.PV ? (carte.impacts.global.PV * 100) : 0;
+                const daImpact = carte.impacts?.global?.DA ? (carte.impacts.global.DA * 100) : 0;
+                const margeChange = pvImpact - daImpact;
+                const margeAfter = margeBefore * (1 + margeChange / 100);
+                
+                metricsHTML = `
+                    <div class="simulation-metric-row">
+                        <span>💵 Marge Totale</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(margeBefore))}</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(margeAfter))}</span>
+                        <span class="simulation-change ${margeAfter >= margeBefore ? 'positive' : 'negative'}">
+                            ${margeChange >= 0 ? '+' : ''}${margeChange.toFixed(1)}%
+                        </span>
+                    </div>
+                `;
+            } else if (joueur === 2) {
+                // J2 Approvisionnement: Coût de Revient
+                let crTotal = 0, qvTotal = 0;
+                for (const mfId in gameState.microFlux) {
+                    const mf = gameState.microFlux[mfId];
+                    crTotal += calculerDDP(mf) * mf.QV;
+                    qvTotal += mf.QV;
+                }
+                const crBefore = qvTotal > 0 ? crTotal / qvTotal : 0;
+                const daImpact = carte.impacts?.global?.DA ? (carte.impacts.global.DA * 100) : 0;
+                const crAfter = crBefore * (1 + daImpact / 100);
+                
+                metricsHTML = `
+                    <div class="simulation-metric-row">
+                        <span>📦 Coût de Revient Moy.</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(crBefore))}</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(crAfter))}</span>
+                        <span class="simulation-change ${crAfter <= crBefore ? 'positive' : 'negative'}">
+                            ${daImpact > 0 ? '+' : ''}${daImpact.toFixed(1)}%
+                        </span>
+                    </div>
+                `;
+            } else if (joueur === 4) {
+                // J4 Production: TRG/Capacité
+                let trgSum = 0, machineCount = 0;
+                for (const [machineId, machine] of Object.entries(gameState.machines)) {
+                    const chargePercent = machine.capacite > 0 ? Math.min(100, (machine.charge / machine.capacite * 100)) : 0;
+                    trgSum += chargePercent;
+                    machineCount++;
+                }
+                const trgBefore = machineCount > 0 ? trgSum / machineCount : 0;
+                // TRG après dépend de la capacité ajoutée
+                const trgAfter = capImpact > 0 ? trgBefore * (100 / (100 + capImpact)) : trgBefore;
+                
+                metricsHTML = `
+                    <div class="simulation-metric-row">
+                        <span>🏭 TRG Moyen</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${trgBefore.toFixed(0)}%</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${trgAfter.toFixed(0)}%</span>
+                        <span class="simulation-change ${trgAfter <= trgBefore ? 'positive' : 'negative'}">
+                            ${capImpact > 0 ? '↗️ Cap +' + capImpact.toFixed(0) + '%' : '—'}
+                        </span>
+                    </div>
+                `;
+            } else if (joueur === 5) {
+                // J5 Qualité: Conformité (1-TR)
+                const confBefore = 100 - trBefore;
+                const confAfter = 100 - trAfter;
+                
+                metricsHTML = `
+                    <div class="simulation-metric-row">
+                        <span>✅ Conformité</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${confBefore.toFixed(1)}%</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${confAfter.toFixed(1)}%</span>
+                        <span class="simulation-change ${confAfter >= confBefore ? 'positive' : 'negative'}">
+                            ${confAfter >= confBefore ? '+' : ''}${(confAfter - confBefore).toFixed(1)}%
+                        </span>
+                    </div>
+                `;
+            } else {
+                // J3 Logistique: Budget/Délais
+                metricsHTML = `
+                    <div class="simulation-metric-row">
+                        <span>🚚 Lead Time Moy.</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltBefore.toFixed(0)}j</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltAfter.toFixed(0)}j</span>
+                        <span class="simulation-change ${ltAfter <= ltBefore ? 'positive' : 'negative'}">
+                            ${ltAfter > ltBefore ? '+' : ''}${(ltAfter - ltBefore).toFixed(0)}j
+                        </span>
+                    </div>
+                `;
+            }
+            
+            // Ajouter métriques communes pour tous (sauf Lead Time pour J2)
+            // J2 (Approvisionnement) ne voit pas le Lead Time en Manche 1
+            if (joueur !== 2) {
+                metricsHTML += `
+                    <div class="simulation-metric-row">
+                        <span>⏱️ Lead Time</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltBefore.toFixed(0)}j</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltAfter.toFixed(0)}j</span>
+                        <span class="simulation-change ${ltAfter <= ltBefore ? 'positive' : 'negative'}">
+                            ${ltAfter > ltBefore ? '+' : ''}${(ltAfter - ltBefore).toFixed(0)}j
+                        </span>
+                    </div>
+                `;
+            }
+            metricsHTML += `
+                <div class="simulation-metric-row">
+                    <span>🎯 Taux de Rebut</span>
+                    <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${trBefore.toFixed(1)}%</span>
+                    <span>→</span>
+                    <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${trAfter.toFixed(1)}%</span>
+                    <span class="simulation-change ${trAfter <= trBefore ? 'positive' : 'negative'}">
+                        ${trAfter > trBefore ? '+' : ''}${(trAfter - trBefore).toFixed(1)}%
+                    </span>
+                </div>
+                <div class="simulation-metric-row">
+                    <span>💰 Budget Équipe</span>
+                    <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${budgetBefore} pts</span>
+                    <span>→</span>
+                    <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${budgetAfter} pts</span>
+                    <span class="simulation-change negative">
+                        -${carte.cout} pts
+                    </span>
+                </div>
+            `;
+            
+            // Note sur les effets cachés
+            if (carte.effetGlobal) {
+                metricsHTML += `
+                    <div style="margin-top: 16px; padding: 12px; background: rgba(245, 158, 11, 0.1); border: 1px solid var(--warning); border-radius: 8px; font-size: 0.85em;">
+                        <span style="color: var(--warning); font-weight: 600;">⚠️ Attention :</span>
+                        <span style="color: var(--text-secondary);"> Cette carte peut avoir des effets cachés qui seront révélés au débriefing.</span>
+                    </div>
+                `;
+            }
+            
+        } else {
+            // Manche 2/3: afficher VAG, CGE, RBE (indicateurs révélés)
+            const vagBefore = calculerVAGTotal();
+            const cgeBefore = calculerCGETotal();
+            const rbeBefore = calculerRBE();
+            const ltBefore = calculerLTMoyen();
+            
+            const vagAfter = vagBefore * (1 + impacts.vagImpact / 100);
+            const cgeAfter = cgeBefore + impacts.cgeImpact;
+            const ltAfter = ltBefore + impacts.ltImpact;
+            const rbeAfter = vagAfter - cgeAfter;
+            
+            metricsHTML = `
+                <div class="simulation-comparison">
+                    <div class="simulation-before">
+                        <div class="simulation-title">Avant</div>
+                        <div class="simulation-metric-row">
+                            <span>VAG Total</span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(vagBefore))}</span>
+                        </div>
+                        <div class="simulation-metric-row">
+                            <span>CGE Total</span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(cgeBefore))}</span>
+                        </div>
+                        <div class="simulation-metric-row">
+                            <span>RBE</span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: ${rbeBefore >= 0 ? 'var(--success)' : 'var(--danger)'};">€${formatNumber(Math.round(rbeBefore))}</span>
+                        </div>
+                        <div class="simulation-metric-row">
+                            <span>Lead Time</span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltBefore.toFixed(0)}j</span>
+                        </div>
+                    </div>
+                    
+                    <div class="simulation-arrow">→</div>
+                    
+                    <div class="simulation-after">
+                        <div class="simulation-title">Après</div>
+                        <div class="simulation-metric-row">
+                            <span>VAG Total</span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(vagAfter))}</span>
+                            <span class="simulation-change ${vagAfter >= vagBefore ? 'positive' : 'negative'}">
+                                ${vagAfter >= vagBefore ? '+' : ''}${((vagAfter - vagBefore) / Math.abs(vagBefore) * 100).toFixed(1)}%
+                            </span>
+                        </div>
+                        <div class="simulation-metric-row">
+                            <span>CGE Total</span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(cgeAfter))}</span>
+                            <span class="simulation-change ${cgeAfter <= cgeBefore ? 'positive' : 'negative'}">
+                                ${cgeAfter > cgeBefore ? '+' : ''}${(cgeAfter - cgeBefore).toFixed(0)}
+                            </span>
+                        </div>
+                        <div class="simulation-metric-row">
+                            <span>RBE</span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: ${rbeAfter >= 0 ? 'var(--success)' : 'var(--danger)'};">€${formatNumber(Math.round(rbeAfter))}</span>
+                            <span class="simulation-change ${rbeAfter >= rbeBefore ? 'positive' : 'negative'}">
+                                ${rbeAfter >= rbeBefore ? '+' : ''}${formatNumber(Math.round(rbeAfter - rbeBefore))}
+                            </span>
+                        </div>
+                        <div class="simulation-metric-row">
+                            <span>Lead Time</span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltAfter.toFixed(0)}j</span>
+                            <span class="simulation-change ${ltAfter <= ltBefore ? 'positive' : 'negative'}">
+                                ${ltAfter > ltBefore ? '+' : ''}${(ltAfter - ltBefore).toFixed(0)}j
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        document.getElementById('simulationContent').innerHTML = `
+            <div style="text-align: center; margin-bottom: 20px;">
+                <span style="font-size: 3em;">${carte.emoji}</span>
+                <h3 style="color: var(--accent-tertiary); margin: 12px 0 6px;">${carte.nom}</h3>
+                <p style="color: var(--text-muted); font-size: 0.9em;">${carte.description}</p>
+                <div style="display: inline-flex; gap: 12px; margin-top: 12px;">
+                    <span style="background: var(--warning); color: #000; padding: 6px 14px; border-radius: 8px; font-weight: 700;">
+                        💰 ${carte.cout} pts
+                    </span>
+                    <span class="card-risk-badge ${risk.riskLevel}" style="position: static;">
+                        ${risk.riskLevel === 'high-risk' ? '⚠️ Risqué' : risk.riskLevel === 'medium-risk' ? '⚡ Modéré' : '✅ Sûr'}
+                    </span>
+                </div>
+            </div>
+            
+            <div class="simulation-results">
+                <h4 style="color: var(--text-secondary); margin-bottom: 16px; text-align: center;">
+                    📊 Impact Estimé ${manche === 1 ? '(indicateurs visibles)' : ''}
+                </h4>
+                ${manche === 1 ? `<div style="display: flex; flex-direction: column; gap: 8px;">${metricsHTML}</div>` : metricsHTML}
+            </div>
+            
+            <div style="display: flex; justify-content: center; gap: 16px; margin-top: 20px;">
+                <button onclick="closeSimulationModal()" class="btn" style="background: var(--bg-elevated); border: 1px solid var(--border-default); color: var(--text-secondary); padding: 12px 24px; border-radius: 10px; cursor: pointer;">
+                    Annuler
+                </button>
+                <button onclick="closeSimulationModal(); acheterCarte('${carteId}')" class="btn" style="background: var(--gradient-success); border: none; color: #000; padding: 12px 24px; border-radius: 10px; cursor: pointer; font-weight: 700;">
+                    ✓ Acheter cette carte
+                </button>
+            </div>
+        `;
+        
+        modal.classList.add('active');
+    }
+    
+    // Fermer le modal de simulation
+    function closeSimulationModal() {
+        const modal = document.getElementById('simulationModal');
+        if (modal) modal.classList.remove('active');
+    }
+    
+    // Calculer le LT moyen
+    function calculerLTMoyen() {
+        let ltTotal = 0;
+        let count = 0;
+        for (const mfId in gameState.microFlux) {
+            ltTotal += gameState.microFlux[mfId].LT;
+            count++;
+        }
+        return count > 0 ? ltTotal / count : 0;
+    }
+    
+    // Fermer le panneau de comparaison
+    function closeComparisonPanel() {
+        uxState.comparisonMode = false;
+        uxState.selectedForComparison = [];
+        document.body.classList.remove('comparison-mode-active');
+        updateComparisonPanel();
+        render();
+    }
+    
+    // Recommander les meilleures cartes
+    function getRecommendedCards(cartes, limit = 3) {
+        const scored = cartes.map(c => ({
+            carte: c,
+            impacts: analyzeCardImpacts(c),
+            risk: evaluateCardRisk(c)
+        }));
+        
+        scored.sort((a, b) => b.impacts.score - a.impacts.score);
+        
+        return scored.slice(0, limit);
+    }
+    
+    // Rendu amélioré de l'assistant de décision
+    function renderDecisionAssistant() {
+        const container = document.getElementById('decisionAssistant');
+        if (!container || gameState.phaseDebriefing || gameState.phaseDebriefing2) {
+            if (container) container.style.display = 'none';
+            return;
+        }
+        
+        if (!uxState.showAssistant) {
+            container.style.display = 'none';
+            return;
+        }
+        
+        container.style.display = 'block';
+        const tips = generateContextualTips();
+        
+        document.getElementById('assistantTips').innerHTML = tips.map(tip => `
+            <div class="decision-tip ${tip.type}">
+                <span class="decision-tip-icon">${tip.icon}</span>
+                <div class="decision-tip-content">
+                    <div class="decision-tip-title">${tip.title}</div>
+                    <div class="decision-tip-text">${tip.text}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // Rendu de la barre de stats rapides
+    function renderQuickStats() {
+        const container = document.getElementById('quickStatsBar');
+        if (!container) return;
+        
+        const manche = gameState.manche;
+        const joueur = gameState.joueurActuel;
+        const budget = manche === 1 ? gameState.budgetManche1 : gameState.budgetCommun;
+        const goulet = identifierGoulet();
+        
+        let html = `
+            <div class="quick-stat">
+                <span class="quick-stat-icon">💰</span>
+                <div>
+                    <div class="quick-stat-label">Budget</div>
+                    <div class="quick-stat-value ${budget < SEUILS.budgetBas ? 'warning' : 'neutral'}">${budget} pts</div>
+                </div>
+            </div>
+        `;
+        
+        // En Manche 1: afficher l'indicateur clé du joueur actuel
+        if (manche === 1 && !gameState.phaseDebriefing) {
+            if (joueur === 1) {
+                // J1 Commercial: Marge
+                let marge = 0;
+                for (const mfId in gameState.microFlux) {
+                    const mf = gameState.microFlux[mfId];
+                    marge += (mf.PV - mf.DA) * mf.QV;
+                }
+                html += `
+                    <div class="quick-stat">
+                        <span class="quick-stat-icon">💵</span>
+                        <div>
+                            <div class="quick-stat-label">Marge Totale</div>
+                            <div class="quick-stat-value ${marge > 0 ? 'positive' : 'negative'}">€${formatNumber(Math.round(marge))}</div>
+                        </div>
+                    </div>
+                `;
+            } else if (joueur === 2) {
+                // J2 Approvisionnement: Coût de Revient
+                let crTotal = 0, qvTotal = 0;
+                for (const mfId in gameState.microFlux) {
+                    const mf = gameState.microFlux[mfId];
+                    crTotal += calculerDDP(mf) * mf.QV;
+                    qvTotal += mf.QV;
+                }
+                const cr = qvTotal > 0 ? crTotal / qvTotal : 0;
+                html += `
+                    <div class="quick-stat">
+                        <span class="quick-stat-icon">📦</span>
+                        <div>
+                            <div class="quick-stat-label">CR Moyen</div>
+                            <div class="quick-stat-value ${cr <= 1500 ? 'positive' : cr <= 2000 ? 'warning' : 'negative'}">€${formatNumber(Math.round(cr))}</div>
+                        </div>
+                    </div>
+                `;
+            } else if (joueur === 4) {
+                // J4 Production: TRG
+                let trgSum = 0, machineCount = 0;
+                for (const [machineId, machine] of Object.entries(gameState.machines)) {
+                    const chargePercent = machine.capacite > 0 ? Math.min(100, (machine.charge / machine.capacite * 100)) : 0;
+                    trgSum += chargePercent;
+                    machineCount++;
+                }
+                const trg = machineCount > 0 ? trgSum / machineCount : 0;
+                html += `
+                    <div class="quick-stat">
+                        <span class="quick-stat-icon">⚙️</span>
+                        <div>
+                            <div class="quick-stat-label">TRG Moyen</div>
+                            <div class="quick-stat-value ${getSeuilClass(trg, SEUILS.trg)}">${trg.toFixed(0)}%</div>
+                        </div>
+                    </div>
+                `;
+            } else if (joueur === 5) {
+                // J5 Qualité: Conformité
+                let trTotal = 0;
+                const mfCount = Object.keys(gameState.microFlux).length;
+                for (const mfId in gameState.microFlux) {
+                    trTotal += gameState.microFlux[mfId].Tr;
+                }
+                const conformite = mfCount > 0 ? (1 - trTotal / mfCount) * 100 : 0;
+                html += `
+                    <div class="quick-stat">
+                        <span class="quick-stat-icon">✅</span>
+                        <div>
+                            <div class="quick-stat-label">Conformité</div>
+                            <div class="quick-stat-value ${getSeuilClass(conformite, SEUILS.conformite)}">${conformite.toFixed(1)}%</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // J3 Logistique: Lead Time
+                const lt = calculerLTMoyen();
+                html += `
+                    <div class="quick-stat">
+                        <span class="quick-stat-icon">🚚</span>
+                        <div>
+                            <div class="quick-stat-label">Lead Time Moy.</div>
+                            <div class="quick-stat-value ${getSeuilClass(lt, SEUILS.leadTime, true)}">${lt.toFixed(0)}j</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Taux de rebut (visible pour tous)
+            let trTotal = 0;
+            const mfCount = Object.keys(gameState.microFlux).length;
+            for (const mfId in gameState.microFlux) {
+                trTotal += gameState.microFlux[mfId].Tr;
+            }
+            const tr = mfCount > 0 ? (trTotal / mfCount) * 100 : 0;
+            html += `
+                <div class="quick-stat">
+                    <span class="quick-stat-icon">🎯</span>
+                    <div>
+                        <div class="quick-stat-label">Rebut Moy.</div>
+                        <div class="quick-stat-value ${getSeuilClass(tr, SEUILS.rebut, true)}">${tr.toFixed(1)}%</div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // En Manche 2+ ou débriefing: afficher VAG/CGE/RBE
+        if (manche >= 2 || gameState.phaseDebriefing) {
+            const vag = calculerVAGTotal();
+            const cge = calculerCGETotal();
+            const rbe = calculerRBE();
+            
+            html += `
+                <div class="quick-stat">
+                    <span class="quick-stat-icon">📈</span>
+                    <div>
+                        <div class="quick-stat-label">VAG</div>
+                        <div class="quick-stat-value ${vag >= 0 ? 'positive' : 'negative'}">€${formatNumber(Math.round(vag))}</div>
+                    </div>
+                </div>
+                <div class="quick-stat">
+                    <span class="quick-stat-icon">💸</span>
+                    <div>
+                        <div class="quick-stat-label">CGE</div>
+                        <div class="quick-stat-value neutral">€${formatNumber(Math.round(cge))}</div>
+                    </div>
+                </div>
+                <div class="quick-stat">
+                    <span class="quick-stat-icon">💵</span>
+                    <div>
+                        <div class="quick-stat-label">RBE</div>
+                        <div class="quick-stat-value ${rbe >= 0 ? 'positive' : 'negative'}">€${formatNumber(Math.round(rbe))}</div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // N'afficher le goulet que s'il est problématique (>70%)
+        if (goulet && goulet.machine && goulet.charge > SEUILS.goulet.avertissement) {
+            html += `
+                <div class="quick-stat">
+                    <span class="quick-stat-icon">🏭</span>
+                    <div>
+                        <div class="quick-stat-label">Goulet</div>
+                        <div class="quick-stat-value ${goulet.surcharge ? 'negative' : goulet.charge > SEUILS.goulet.alerte ? 'warning' : 'positive'}">
+                            ${goulet.machine}: ${goulet.charge}%
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        container.innerHTML = html;
+    }
+    
+    // Rendu des filtres de cartes
+    function renderCardFilters() {
+        const container = document.getElementById('cardFilters');
+        if (!container || gameState.phaseDebriefing) {
+            if (container) container.style.display = 'none';
+            return;
+        }
+        
+        container.style.display = 'flex';
+        container.innerHTML = `
+            <div class="filter-group">
+                <span class="filter-label">Filtrer:</span>
+                <button class="filter-btn ${uxState.cardFilter === 'all' ? 'active' : ''}" onclick="setCardFilter('all')">Toutes</button>
+                <button class="filter-btn ${uxState.cardFilter === 'low-cost' ? 'active' : ''}" onclick="setCardFilter('low-cost')">💰 ≤20 pts</button>
+                <button class="filter-btn ${uxState.cardFilter === 'high-impact' ? 'active' : ''}" onclick="setCardFilter('high-impact')">⭐ Impact+</button>
+                <button class="filter-btn ${uxState.cardFilter === 'low-risk' ? 'active' : ''}" onclick="setCardFilter('low-risk')">✅ Sûres</button>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Trier:</span>
+                <select class="filter-select" onchange="setCardSort(this.value)">
+                    <option value="default" ${uxState.cardSort === 'default' ? 'selected' : ''}>Par défaut</option>
+                    <option value="cost-asc" ${uxState.cardSort === 'cost-asc' ? 'selected' : ''}>Coût ↑</option>
+                    <option value="cost-desc" ${uxState.cardSort === 'cost-desc' ? 'selected' : ''}>Coût ↓</option>
+                    <option value="score-desc" ${uxState.cardSort === 'score-desc' ? 'selected' : ''}>Score ↓</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <input type="text" class="filter-search" placeholder="🔍 Rechercher..." 
+                    value="${uxState.searchQuery}" oninput="setCardSearch(this.value)">
+            </div>
+            <div class="filter-group" style="margin-left: auto;">
+                <button class="filter-btn ${uxState.comparisonMode ? 'active' : ''}" onclick="toggleComparisonMode()">
+                    ⚖️ Comparer
+                </button>
+            </div>
+        `;
+    }
+    
+    // Override de la fonction render originale pour inclure les nouvelles fonctionnalités
+    const originalRender = render;
+    render = function() {
+        originalRender();
+        renderQuickStats();
+        renderDecisionAssistant();
+        renderCardFilters();
+    };
+    
     // Init
     calculerChargesMachines();
     render();
     </script>
+    
+    <!-- Comparison Panel -->
+    <div class="comparison-panel" id="comparisonPanel">
+        <div class="comparison-header">
+            <div class="comparison-title">
+                <span>⚖️</span>
+                <span>Comparaison des Cartes</span>
+                <span style="color: var(--text-muted); font-weight: 400; font-size: 0.9em;">
+                    (${uxState.selectedForComparison?.length || 0}/3 sélectionnées)
+                </span>
+            </div>
+            <button onclick="closeComparisonPanel()" style="background: var(--bg-elevated); border: 1px solid var(--border-default); color: var(--text-secondary); padding: 8px 16px; border-radius: 8px; cursor: pointer;">
+                ✕ Fermer
+            </button>
+        </div>
+        <div class="comparison-cards" id="comparisonCards"></div>
+    </div>
+    
+    <!-- Simulation Modal -->
+    <div class="modal-overlay" id="simulationModal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div id="simulationContent"></div>
+        </div>
+    </div>
 </body>
 </html>
