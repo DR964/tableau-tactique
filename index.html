@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau Tactique v0.6.32 - ES Marbres & Granits</title>
+    <title>Tableau Tactique v0.6.38 - ES Marbres & Granits</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏭</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -2054,7 +2054,7 @@
             box-shadow: 0 12px 48px rgba(99, 102, 241, 0.6);
         }
         
-        /* ==================== V0.6.32 - AMÉLIRATIONS UX ==================== */
+        /* ==================== V0.6.38 - AMÉLIRATIONS UX ==================== */
         
         /* Quick Stats Bar - Barre de stats rapides toujours visible */
         .quick-stats-bar {
@@ -2793,10 +2793,10 @@
                     <strong>🛒 J2 - Approvisionnement :</strong> Minimisez le <em>Coût de Revient (CR)</em> en optimisant les Dépenses d'Achat (DA) et votre Budget
                 </p>
                 <p>
-                    <strong>🚛 J3 - Logistique :</strong> Minimisez les <em>CGE</em> (Charges Globales d'Exploitation)
+                    <strong>🚛 J3 - Logistique :</strong> Minimisez le <em>Coût de Transport</em> par produit (CGE Logistique / QV)
                 </p>
                 <p>
-                    <strong>🏭 J4 - Production :</strong> Pilotez par le <em>GOULET</em> ! La machine à 100% donne le rythme. N'augmentez pas les autres bêtement.
+                    <strong>🏭 J4 - Production :</strong> Surveillez la <em>machine la plus chargée</em> ! Si elle atteint 100%, c'est un GOULET qui bloque la production.
                 </p>
                 <p>
                     <strong>✅ J5 - Qualité :</strong> Maximisez la <em>Conformité (1-TR)</em> en réduisant le Taux de Rebut et le Lead Time
@@ -2833,7 +2833,7 @@
         <!-- Onglets du panel -->
         <div class="dev-tabs" style="display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap;">
             <button onclick="showDevTab('controles')" class="dev-tab-btn active" data-tab="controles">⚙️ Contrôles</button>
-            <button onclick="showDevTab('donnees')" class="dev-tab-btn" data-tab="donnees">📊 Données</button>
+            <button onclick="showDevTab('indicateurs')" class="dev-tab-btn" data-tab="indicateurs">📈 Indicateurs</button>
             <button onclick="showDevTab('machines')" class="dev-tab-btn" data-tab="machines">🏭 Machines</button>
             <button onclick="showDevTab('cartes')" class="dev-tab-btn" data-tab="cartes">🃏 Cartes</button>
         </div>
@@ -2895,11 +2895,16 @@
             </div>
         </div>
         
-        <!-- TAB: Données -->
-        <div class="dev-tab-content" id="devTab-donnees" style="display: none;">
+        <!-- TAB: Indicateurs (NOUVEAU - COMPLET) -->
+        <div class="dev-tab-content" id="devTab-indicateurs" style="display: none;">
             <div class="dev-section">
-                <h4>📊 Indicateurs Économiques</h4>
-                <div class="dev-indicators" id="devHiddenIndicators"></div>
+                <h4>💰 Indicateurs Économiques Principaux</h4>
+                <div id="devMainIndicators" class="dev-indicators-grid"></div>
+            </div>
+            
+            <div class="dev-section">
+                <h4>📊 Indicateurs par Produit</h4>
+                <div id="devProductIndicators"></div>
             </div>
             
             <div class="dev-section">
@@ -2925,13 +2930,13 @@
             </div>
             
             <div class="dev-section">
-                <h4>💰 Budgets</h4>
+                <h4>💰 Budgets par Joueur</h4>
                 <div class="dev-budgets" id="devBudgets"></div>
                 <button onclick="resetBudgets()" class="dev-btn" style="margin-top: 10px;">🔄 Reset budgets</button>
             </div>
             
             <div class="dev-section">
-                <h4>💸 CGE (Charges Globales)</h4>
+                <h4>💸 CGE (Charges Globales d'Exploitation)</h4>
                 <div class="dev-cge" id="devCGE"></div>
             </div>
         </div>
@@ -3230,7 +3235,7 @@
                     </div>
                     <div style="background: rgba(99, 102, 241, 0.1); padding: 14px 18px; border-radius: 10px; border-left: 3px solid var(--accent-primary);">
                         <strong style="color: var(--accent-primary);">🚛 J3 - Logistique :</strong> 
-                        <span style="color: var(--text-secondary);">Votre ratio Budget/CGE est-il viable à long terme ?</span>
+                        <span style="color: var(--text-secondary);">Votre coût de transport par produit est-il compétitif ?</span>
                     </div>
                     <div style="background: rgba(245, 158, 11, 0.1); padding: 14px 18px; border-radius: 10px; border-left: 3px solid var(--warning);">
                         <strong style="color: var(--warning);">🏭 J4 - Production :</strong> 
@@ -3374,7 +3379,7 @@
         <div class="game-header">
             <div class="header-content">
                 <div class="logo-section">
-                    <h1>📋 TABLEAU TACTIQUE <span style="font-size: 0.5em; opacity: 0.7; font-weight: 400;">v0.6.32</span></h1>
+                    <h1>📋 TABLEAU TACTIQUE <span style="font-size: 0.5em; opacity: 0.7; font-weight: 400;">v0.6.38</span></h1>
                     <div style="font-size: 0.85em; opacity: 0.8;">ES Marbres & Granits - Simulation de Management</div>
                 </div>
                 <div class="controls">
@@ -3420,10 +3425,10 @@
                 <p>Décidez ENSEMBLE pour maximiser l'amélioration de la PIG !</p>
             </div>
             
-            <!-- V0.6.32 - Quick Stats Bar -->
+            <!-- V0.6.38 - Quick Stats Bar -->
             <div class="quick-stats-bar" id="quickStatsBar"></div>
             
-            <!-- V0.6.32 - Decision Assistant -->
+            <!-- V0.6.38 - Decision Assistant -->
             <div class="decision-assistant" id="decisionAssistant">
                 <div class="decision-assistant-header">
                     <div class="decision-assistant-title">
@@ -3485,7 +3490,7 @@
                         </div>
                         <div id="budgetDisplay" style="font-weight: 700; color: var(--yellow);"></div>
                     </div>
-                    <!-- V0.6.32 - Card Filters -->
+                    <!-- V0.6.38 - Card Filters -->
                     <div class="card-filters" id="cardFilters"></div>
                     <div class="cards-grid" id="cardsGrid"></div>
                 </div>
@@ -4008,7 +4013,7 @@
             emoji: "🚛", 
             postes: ["reception", "expedition"],
             indicateurs: ["cge", "bfr", "vol"],
-            indicateurPhare: "Budget/CGE"
+            indicateurPhare: "Coût Transport/u"
         },
         4: { 
             nom: "Production", 
@@ -4174,32 +4179,32 @@
     const CARTES_MANCHE1 = {
         1: [ // Commercial (J1) - Indicateur: Marge
             {
-                id: "R1-20", nom: "Remise sur Volume", emoji: "💼", cout: 20,
+                id: "R1-20", nom: "Remise Volume", emoji: "💼", cout: 20,
                 secteur: "Commercial",
-                description: "Accorder une remise aux clients pour les commandes en grande quantité afin d'augmenter le volume des ventes.",
+                description: "Accorder une remise aux clients pour les commandes en grande quantité.",
                 effetVisible: "↗️ Volume +20%",
-                effetGlobal: "⚠️ Marge -10%, Budget consommé 15%",
+                effetGlobal: "⚠️ DA +10%, BFR +15%",
                 VA: 0, NVA: 24, LT_effect: 24,
                 impacts: {
-                    global: {"QV": 0.2, "PV": -0.1},
+                    global: {"QV": 0.20, "DA": 0.10},
                     bfr: 0.15
                 }
             },
             {
-                id: "R1-21", nom: "Pousser Produit Rentable", emoji: "💼", cout: 25,
+                id: "R1-21", nom: "Push Rentable", emoji: "💼", cout: 25,
                 secteur: "Commercial",
-                description: "Concentrer les efforts commerciaux sur le produit le plus rentable de notre gamme.",
+                description: "Concentrer les efforts commerciaux sur le produit le plus rentable.",
                 effetVisible: "↗️ Marge +10%",
                 effetGlobal: "⚠️ Capacité -15%",
                 VA: 1, NVA: 23, LT_effect: 24,
                 impacts: {
-                    global: {"PV": 0.1, "CAP": -0.15}
+                    global: {"DA": -0.10, "CAP": -0.15}
                 }
             },
             {
-                id: "R1-22", nom: "Délai Livraison Agressif", emoji: "💼", cout: 15,
+                id: "R1-22", nom: "Délai Agressif", emoji: "💼", cout: 15,
                 secteur: "Commercial",
-                description: "Promettre des délais de livraison plus courts aux clients pour remporter des contrats.",
+                description: "Promettre des délais de livraison agressifs aux clients.",
                 effetVisible: "↗️ Volume +15%",
                 effetGlobal: "⚠️ TR +8%, CGE +5%",
                 VA: 0, NVA: -24, LT_effect: -24,
@@ -4208,23 +4213,23 @@
                 }
             },
             {
-                id: "R1-23", nom: "Promo pour Réduire Stock", emoji: "💼", cout: 20,
+                id: "R1-23", nom: "Promo Stock", emoji: "💼", cout: 20,
                 secteur: "Commercial",
-                description: "Lancer une promotion commerciale pour réduire rapidement les stocks en entrepôt.",
-                effetVisible: "↗️ Budget libéré 30%",
-                effetGlobal: "⚠️ Marge -15%",
+                description: "Lancer une promotion pour écouler les stocks rapidement.",
+                effetVisible: "↘️ BFR -30%",
+                effetGlobal: "⚠️ DA +15%",
                 VA: 2, NVA: -18, LT_effect: -16,
                 impacts: {
-                    global: {"PV": -0.15},
-                    bfr: -0.3
+                    global: {"DA": 0.15},
+                    bfr: -0.30
                 }
             },
             {
-                id: "R1-24", nom: "Délai Paiement Client Long", emoji: "💼", cout: 15,
+                id: "R1-24", nom: "Paiement Long", emoji: "💼", cout: 15,
                 secteur: "Commercial",
-                description: "Proposer des délais de paiement plus longs aux clients pour augmenter les ventes.",
+                description: "Proposer des délais de paiement plus longs aux clients.",
                 effetVisible: "↗️ Volume +15%",
-                effetGlobal: "⚠️ Budget consommé 18%",
+                effetGlobal: "⚠️ BFR +18%",
                 VA: 0, NVA: 16, LT_effect: 16,
                 impacts: {
                     global: {"QV": 0.15},
@@ -4234,170 +4239,157 @@
             {
                 id: "R1-30", nom: "Pénalités Annulation", emoji: "💼", cout: 15,
                 secteur: "Commercial",
-                description: "Appliquer des pénalités financières aux clients en cas d'annulation de commande.",
+                description: "Appliquer des pénalités financières en cas d'annulation de commande.",
                 effetVisible: "↗️ Volume +10%",
-                effetGlobal: "⚠️ Marge -5%, Budget libéré 8%",
+                effetGlobal: "⚠️ DA +5%, BFR -8%",
                 VA: 0, NVA: -8, LT_effect: -8,
                 impacts: {
-                    global: {"QV": 0.1, "PV": -0.05},
+                    global: {"QV": 0.10, "DA": 0.05},
                     bfr: -0.08
                 }
             }
         ],
-        2: [ // Approvisionnement (J2) - Indicateur: Coût de Revient (CR)
-            // Note: Pour J2, BFR est affiché comme "Budget" (Budget = BFR actuel - BFR total)
+        2: [ // Approvisionnement (J2) - Indicateur: Coût de Revient (DA)
             {
                 id: "R1-1", nom: "Fournisseur Lots+", emoji: "📦", cout: 15,
                 secteur: "Approvisionnement",
-                description: "Le fournisseur propose une remise intéressante pour l'achat de lots plus importants de matière première.",
+                description: "Le fournisseur propose une remise pour l'achat de lots plus importants.",
                 effetVisible: "↘️ DA -8%",
-                effetGlobal: "⚠️ TR +5%, LT +30j, Budget consommé 25%",
+                effetGlobal: "⚠️ BFR +25%",
                 VA: 0, NVA: 24, LT_effect: 24,
                 impacts: {
-                    global: {"DA": -0.08, "Tr": 0.05, "LT": 30},
-                    bfr: 0.25,
-                    hidden: {s: -0.05, q: -0.03}
+                    global: {"DA": -0.08},
+                    bfr: 0.25
                 }
             },
             {
                 id: "R1-2", nom: "Fournisseur Cheap", emoji: "📦", cout: 20,
                 secteur: "Approvisionnement",
-                description: "Changement vers un fournisseur moins cher mais avec des délais de livraison plus longs.",
+                description: "Fournisseur moins cher avec délais de livraison plus longs.",
                 effetVisible: "↘️ DA -12%",
-                effetGlobal: "⚠️ TR +8%, LT +50j",
+                effetGlobal: "⚠️ LT +120h, TR +5%",
                 VA: 0, NVA: 120, LT_effect: 120,
                 impacts: {
-                    global: {"DA": -0.12, "LT": 50, "Tr": 0.08},
-                    hidden: {s: -0.08, q: -0.05, r: -0.03}
+                    global: {"DA": -0.12, "LT": 120, "Tr": 0.05}
                 }
             },
             {
                 id: "R1-3", nom: "Fournisseur International", emoji: "📦", cout: 30,
                 secteur: "Approvisionnement",
-                description: "Nouveau fournisseur international offrant des prix significativement inférieurs sur les matières premières.",
+                description: "Fournisseur international avec très bons prix de matière première.",
                 effetVisible: "↘️ DA -20%",
-                effetGlobal: "⚠️ TR +12%, LT +80j, Budget consommé 20%",
+                effetGlobal: "⚠️ LT +320h, BFR +20%",
                 VA: 0, NVA: 320, LT_effect: 320,
                 impacts: {
-                    global: {"DA": -0.2, "LT": 80, "Tr": 0.12},
-                    bfr: 0.2,
-                    hidden: {s: -0.12, q: -0.08, r: -0.10}
+                    global: {"DA": -0.20, "LT": 320},
+                    bfr: 0.20
                 }
             },
             {
-                id: "R1-4", nom: "Délai Paiement Fournisseur+", emoji: "📦", cout: 10,
+                id: "R1-4", nom: "Délai Paiement+", emoji: "📦", cout: 10,
                 secteur: "Approvisionnement",
-                description: "Négocier des délais de paiement plus longs avec les fournisseurs pour améliorer la trésorerie.",
-                effetVisible: "↗️ Budget libéré 12%",
-                effetGlobal: "⚠️ LT +20j, TR +3%",
+                description: "Négocier des délais de paiement plus longs avec les fournisseurs.",
+                effetVisible: "↘️ BFR -12%",
+                effetGlobal: "⚠️ Délai Fournisseur +80h",
                 VA: 0, NVA: 16, LT_effect: 16,
                 impacts: {
-                    global: {"delaiFournisseur": 80.0, "LT": 20, "Tr": 0.03},
-                    bfr: -0.12,
-                    hidden: {s: -0.03}
+                    global: {"delaiFournisseur": 80},
+                    bfr: -0.12
                 }
             },
             {
-                id: "R1-5", nom: "Lots Plus Petits", emoji: "📦", cout: 20,
+                id: "R1-5", nom: "Lots Menores", emoji: "📦", cout: 20,
                 secteur: "Approvisionnement",
-                description: "Commander des lots plus petits et augmenter la cadence de production pour réduire les stocks.",
-                effetVisible: "↗️ Budget libéré 15%",
-                effetGlobal: "⚠️ DA +10%, TR +4%",
+                description: "Commander des lots plus petits et augmenter la cadence.",
+                effetVisible: "↘️ BFR -15%",
+                effetGlobal: "⚠️ DA +10%",
                 VA: 2, NVA: -42, LT_effect: -40,
                 impacts: {
-                    global: {"DA": 0.1, "Tr": 0.04},
-                    bfr: -0.15,
-                    hidden: {q: -0.02}
+                    global: {"DA": 0.10},
+                    bfr: -0.15
                 }
             },
             {
                 id: "R1-25", nom: "Fournisseur Cheap Q-", emoji: "📦", cout: 20,
                 secteur: "Approvisionnement",
-                description: "Fournisseur proposant de nouvelles options de matière première à prix réduit mais avec une qualité moindre.",
+                description: "Fournisseur avec nouvelles options de matière première moins chères.",
                 effetVisible: "↘️ DA -15%",
-                effetGlobal: "⚠️ TR +15%, LT +40j",
+                effetGlobal: "⚠️ TR +10%, LT +16h",
                 VA: 0, NVA: 16, LT_effect: 16,
                 impacts: {
-                    global: {"DA": -0.15, "Tr": 0.15, "LT": 40},
-                    hidden: {s: -0.06, q: -0.10, r: -0.05}
+                    global: {"DA": -0.15, "Tr": 0.10, "LT": 16}
                 }
             }
         ],
-        3: [ // Logistique (J3) - Indicateur: Budget/CGE
+        3: [ // Logistique (J3) - Indicateur: Coût Transport/u
             {
                 id: "R1-15", nom: "Camions Pleins", emoji: "🚚", cout: 15,
                 secteur: "Logistique",
-                description: "Optimiser le remplissage des camions pour réduire les coûts de transport.",
+                description: "Optimiser l'occupation maximale des camions.",
                 effetVisible: "↘️ CGE -5%",
-                effetGlobal: "⚠️ LT +30j, TR +4%",
+                effetGlobal: "⚠️ TC +24h, DA +3%",
                 VA: 0, NVA: 24, LT_effect: 24,
                 impacts: {
-                    global: {"CGE": -0.05, "LT": 30, "Tr": 0.04},
-                    hidden: {s: -0.04, q: -0.03}
+                    global: {"CGE": -0.05, "TC": 24, "DA": 0.03}
                 }
             },
             {
                 id: "R1-16", nom: "Lots Transport x2", emoji: "🚚", cout: 20,
                 secteur: "Logistique",
-                description: "Doubler la taille des lots de transport interne entre les ateliers.",
-                effetVisible: "↘️ CGE -8%",
-                effetGlobal: "⚠️ LT +45j, TR +5%, Budget consommé 30%",
+                description: "Doubler les lots de transport interne entre ateliers.",
+                effetVisible: "↘️ TC -20%",
+                effetGlobal: "⚠️ BFR +30%, LT +32h",
                 VA: 0, NVA: 32, LT_effect: 32,
                 impacts: {
-                    global: {"CGE": -0.08, "LT": 45, "Tr": 0.05},
-                    bfr: 0.3,
-                    hidden: {s: -0.06, q: -0.04}
+                    global: {"TC": -0.20, "LT": 32},
+                    bfr: 0.30
                 }
             },
             {
                 id: "R1-17", nom: "Transport Cheap", emoji: "🚚", cout: 20,
                 secteur: "Logistique",
-                description: "Changer pour un transporteur moins cher mais avec des délais plus longs.",
-                effetVisible: "↘️ CGE -10%",
-                effetGlobal: "⚠️ LT +50j, TR +6%",
+                description: "Passer à un transporteur moins cher.",
+                effetVisible: "↘️ CGE -8%",
+                effetGlobal: "⚠️ LT +40h, TR +3%",
                 VA: 0, NVA: 40, LT_effect: 40,
                 impacts: {
-                    global: {"CGE": -0.10, "LT": 50, "Tr": 0.06},
-                    hidden: {s: -0.08, q: -0.05, r: -0.04}
+                    global: {"CGE": -0.08, "LT": 40, "Tr": 0.03}
                 }
             },
             {
                 id: "R1-18", nom: "Stock Sécurité+", emoji: "🚚", cout: 15,
                 secteur: "Logistique",
-                description: "Augmenter le niveau du stock de sécurité pour éviter les ruptures de stock.",
+                description: "Augmenter le stock de sécurité pour éviter les ruptures.",
                 effetVisible: "↗️ Volume +5%",
-                effetGlobal: "⚠️ LT +20j, Budget consommé 12%",
+                effetGlobal: "⚠️ BFR +12%",
                 VA: 0, NVA: 8, LT_effect: 8,
                 impacts: {
-                    global: {"QV": 0.05, "LT": 20},
-                    bfr: 0.12,
-                    hidden: {s: -0.03}
+                    global: {"QV": 0.05},
+                    bfr: 0.12
                 }
             },
             {
                 id: "R1-19", nom: "Stock Sécurité-", emoji: "🚚", cout: 15,
                 secteur: "Logistique",
-                description: "Réduire le niveau du stock de sécurité pour diminuer les coûts de stockage.",
-                effetVisible: "↘️ CGE -3%, Budget libéré 6%",
-                effetGlobal: "⚠️ Volume -5%, TR +5%",
+                description: "Réduire le stock de sécurité pour diminuer les coûts.",
+                effetVisible: "↘️ BFR -6%",
+                effetGlobal: "⚠️ Volume -5%",
                 VA: 0, NVA: -8, LT_effect: -8,
                 impacts: {
-                    global: {"QV": -0.05, "CGE": -0.03, "Tr": 0.05},
-                    bfr: -0.06,
-                    hidden: {q: -0.04}
+                    global: {"QV": -0.05},
+                    bfr: -0.06
                 }
             },
             {
                 id: "R1-29", nom: "Réduire Inventaires", emoji: "🚚", cout: 10,
                 secteur: "Logistique",
-                description: "Réduire la fréquence des inventaires pour économiser du temps de travail.",
-                effetVisible: "↘️ CGE -5%, Budget libéré 5%",
-                effetGlobal: "⚠️ TR +10%",
+                description: "Réduire la fréquence des inventaires.",
+                effetVisible: "↘️ BFR -5%",
+                effetGlobal: "⚠️ TR +8%",
                 VA: 0, NVA: 0, LT_effect: 0,
                 impacts: {
-                    global: {"CGE": -0.05, "Tr": 0.10},
-                    bfr: -0.05,
-                    hidden: {q: -0.06, r: -0.03}
+                    global: {"Tr": 0.08},
+                    bfr: -0.05
                 }
             }
         ],
@@ -4405,96 +4397,90 @@
             {
                 id: "R1-6", nom: "Accélérer M1", emoji: "⚙️", cout: 25,
                 secteur: "Production",
-                description: "Augmenter la vitesse de la Machine 1 pour améliorer le débit de production.",
+                description: "Augmenter la vitesse de la Machine 1.",
                 effetVisible: "↗️ Capacité +15%",
-                effetGlobal: "⚠️ TR +10%, DMAINT +15%",
+                effetGlobal: "⚠️ TR +8%",
                 VA: -1, NVA: 9, LT_effect: 8,
                 impacts: {
-                    global: {"CAP": 0.15, "Tr": 0.10, "tM1": 0.15},
-                    hidden: {q: -0.04, r: -0.03}
+                    global: {"CAP": 0.15, "Tr": 0.08}
                 }
             },
             {
                 id: "R1-7", nom: "Accélérer M2", emoji: "⚙️", cout: 20,
                 secteur: "Production",
-                description: "Augmenter la vitesse de la Machine 2 pour améliorer le débit de production.",
+                description: "Augmenter la vitesse de la Machine 2.",
                 effetVisible: "↗️ Capacité +15%",
-                effetGlobal: "⚠️ TR +12%, DMAINT +15%",
+                effetGlobal: "⚠️ TR +10%",
                 VA: -1, NVA: 9, LT_effect: 8,
                 impacts: {
-                    global: {"CAP": 0.15, "Tr": 0.12, "tM2": 0.15},
-                    hidden: {q: -0.05, r: -0.03}
+                    global: {"CAP": 0.15, "Tr": 0.10}
                 }
             },
             {
                 id: "R1-8", nom: "Ralentir M4", emoji: "⚙️", cout: 25,
                 secteur: "Production",
-                description: "Réduire la vitesse de la Machine 4 pour améliorer la précision des coupes.",
+                description: "Réduire la vitesse de M4 pour plus de précision.",
                 effetVisible: "↘️ TR -5%",
-                effetGlobal: "⚠️ Capacité -10%, LT +20j",
+                effetGlobal: "⚠️ Capacité -10%",
                 VA: 2, NVA: 14, LT_effect: 16,
                 impacts: {
-                    global: {"Tr": -0.05, "CAP": -0.1, "LT": 20},
-                    hidden: {s: -0.05}
+                    global: {"Tr": -0.05, "CAP": -0.10}
                 }
             },
             {
-                id: "R1-9", nom: "Machine Neuve Découpe", emoji: "⚙️", cout: 60,
+                id: "R1-9", nom: "Machine Neuve", emoji: "⚙️", cout: 60,
                 secteur: "Production",
-                description: "Acheter une nouvelle machine de découpe pour augmenter la capacité de production.",
+                description: "Acheter une nouvelle machine de découpe.",
                 effetVisible: "↗️ Capacité +25%, LT -16h",
-                effetGlobal: "⚠️ CGE +15k€, TR +5%",
+                effetGlobal: "⚠️ CGE +8k€",
                 VA: 2, NVA: -18, LT_effect: -16,
                 impacts: {
-                    global: {"CAP": 0.25, "CGE": 15.0, "LT": -16.0, "Tr": 0.05},
-                    hidden: {r: -0.05}
+                    global: {"CAP": 0.25, "CGE": 8, "LT": -16}
                 }
             },
             {
-                id: "R1-10", nom: "Gros Lots Production", emoji: "⚙️", cout: 20,
+                id: "R1-10", nom: "Gros Lots Prod", emoji: "⚙️", cout: 20,
                 secteur: "Production",
-                description: "Produire en lots plus importants pour réduire les temps de changement de série.",
-                effetVisible: "↗️ Capacité +20%",
-                effetGlobal: "⚠️ LT +60j, TR +8%, Budget consommé 50%",
+                description: "Produire en lots plus importants pour réduire les changements.",
+                effetVisible: "↘️ TC -40%",
+                effetGlobal: "⚠️ BFR +50%, LT +48h",
                 VA: 0, NVA: 48, LT_effect: 48,
                 impacts: {
-                    global: {"CAP": 0.2, "LT": 60, "Tr": 0.08},
-                    bfr: 0.5,
-                    hidden: {s: -0.10, q: -0.05}
+                    global: {"TC": -0.40, "LT": 48},
+                    bfr: 0.50
                 }
             },
             {
                 id: "R1-26", nom: "Accélérer M3", emoji: "⚙️", cout: 10,
                 secteur: "Production",
-                description: "Augmenter la vitesse de la Machine 3 (Démarcation) pour améliorer le débit.",
+                description: "Augmenter la vitesse de la Machine 3 (Démarcation).",
                 effetVisible: "↗️ Capacité +15%",
-                effetGlobal: "⚠️ TR +15%, DMAINT +20%",
+                effetGlobal: "⚠️ TR +12%",
                 VA: -1, NVA: 9, LT_effect: 8,
                 impacts: {
-                    global: {"CAP": 0.15, "Tr": 0.15, "tM3": 0.20},
-                    hidden: {q: -0.06}
+                    global: {"CAP": 0.15, "Tr": 0.12}
                 }
             },
             {
-                id: "R1-27", nom: "Machine Neuve Coupe Finale", emoji: "⚙️", cout: 65,
+                id: "R1-27", nom: "Machine Neuve M4", emoji: "⚙️", cout: 65,
                 secteur: "Production",
-                description: "Acheter une nouvelle machine de coupe finale pour augmenter la capacité.",
+                description: "Acheter une nouvelle machine coupe finale.",
                 effetVisible: "↗️ Capacité +30%, LT -24h",
                 effetGlobal: "⚠️ CGE +10k€",
                 VA: 2, NVA: -26, LT_effect: -24,
                 impacts: {
-                    global: {"CAP": 0.3, "CGE": 10.0, "LT": -24.0}
+                    global: {"CAP": 0.30, "CGE": 10, "LT": -24}
                 }
             },
             {
-                id: "R1-28", nom: "Pousser Macroflux 2", emoji: "⚙️", cout: 20,
+                id: "R1-28", nom: "Push MF2", emoji: "⚙️", cout: 20,
                 secteur: "Production",
-                description: "Produire le macroflux 2 pour le stock en mode poussé pour anticiper la demande.",
+                description: "Produire le macroflux 2 pour stock (mode poussé).",
                 effetVisible: "↗️ Capacité +20%",
-                effetGlobal: "⚠️ Budget consommé 25%, TR +5%",
+                effetGlobal: "⚠️ BFR +25%, TR +5%",
                 VA: 0, NVA: 40, LT_effect: 40,
                 impacts: {
-                    global: {"CAP": 0.2, "Tr": 0.05},
+                    global: {"CAP": 0.20, "Tr": 0.05},
                     bfr: 0.25
                 }
             }
@@ -4503,45 +4489,45 @@
             {
                 id: "R1-11", nom: "Réduire Inspections", emoji: "✅", cout: 15,
                 secteur: "Qualité",
-                description: "Réduire les inspections qualité intermédiaires pour accélérer la production.",
-                effetVisible: "↘️ Lead Time -8h",
-                effetGlobal: "⚠️ TR +10%, Marge -5%",
+                description: "Réduire les inspections pour accélérer la production.",
+                effetVisible: "↘️ LT -8h",
+                effetGlobal: "⚠️ TR +10%, DA +5%",
                 VA: 0, NVA: -8, LT_effect: -8,
                 impacts: {
-                    global: {"LT": -8.0, "Tr": 0.1, "PV": -0.05}
+                    global: {"LT": -8, "Tr": 0.10, "DA": 0.05}
                 }
             },
             {
-                id: "R1-12", nom: "Étude Qualité Fournisseurs", emoji: "✅", cout: 20,
+                id: "R1-12", nom: "Étude Fournisseurs", emoji: "✅", cout: 20,
                 secteur: "Qualité",
-                description: "Réaliser une étude approfondie de la qualité des fournisseurs de matière première.",
+                description: "Étudier la qualité des fournisseurs de matière première.",
                 effetVisible: "↘️ TR -5%",
-                effetGlobal: "⚠️ Lead Time +40h, DA +2%",
+                effetGlobal: "⚠️ LT +40h, DA +2%",
                 VA: 4, NVA: 36, LT_effect: 40,
                 impacts: {
-                    global: {"Tr": -0.05, "LT": 40.0, "DA": 0.02}
+                    global: {"Tr": -0.05, "LT": 40, "DA": 0.02}
                 }
             },
             {
-                id: "R1-13", nom: "Accepter Défauts Mineurs", emoji: "✅", cout: 10,
+                id: "R1-13", nom: "Accepter Défauts", emoji: "✅", cout: 10,
                 secteur: "Qualité",
-                description: "Accepter les petits défauts esthétiques sur les produits pour accélérer la livraison.",
-                effetVisible: "↘️ Lead Time -8h",
-                effetGlobal: "⚠️ TR +5%, Marge -8%",
+                description: "Accepter les petits défauts esthétiques pour accélérer.",
+                effetVisible: "↘️ LT -8h",
+                effetGlobal: "⚠️ TR +5%, DA +8%",
                 VA: 0, NVA: -8, LT_effect: -8,
                 impacts: {
-                    global: {"LT": -8.0, "Tr": 0.05, "PV": -0.08}
+                    global: {"LT": -8, "Tr": 0.05, "DA": 0.08}
                 }
             },
             {
                 id: "R1-14", nom: "Contrôle Renforcé", emoji: "✅", cout: 15,
                 secteur: "Qualité",
-                description: "Renforcer les contrôles qualité à chaque étape de production pour réduire les défauts.",
+                description: "Renforcer les contrôles qualité à chaque étape.",
                 effetVisible: "↘️ TR -10%",
-                effetGlobal: "⚠️ Lead Time +16h, Temps cycle +5%",
+                effetGlobal: "⚠️ LT +16h, TC +5%",
                 VA: 4, NVA: 12, LT_effect: 16,
                 impacts: {
-                    global: {"Tr": -0.1, "LT": 16.0, "TC": 0.05}
+                    global: {"Tr": -0.10, "LT": 16, "TC": 0.05}
                 }
             }
         ]
@@ -5273,7 +5259,8 @@
     }
     
     function renderDevPanel() {
-        renderDevHiddenIndicators();
+        renderDevMainIndicators();
+        renderDevProductIndicators();
         renderDevSliders();
         renderDevBudgets();
         renderDevCGE();
@@ -5292,6 +5279,150 @@
         if (btnAllCompris) {
             btnAllCompris.style.display = gameState.phaseDebriefing ? 'inline-block' : 'none';
         }
+    }
+    
+    // Nouveau: Rendu des indicateurs principaux complets
+    function renderDevMainIndicators() {
+        const container = document.getElementById('devMainIndicators');
+        if (!container) return;
+        
+        calculerChargesMachines();
+        const vagTotal = calculerVAGTotal();
+        const cgeTotal = calculerCGETotal();
+        const rbe = calculerRBE();
+        const teg = calculerTEG();
+        const pig = calculerPIG();
+        const bfrTotal = calculerBFRTotal();
+        const margeTotal = calculerMargeTotal();
+        const gouletInfo = identifierGoulet();
+        
+        // Calculs moyens
+        let qvTotal = 0, daTotal = 0, pvTotal = 0, ltTotal = 0, trTotal = 0;
+        let crTotal = 0;
+        for (const mfId in gameState.microFlux) {
+            const mf = gameState.microFlux[mfId];
+            qvTotal += mf.QV;
+            daTotal += mf.DA * mf.QV;
+            pvTotal += mf.PV * mf.QV;
+            ltTotal += mf.LT * mf.QV;
+            trTotal += mf.Tr * mf.QV;
+            crTotal += calculerDDP(mf) * mf.QV;
+        }
+        const daMoyen = qvTotal > 0 ? daTotal / qvTotal : 0;
+        const pvMoyen = qvTotal > 0 ? pvTotal / qvTotal : 0;
+        const ltMoyen = qvTotal > 0 ? ltTotal / qvTotal : 0;
+        const trMoyen = qvTotal > 0 ? (trTotal / qvTotal) * 100 : 0;
+        const crMoyen = qvTotal > 0 ? crTotal / qvTotal : 0;
+        const coutTransportMoyen = qvTotal > 0 ? gameState.cge.logistique / qvTotal : 0;
+        
+        container.innerHTML = `
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 0.85em;">
+                <div class="dev-indicator" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(16, 185, 129, 0.15)); border: 1px solid var(--success);">
+                    <div class="dev-indicator-label">💰 VAG Total</div>
+                    <div class="dev-indicator-value" style="color: var(--success);">€${formatNumber(Math.round(vagTotal))}</div>
+                </div>
+                <div class="dev-indicator" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(248, 113, 113, 0.15)); border: 1px solid var(--danger);">
+                    <div class="dev-indicator-label">💸 CGE Total</div>
+                    <div class="dev-indicator-value" style="color: var(--danger);">€${formatNumber(Math.round(cgeTotal))}</div>
+                </div>
+                <div class="dev-indicator" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15)); border: 1px solid var(--accent-primary);">
+                    <div class="dev-indicator-label">📊 RBE</div>
+                    <div class="dev-indicator-value" style="color: var(--accent-primary);">€${formatNumber(Math.round(rbe))}</div>
+                </div>
+                <div class="dev-indicator" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(251, 191, 36, 0.15)); border: 1px solid var(--warning);">
+                    <div class="dev-indicator-label">📈 TEG</div>
+                    <div class="dev-indicator-value" style="color: var(--warning);">${(teg * 100).toFixed(1)}%</div>
+                </div>
+                <div class="dev-indicator" style="grid-column: span 2; background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(192, 132, 252, 0.15)); border: 1px solid #a855f7;">
+                    <div class="dev-indicator-label">🏆 PIG (Manche 3)</div>
+                    <div class="dev-indicator-value" style="color: #a855f7; font-size: 1.3em;">${pig.toFixed(3)}</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 16px; padding: 12px; background: var(--bg-elevated); border-radius: 8px; border: 1px solid var(--border-default);">
+                <h5 style="margin: 0 0 8px 0; font-size: 0.9em; color: var(--text-secondary);">📊 Indicateurs Moyens</h5>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; font-size: 0.8em;">
+                    <div><span style="color: var(--text-muted);">DA moyen:</span> <strong>€${formatNumber(Math.round(daMoyen))}</strong></div>
+                    <div><span style="color: var(--text-muted);">PV moyen:</span> <strong>€${formatNumber(Math.round(pvMoyen))}</strong></div>
+                    <div><span style="color: var(--text-muted);">CR moyen:</span> <strong>€${formatNumber(Math.round(crMoyen))}</strong></div>
+                    <div><span style="color: var(--text-muted);">LT moyen:</span> <strong>${ltMoyen.toFixed(0)}j</strong></div>
+                    <div><span style="color: var(--text-muted);">TR moyen:</span> <strong>${trMoyen.toFixed(1)}%</strong></div>
+                    <div><span style="color: var(--text-muted);">Transport/u:</span> <strong>€${coutTransportMoyen.toFixed(0)}</strong></div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 16px; padding: 12px; background: var(--bg-elevated); border-radius: 8px; border: 1px solid var(--border-default);">
+                <h5 style="margin: 0 0 8px 0; font-size: 0.9em; color: var(--text-secondary);">🏭 Contraintes</h5>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 0.8em;">
+                    <div><span style="color: var(--text-muted);">QV Total:</span> <strong>${formatNumber(qvTotal)} u</strong></div>
+                    <div><span style="color: var(--text-muted);">Force Vente:</span> <strong>${formatNumber(qvTotal)}/${formatNumber(gameState.contraintes.force_vente_max)}</strong></div>
+                    <div><span style="color: var(--text-muted);">BFR utilisé:</span> <strong>€${formatNumber(Math.round(bfrTotal))}</strong></div>
+                    <div><span style="color: var(--text-muted);">BFR max:</span> <strong>€${formatNumber(gameState.contraintes.BFR_max)}</strong></div>
+                    <div style="grid-column: span 2; margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--border-subtle);">
+                        <span style="color: ${gouletInfo.isGoulet ? 'var(--danger)' : 'var(--text-muted)'};">
+                            ${gouletInfo.isGoulet ? '🔴 GOULET' : '⚙️ Machine max'}: 
+                        </span>
+                        <strong style="color: ${gouletInfo.isGoulet ? 'var(--danger)' : 'var(--text-primary)'};">
+                            ${gameState.machines[gouletInfo.goulet]?.nom || 'N/A'} à ${gouletInfo.chargePercent.toFixed(0)}%
+                        </strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 16px; padding: 12px; background: var(--bg-elevated); border-radius: 8px; border: 1px solid var(--border-default);">
+                <h5 style="margin: 0 0 8px 0; font-size: 0.9em; color: var(--text-secondary);">📐 SQR (Manche 3)</h5>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; font-size: 0.8em;">
+                    <div><span style="color: var(--text-muted);">S (Vitesse):</span> <strong>${(gameState.hidden.s * 100).toFixed(0)}%</strong></div>
+                    <div><span style="color: var(--text-muted);">Q (Satisfaction):</span> <strong>${(gameState.hidden.q * 100).toFixed(0)}%</strong></div>
+                    <div><span style="color: var(--text-muted);">R (RSE):</span> <strong>${(gameState.hidden.r * 100).toFixed(0)}%</strong></div>
+                </div>
+            </div>
+        `;
+    }
+    
+    // Nouveau: Rendu des indicateurs par produit
+    function renderDevProductIndicators() {
+        const container = document.getElementById('devProductIndicators');
+        if (!container) return;
+        
+        let html = `
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; font-size: 0.75em; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: var(--bg-elevated);">
+                            <th style="padding: 6px; text-align: left; border-bottom: 1px solid var(--border-default);">Produit</th>
+                            <th style="padding: 6px; text-align: right;">QV</th>
+                            <th style="padding: 6px; text-align: right;">PV</th>
+                            <th style="padding: 6px; text-align: right;">DA</th>
+                            <th style="padding: 6px; text-align: right;">CR</th>
+                            <th style="padding: 6px; text-align: right;">VAG/u</th>
+                            <th style="padding: 6px; text-align: right;">LT</th>
+                            <th style="padding: 6px; text-align: right;">TR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+        
+        for (const [mfId, mf] of Object.entries(gameState.microFlux)) {
+            const vag = calculerVAG(mf);
+            const cr = calculerDDP(mf);
+            
+            html += `
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                    <td style="padding: 6px;"><span>${mf.emoji}</span> ${mf.nom}</td>
+                    <td style="padding: 6px; text-align: right;">${formatNumber(mf.QV)}</td>
+                    <td style="padding: 6px; text-align: right;">€${formatNumber(mf.PV)}</td>
+                    <td style="padding: 6px; text-align: right;">€${formatNumber(mf.DA)}</td>
+                    <td style="padding: 6px; text-align: right; color: var(--danger);">€${formatNumber(Math.round(cr))}</td>
+                    <td style="padding: 6px; text-align: right; color: var(--success);">€${formatNumber(Math.round(vag))}</td>
+                    <td style="padding: 6px; text-align: right;">${mf.LT}j</td>
+                    <td style="padding: 6px; text-align: right;">${(mf.Tr * 100).toFixed(0)}%</td>
+                </tr>
+            `;
+        }
+        
+        html += `</tbody></table></div>`;
+        container.innerHTML = html;
     }
     
     // Afficher le statut du budget dans le panel dev
@@ -5403,16 +5534,16 @@
         const gouletInfo = identifierGoulet();
         
         // Message adapté selon la charge
-        let gouletMsg = '';
-        if (gouletInfo.chargePercent >= SEUILS.goulet.critique) {
-            gouletMsg = `<p style="font-size: 0.75em; color: var(--danger); margin-bottom: 10px;">🔴 SURCHARGE! ${gameState.machines[gouletInfo.goulet]?.nom || 'N/A'} à ${Math.min(100, gouletInfo.chargePercent).toFixed(0)}%</p>`;
+        let statusMsg = '';
+        if (gouletInfo.chargePercent >= 100) {
+            statusMsg = `<p style="font-size: 0.75em; color: var(--danger); margin-bottom: 10px;">🔴 GOULET! ${gameState.machines[gouletInfo.goulet]?.nom || 'N/A'} à ${gouletInfo.chargePercent.toFixed(0)}% - Production bloquée!</p>`;
         } else if (gouletInfo.chargePercent >= 80) {
-            gouletMsg = `<p style="font-size: 0.75em; color: var(--warning); margin-bottom: 10px;">⚠️ Attention: ${gameState.machines[gouletInfo.goulet]?.nom || 'N/A'} à ${gouletInfo.chargePercent.toFixed(0)}%</p>`;
+            statusMsg = `<p style="font-size: 0.75em; color: var(--warning); margin-bottom: 10px;">⚠️ Machine max: ${gameState.machines[gouletInfo.goulet]?.nom || 'N/A'} à ${gouletInfo.chargePercent.toFixed(0)}%</p>`;
         } else {
-            gouletMsg = `<p style="font-size: 0.75em; opacity: 0.7; margin-bottom: 10px;">✅ Capacité OK (${gameState.machines[gouletInfo.goulet]?.nom || 'N/A'} à ${gouletInfo.chargePercent.toFixed(0)}%)</p>`;
+            statusMsg = `<p style="font-size: 0.75em; opacity: 0.7; margin-bottom: 10px;">✅ Capacité OK (${gameState.machines[gouletInfo.goulet]?.nom || 'N/A'} à ${gouletInfo.chargePercent.toFixed(0)}%)</p>`;
         }
         
-        let html = gouletMsg;
+        let html = statusMsg;
         
         for (const [mfId, mf] of Object.entries(gameState.microFlux)) {
             const limiteGoulet = calculerCapaciteVenteMax(mfId);
@@ -5456,13 +5587,15 @@
         
         for (const [mId, machine] of Object.entries(gameState.machines)) {
             const chargePercent = machine.capacite > 0 ? (machine.charge / machine.capacite * 100) : 0;
-            const isGoulet = mId === gouletInfo.goulet && chargePercent >= 80;
-            const barColor = chargePercent >= SEUILS.goulet.critique ? 'var(--danger)' : chargePercent >= SEUILS.goulet.avertissement ? 'var(--warning)' : 'var(--success)';
+            const isMax = mId === gouletInfo.goulet;
+            const isGoulet = isMax && chargePercent >= 100;
+            const barColor = chargePercent >= 100 ? 'var(--danger)' : chargePercent >= 80 ? 'var(--warning)' : 'var(--success)';
+            const borderStyle = isGoulet ? 'border: 2px solid var(--danger); background: rgba(239, 68, 68, 0.1);' : isMax && chargePercent >= 80 ? 'border: 2px solid var(--warning); background: rgba(245, 158, 11, 0.1);' : '';
             
             html += `
-                <div class="dev-indicator" style="${isGoulet ? 'border: 2px solid var(--danger); background: rgba(239, 68, 68, 0.1);' : ''}">
-                    <div class="dev-indicator-label">${machine.emoji} ${machine.nom} ${isGoulet ? '🔴' : ''}</div>
-                    <div class="dev-indicator-value" style="font-size: 0.9em;">${machine.charge.toFixed(0)}h / ${machine.capacite}h</div>
+                <div class="dev-indicator" style="${borderStyle}">
+                    <div class="dev-indicator-label">${machine.emoji} ${machine.nom} ${isGoulet ? '🔴 GOULET' : isMax && chargePercent >= 80 ? '⚙️' : ''}</div>
+                    <div class="dev-indicator-value" style="font-size: 0.9em;">${machine.charge.toFixed(0)}h / ${machine.capacite}h (${chargePercent.toFixed(0)}%)</div>
                     <div style="height: 4px; background: var(--bg-card); border-radius: 2px; margin-top: 4px;">
                         <div style="height: 100%; width: ${Math.min(100, chargePercent)}%; background: ${barColor}; border-radius: 2px;"></div>
                     </div>
@@ -5548,8 +5681,8 @@
                         </div>
                     </div>
                     <div>
-                        <div style="color: var(--text-muted); margin-bottom: 4px;"><span class="tooltip-term" data-tooltip="Goulet = Machine la plus chargée. Charge = Σ QV × temps_machine. Si >100%, impossible de produire toutes les commandes !">⚙️ Goulet (${gameState.machines[gouletInfo.goulet]?.nom || 'N/A'})</span></div>
-                        <div style="color: ${gouletColor}; font-weight: 600;">${Math.min(100, gouletInfo.chargePercent).toFixed(0)}% capacité</div>
+                        <div style="color: var(--text-muted); margin-bottom: 4px;"><span class="tooltip-term" data-tooltip="Machine la plus chargée. GOULET uniquement si ≥100% (contrainte bloquante). Charge = Σ QV × temps_machine.">${gouletInfo.isGoulet ? '🔴 GOULET' : '⚙️ Machine max'} (${gameState.machines[gouletInfo.goulet]?.nom || 'N/A'})</span></div>
+                        <div style="color: ${gouletColor}; font-weight: 600;">${gouletInfo.chargePercent.toFixed(0)}% capacité ${gouletInfo.isGoulet ? '⚠️ BLOQUÉ' : ''}</div>
                         <div style="height: 4px; background: var(--bg-card); border-radius: 2px; margin-top: 4px;">
                             <div style="height: 100%; width: ${Math.min(100, gouletInfo.chargePercent)}%; background: ${gouletColor}; border-radius: 2px;"></div>
                         </div>
@@ -5581,12 +5714,16 @@
             const tempsMachine = machineKey ? mf[machineKey] : null;
             const chargeTotal = machineKey ? (mf.QV * mf[machineKey]).toFixed(0) : null;
             
-            // Identifier quelle machine est le goulet pour ce produit
-            let gouletInfo = '';
+            // Identifier quelle machine limite pour ce produit
+            let gouletInfoText = '';
             if (isGouletLimitant) {
-                const goulet = identifierGoulet();
-                if (goulet) {
-                    gouletInfo = `⚠️ Limité par ${goulet.id} (${goulet.chargePercent.toFixed(0)}%)`;
+                const gouletData = identifierGoulet();
+                if (gouletData && gouletData.goulet) {
+                    const machineName = gameState.machines[gouletData.goulet]?.nom || gouletData.goulet;
+                    const isRealGoulet = gouletData.chargePercent >= 100;
+                    gouletInfoText = isRealGoulet 
+                        ? `🔴 GOULET: ${machineName} (${gouletData.chargePercent.toFixed(0)}%)`
+                        : `⚠️ Limité par ${machineName} (${gouletData.chargePercent.toFixed(0)}%)`;
                 }
             }
             
@@ -5646,7 +5783,7 @@
                             <span>🚫</span>
                             <span><strong>Limite production:</strong> max ${limiteGoulet} unités</span>
                             <span style="color: var(--text-muted);">|</span>
-                            <span>${gouletInfo}</span>
+                            <span>${gouletInfoText}</span>
                         </div>
                         ` : ''}
                         <div class="sales-card-info">
@@ -7040,20 +7177,28 @@
         return Math.max(0, Math.min(minCapacite, mf.venteMax));
     }
     
-    // Identifier le goulet d'étranglement
+    // Identifier la machine la plus chargée (GOULET uniquement si >= 100%)
     function identifierGoulet() {
-        let goulet = null;
+        let machineMax = null;
         let maxCharge = 0;
         
         for (const [mId, machine] of Object.entries(gameState.machines)) {
             const chargePercent = machine.capacite > 0 ? (machine.charge / machine.capacite * 100) : 0;
             if (chargePercent > maxCharge) {
                 maxCharge = chargePercent;
-                goulet = mId;
+                machineMax = mId;
             }
         }
         
-        return { goulet, chargePercent: maxCharge };
+        // Un GOULET est une machine à 100% ou plus (contrainte bloquante)
+        const isGoulet = maxCharge >= 100;
+        
+        return { 
+            goulet: machineMax, 
+            chargePercent: maxCharge,
+            isGoulet: isGoulet,
+            label: isGoulet ? '🔴 GOULET' : '⚙️ Machine max'
+        };
     }
     
     function toggleReady() {
@@ -7865,14 +8010,15 @@
                 kpiBadge.textContent = `CR: ${formatNumber(Math.round(crMoyen))}€`;
                 kpiBadge.style.background = crMoyen <= 1500 ? 'linear-gradient(135deg, #22c55e, #10b981)' : crMoyen <= 2000 ? 'linear-gradient(135deg, #f59e0b, #eab308)' : 'linear-gradient(135deg, #ef4444, #f43f5e)';
             } else if (j === 3) {
-                // J3 Logistique: Budget/CGE
-                const bfrTotal = calculerBFRTotal();
-                const bfrActuel = gameState.contraintes.BFR_actuel || 0;
-                const budgetDisponible = bfrTotal - bfrActuel;
-                const cgeTotal = calculerCGETotal();
-                const ratio = cgeTotal > 0 ? budgetDisponible / cgeTotal : 0;
-                kpiBadge.textContent = `Budget/CGE: ${ratio.toFixed(2)}`;
-                kpiBadge.style.background = ratio >= 1.5 ? 'linear-gradient(135deg, #22c55e, #10b981)' : ratio >= 1 ? 'linear-gradient(135deg, #f59e0b, #eab308)' : 'linear-gradient(135deg, #ef4444, #f43f5e)';
+                // J3 Logistique: Coût de Transport moyen par produit
+                const cgeLogistique = gameState.cge.logistique;
+                let qvTotal = 0;
+                for (const mfId in gameState.microFlux) {
+                    qvTotal += gameState.microFlux[mfId].QV;
+                }
+                const coutTransportMoyen = qvTotal > 0 ? cgeLogistique / qvTotal : 0;
+                kpiBadge.textContent = `Transport: ${coutTransportMoyen.toFixed(0)}€/u`;
+                kpiBadge.style.background = coutTransportMoyen <= 50 ? 'linear-gradient(135deg, #22c55e, #10b981)' : coutTransportMoyen <= 80 ? 'linear-gradient(135deg, #f59e0b, #eab308)' : 'linear-gradient(135deg, #ef4444, #f43f5e)';
             } else if (j === 4) {
                 // J4 Production: TRG moyen
                 let trgSum = 0;
@@ -8075,43 +8221,76 @@
                 
             } else if (j === 3) {
                 // ==================== JOUEUR 3 - LOGISTIQUE ====================
-                // Indicateur phare: CGE Total
+                // Indicateur phare: Coût de Transport moyen par produit
+                const cgeLogistique = gameState.cge.logistique;
+                let qvTotal = 0;
+                for (const mfId in gameState.microFlux) {
+                    qvTotal += gameState.microFlux[mfId].QV;
+                }
+                const coutTransportMoyen = qvTotal > 0 ? cgeLogistique / qvTotal : 0;
                 const cgeTotal = calculerCGETotal();
                 
-                headerRight = `<div class="poste-trg" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3));">CGE: €${formatNumber(Math.round(cgeTotal))}</div>`;
+                headerRight = `<div class="poste-trg" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3));">Transport: ${coutTransportMoyen.toFixed(0)}€/u</div>`;
                 
                 statsHTML = `
                     <div class="poste-stat" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2)); border: 1px solid var(--accent-primary);">
-                        <div class="poste-stat-label"><span class="tooltip-term" data-tooltip="Charges Globales d'Exploitation : coûts fixes totaux de l'entreprise.">💰 CGE Total</span></div>
-                        <div class="poste-stat-value" style="font-size: 1.3em; color: var(--warning);">€${formatNumber(Math.round(cgeTotal))}</div>
+                        <div class="poste-stat-label"><span class="tooltip-term" data-tooltip="Coût de transport moyen = CGE Logistique / Quantité totale vendue. À minimiser !">🚛 Coût Transport/u</span></div>
+                        <div class="poste-stat-value" style="font-size: 1.3em; color: ${coutTransportMoyen <= 50 ? 'var(--success)' : coutTransportMoyen <= 80 ? 'var(--warning)' : 'var(--danger)'};">${coutTransportMoyen.toFixed(0)}€</div>
                     </div>
                     <div class="poste-stat">
-                        <div class="poste-stat-label"><span class="tooltip-term" data-tooltip="Capital disponible pour financer les opérations.">💳 Budget</span></div>
-                        <div class="poste-stat-value" style="color: ${budgetDisponible > 0 ? 'var(--success)' : 'var(--danger)'};">€${formatNumber(Math.round(budgetDisponible))}</div>
+                        <div class="poste-stat-label"><span class="tooltip-term" data-tooltip="Charges de Logistique (transport, stockage, manutention)">📦 CGE Logistique</span></div>
+                        <div class="poste-stat-value" style="color: var(--warning);">€${formatNumber(cgeLogistique)}</div>
+                    </div>
+                    <div class="poste-stat">
+                        <div class="poste-stat-label"><span class="tooltip-term" data-tooltip="Quantité totale à livrer (tous produits)">📊 QV Total</span></div>
+                        <div class="poste-stat-value">${formatNumber(qvTotal)} u</div>
                     </div>
                 `;
                 
-                // Tableau: CGE par département
+                // Tableau: Coût transport par micro-flux
                 tableHTML = `
                     <div class="excel-table-container" style="margin-top: 20px;">
-                        <h4 style="color: var(--text-secondary); margin-bottom: 12px; font-size: 0.9em;">📊 Charges d'Exploitation</h4>
+                        <h4 style="color: var(--text-secondary); margin-bottom: 12px; font-size: 0.9em;">📊 Analyse des Coûts de Transport</h4>
                         <table class="excel-table">
                             <thead>
                                 <tr>
-                                    <th>Département</th>
-                                    <th><span class="tooltip-term" data-tooltip="Charges fixes du département">CGE</span> (€)</th>
+                                    <th>Produit</th>
+                                    <th><span class="tooltip-term" data-tooltip="Quantité vendue">QV</span></th>
+                                    <th><span class="tooltip-term" data-tooltip="Part du volume total">% Volume</span></th>
+                                    <th><span class="tooltip-term" data-tooltip="Coût transport alloué proportionnellement">Coût Transport</span></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr><td>🛒 Achats</td><td>${formatNumber(gameState.cge.achats)}</td></tr>
-                                <tr><td>💼 Vente</td><td>${formatNumber(gameState.cge.vente)}</td></tr>
-                                <tr><td>🏭 Production</td><td>${formatNumber(gameState.cge.production)}</td></tr>
-                                <tr><td>🚚 Logistique</td><td>${formatNumber(gameState.cge.logistique)}</td></tr>
-                                <tr><td>🔬 Conception</td><td>${formatNumber(gameState.cge.conception)}</td></tr>
-                                <tr class="total-row"><td style="font-weight: 700;">TOTAL</td><td style="font-weight: 700; color: var(--warning);">${formatNumber(cgeTotal)}</td></tr>
+                            <tbody>`;
+                
+                for (const mfId in gameState.microFlux) {
+                    const mf = gameState.microFlux[mfId];
+                    const pctVolume = qvTotal > 0 ? (mf.QV / qvTotal * 100) : 0;
+                    const coutAlloue = cgeLogistique * (mf.QV / qvTotal);
+                    tableHTML += `
+                                <tr>
+                                    <td><span>${mf.emoji}</span> ${mf.nom}</td>
+                                    <td>${formatNumber(mf.QV)}</td>
+                                    <td>${pctVolume.toFixed(1)}%</td>
+                                    <td>€${formatNumber(Math.round(coutAlloue))}</td>
+                                </tr>`;
+                }
+                
+                tableHTML += `
+                                <tr class="total-row">
+                                    <td style="font-weight: 700;">TOTAL</td>
+                                    <td style="font-weight: 700;">${formatNumber(qvTotal)}</td>
+                                    <td>100%</td>
+                                    <td style="font-weight: 700; color: var(--warning);">€${formatNumber(cgeLogistique)}</td>
+                                </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div style="margin-top: 16px; padding: 12px; background: rgba(99, 102, 241, 0.1); border-radius: 8px; border-left: 3px solid var(--accent-primary);">
+                        <p style="margin: 0; font-size: 0.85em; color: var(--text-secondary);">
+                            💡 <strong>Objectif :</strong> Réduire le coût de transport unitaire en optimisant la logistique ou en augmentant les volumes.
+                        </p>
                     </div>`;
+                
                 
             } else if (j === 4) {
                 // ==================== JOUEUR 4 - PRODUCTION ====================
@@ -8827,11 +9006,11 @@
                 document.getElementById('infoTitle').textContent = '🚛 Votre Mission - Logistique';
                 content = `
                     <div style="padding: 16px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15)); border-radius: 12px; border: 1px solid var(--accent-primary);">
-                        <p style="margin-bottom: 12px; font-weight: 600; color: var(--accent-primary);">🎯 Objectif : Optimiser Budget/CGE</p>
+                        <p style="margin-bottom: 12px; font-weight: 600; color: var(--accent-primary);">🎯 Objectif : Minimiser le Coût de Transport/u</p>
                         <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.9em;">
-                            <li>📦 Maîtrisez les flux de marchandises</li>
-                            <li>💰 Réduisez les Charges d'Exploitation (CGE)</li>
-                            <li>⚡ Optimisez la chaîne logistique</li>
+                            <li>🚛 Réduisez les CGE Logistique (transport, stockage)</li>
+                            <li>📦 Plus de volume = coût unitaire dilué</li>
+                            <li>⚡ Optimisez les trajets et le remplissage</li>
                         </ul>
                     </div>
                 `;
@@ -9103,7 +9282,7 @@
                     const opacity = c.purchased ? '0.5' : (!c.canAfford ? '0.7' : '1');
                     const buyText = c.purchased ? '✓ Jouée' : (c.canAfford ? '🎴 Acheter' : '💸 Insuffisant');
                     
-                    // V0.6.32: Calculer score et risque
+                    // V0.6.38: Calculer score et risque
                     const impacts = typeof analyzeCardImpacts === 'function' ? analyzeCardImpacts(c) : { score: 50 };
                     const risk = typeof evaluateCardRisk === 'function' ? evaluateCardRisk(c) : { riskLevel: 'low-risk' };
                     
@@ -9132,7 +9311,7 @@
                             <div style="font-size: 0.85em; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.5;">${c.description}</div>
                             ${c.effetVisible ? `<div style="font-size: 0.8em; color: var(--success); margin-bottom: 10px; padding: 6px 10px; background: rgba(34, 197, 94, 0.1); border-radius: 6px;">✨ ${c.effetVisible}</div>` : ''}
                             
-                            <!-- V0.6.32: Score de décision (seulement si aide activée) -->
+                            <!-- V0.6.38: Score de décision (seulement si aide activée) -->
                             ${!c.purchased && showHelp ? `
                             <div class="decision-score" style="margin-bottom: 10px;">
                                 <span class="decision-score-label">Score</span>
@@ -9175,7 +9354,7 @@
             return;
         }
         
-        // Manche 1 : affichage classique avec fonctionnalités V0.6.32
+        // Manche 1 : affichage classique avec fonctionnalités V0.6.38
         // Bloquer les cartes pour J1 si le mix n'est pas validé
         if (manche === 1 && j === 1 && !gameState.mixValideJ1 && !gameState.phaseDebriefing) {
             document.getElementById('cardsGrid').innerHTML = `
@@ -9190,7 +9369,7 @@
             return;
         }
         
-        // V0.6.32: Appliquer filtres et tri
+        // V0.6.38: Appliquer filtres et tri
         let cartesFiltrées = cartes.map(c => {
             const purchased = cartesAchetees.includes(c.id);
             const canAfford = budget >= c.cout;
@@ -9218,7 +9397,7 @@
             return 0;
         });
         
-        // V0.6.32: Identifier les meilleures cartes pour les badges
+        // V0.6.38: Identifier les meilleures cartes pour les badges
         const recommendedCards = typeof getRecommendedCards === 'function' ? 
             getRecommendedCards(cartesTriees.filter(c => !c.purchased && c.canAfford), 2) : [];
         const recommendedIds = recommendedCards.map(r => r.carte.id);
@@ -9246,7 +9425,7 @@
                 }
             }
             
-            // V0.6.32: Calculer le risque et le score de la carte
+            // V0.6.38: Calculer le risque et le score de la carte
             const risk = typeof evaluateCardRisk === 'function' ? evaluateCardRisk(c) : { riskLevel: 'low-risk' };
             const impacts = typeof analyzeCardImpacts === 'function' ? analyzeCardImpacts(c) : { score: 50 };
             const isRecommended = recommendedIds.includes(c.id);
@@ -9275,7 +9454,7 @@
             const buyText = c.purchased ? '✓ Jouée' : 
                             (c.canAfford ? '🎴 Acheter cette carte' : '💸 Budget insuffisant');
             
-            // V0.6.32: Ajouter class pour sélection de comparaison
+            // V0.6.38: Ajouter class pour sélection de comparaison
             const compareClass = isSelectedForCompare ? 'selected-for-compare' : '';
             const compareHandler = uxState && uxState.comparisonMode && !c.purchased ? 
                 `onclick="toggleCardComparison('${c.id}')" style="cursor: pointer;"` : '';
@@ -9294,7 +9473,7 @@
                         <span style="color: var(--success); font-weight: 600;">✨ Effet :</span> ${c.effetVisible}
                     </div>` : ''}
                     
-                    <!-- V0.6.32: Score de décision (seulement si aide activée) -->
+                    <!-- V0.6.38: Score de décision (seulement si aide activée) -->
                     ${!c.purchased && showHelp ? `
                     <div class="decision-score">
                         <span class="decision-score-label">Score</span>
@@ -9587,23 +9766,24 @@
         const lt = totalVA + totalNVA;
         const taux = (totalVA / lt * 100).toFixed(1);
         
-        // Générer HTML des machines avec indicateur de goulet
+        // Générer HTML des machines avec indicateur de goulet/machine max
         const gouletInfo = identifierGoulet();
         const machinesHTML = Object.entries(gameState.machines).map(([mId, m]) => {
             const chargePercent = m.capacite > 0 ? (m.charge / m.capacite * 100) : 0;
-            const isGoulet = mId === gouletInfo.goulet && chargePercent >= 80;
-            const barClass = chargePercent >= 95 ? 'high' : chargePercent >= 70 ? 'medium' : 'low';
+            const isMax = mId === gouletInfo.goulet;
+            const isGoulet = isMax && chargePercent >= 100;
+            const barClass = chargePercent >= 100 ? 'high' : chargePercent >= 70 ? 'medium' : 'low';
             
             return `
-                <div class="vsm-constraint ${isGoulet ? 'bottleneck' : ''}">
+                <div class="vsm-constraint ${isGoulet ? 'bottleneck' : isMax ? 'max-charge' : ''}">
                     <div class="vsm-constraint-header">
                         <span class="vsm-constraint-label">${m.emoji} ${m.nom}</span>
-                        <span class="vsm-constraint-value" style="color: ${isGoulet ? 'var(--danger)' : 'var(--text-primary)'}">${m.charge.toFixed(0)}h / ${m.capacite}h (${chargePercent.toFixed(0)}%)</span>
+                        <span class="vsm-constraint-value" style="color: ${isGoulet ? 'var(--danger)' : isMax ? 'var(--warning)' : 'var(--text-primary)'}">${m.charge.toFixed(0)}h / ${m.capacite}h (${chargePercent.toFixed(0)}%)</span>
                     </div>
                     <div class="vsm-constraint-bar">
                         <div class="vsm-constraint-bar-fill ${barClass}" style="width: ${Math.min(100, chargePercent)}%"></div>
                     </div>
-                    ${isGoulet ? '<div style="color: var(--danger); font-size: 0.8em; margin-top: 6px; font-weight: 700;">🔴 GOULET D\'ÉTRANGLEMENT - Contrainte principale</div>' : ''}
+                    ${isGoulet ? '<div style="color: var(--danger); font-size: 0.8em; margin-top: 6px; font-weight: 700;">🔴 GOULET (≥100%) - Contrainte bloquante!</div>' : isMax && chargePercent >= 80 ? '<div style="color: var(--warning); font-size: 0.8em; margin-top: 6px;">⚙️ Machine la plus chargée</div>' : ''}
                 </div>
             `;
         }).join('');
@@ -10214,7 +10394,7 @@
         }
     });
     
-    // ==================== V0.6.32 - NOUVELLES FONCTIONNALITÉS UX ====================
+    // ==================== V0.6.38 - NOUVELLES FONCTIONNALITÉS UX ====================
     
     // État des nouvelles fonctionnalités
     const uxState = {
@@ -10316,12 +10496,14 @@
                         </div>
                     `;
                 } else if (joueur === 3) {
-                    // J3 Logistique: Impact sur le Lead Time
+                    // J3 Logistique: Impact sur le Coût de Transport (via CGE)
+                    const cgeImpact = carte.impacts?.global?.CGE ? (carte.impacts.global.CGE * 100) : 0;
+                    
                     metricsHTML = `
                         <div class="comparison-metric">
-                            <span class="comparison-metric-label">🚚 Impact Lead Time</span>
-                            <span class="comparison-metric-value" style="color: ${impacts.ltImpact <= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.2em;">
-                                ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact}j
+                            <span class="comparison-metric-label">🚛 Impact Coût Transport</span>
+                            <span class="comparison-metric-value" style="color: ${cgeImpact <= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.2em;">
+                                ${cgeImpact > 0 ? '+' : ''}${cgeImpact.toFixed(0)}% CGE
                             </span>
                         </div>
                     `;
@@ -10514,15 +10696,22 @@
             });
         }
         
-        // Conseil sur le goulet d'étranglement
+        // Conseil sur le goulet d'étranglement (seulement si vraiment à 100%+)
         calculerChargesMachines();
         const goulet = identifierGoulet();
-        if (goulet && goulet.surcharge) {
+        if (goulet && goulet.isGoulet) {
             tips.push({
                 type: 'danger',
+                icon: '🔴',
+                title: `GOULET sur ${goulet.machine}`,
+                text: `La charge (${goulet.charge}%) atteint 100% ! Production bloquée. Cherchez des cartes pour réduire la charge ou augmenter la capacité.`
+            });
+        } else if (goulet && goulet.charge >= 90) {
+            tips.push({
+                type: 'warning',
                 icon: '⚠️',
-                title: `Goulet sur ${goulet.machine}`,
-                text: `La charge (${goulet.charge}%) dépasse la capacité. Cherchez des cartes pour réduire la charge ou augmenter la capacité.`
+                title: `Machine ${goulet.machine} proche de la limite`,
+                text: `La charge (${goulet.charge}%) approche 100%. Attention à ne pas créer de goulet !`
             });
         }
         
@@ -10609,39 +10798,40 @@
                 }
                 
             } else if (joueur === 3) {
-                // J3 LOGISTIQUE - KPI: Lead Time
-                const ltMoyen = calculerLTMoyen();
-                let bfrTotal = 0;
+                // J3 LOGISTIQUE - KPI: Coût de Transport moyen
+                const cgeLogistique = gameState.cge.logistique;
+                let qvTotal = 0;
                 for (const mfId in gameState.microFlux) {
-                    bfrTotal += calculerBFR(gameState.microFlux[mfId]);
+                    qvTotal += gameState.microFlux[mfId].QV;
                 }
+                const coutTransportMoyen = qvTotal > 0 ? cgeLogistique / qvTotal : 0;
                 
                 tips.push({
-                    type: ltMoyen <= SEUILS.leadTime.bon ? 'success' : ltMoyen <= SEUILS.leadTime.moyen ? 'info' : 'warning',
-                    icon: '🚚',
-                    title: `📊 Votre KPI : LEAD TIME (${ltMoyen.toFixed(0)} jours)`,
-                    text: `Délai moyen de livraison. Votre objectif est de MINIMISER ce délai.`
+                    type: coutTransportMoyen <= 50 ? 'success' : coutTransportMoyen <= 80 ? 'info' : 'warning',
+                    icon: '🚛',
+                    title: `📊 Votre KPI : COÛT TRANSPORT (${coutTransportMoyen.toFixed(0)}€/u)`,
+                    text: `Coût de transport moyen par produit. Votre objectif est de MINIMISER ce coût.`
                 });
                 
                 tips.push({
                     type: 'info',
                     icon: '🎯',
-                    title: 'Comment réduire le Lead Time ?',
-                    text: `<strong>↘️ Réduire LT</strong> : cartes "flux tiré", "kanban", "optimisation stock"<br>
-                           <strong>↘️ Réduire BFR</strong> : BFR actuel = €${formatNumber(Math.round(bfrTotal))}<br>
-                           <strong>⚠️ Attention</strong> : le LT impacte directement la satisfaction client !`
+                    title: 'Comment réduire le Coût Transport ?',
+                    text: `<strong>↘️ Réduire CGE Logistique</strong> : cartes "optimisation transport", "mutualisation"<br>
+                           <strong>↗️ Augmenter volumes</strong> : plus de QV = coût unitaire dilué<br>
+                           <strong>📦 CGE Logistique</strong> : €${formatNumber(cgeLogistique)} pour ${formatNumber(qvTotal)} unités`
                 });
                 
                 const cartesJ3 = (CARTES_MANCHE1[3] || []).filter(c => !c.purchased && c.cout <= budget);
-                const cartesLTDown = cartesJ3.filter(c => 
-                    c.impacts?.global?.LT < 0 || c.impacts?.microflux?.LT < 0
+                const cartesCGEDown = cartesJ3.filter(c => 
+                    c.impacts?.global?.CGE < 0
                 );
-                if (cartesLTDown.length > 0) {
+                if (cartesCGEDown.length > 0) {
                     tips.push({
                         type: 'success',
                         icon: '⭐',
-                        title: `${cartesLTDown.length} carte(s) réduisent le Lead Time`,
-                        text: cartesLTDown.slice(0, 2).map(c => `${c.emoji} ${c.nom}`).join(', ')
+                        title: `${cartesCGEDown.length} carte(s) réduisent les CGE`,
+                        text: cartesCGEDown.slice(0, 2).map(c => `${c.emoji} ${c.nom}`).join(', ')
                     });
                 }
                 
@@ -10668,7 +10858,7 @@
                     title: 'Comment optimiser le TRG ?',
                     text: `<strong>↗️ Augmenter capacité</strong> : cartes "investissement machine", "maintenance préventive"<br>
                            <strong>↘️ Réduire temps cycle</strong> : cartes "lean", "SMED", "automatisation"<br>
-                           <strong>⚠️ Goulet actuel</strong> : ${goulet.machine} à ${goulet.charge}%`
+                           <strong>${goulet.isGoulet ? '🔴 GOULET' : '⚙️ Machine max'}</strong> : ${goulet.machine} à ${goulet.charge}%`
                 });
                 
                 const cartesJ4 = (CARTES_MANCHE1[4] || []).filter(c => !c.purchased && c.cout <= budget);
@@ -10794,64 +10984,27 @@
             // Propriétés compatibles avec l'ancienne version
             goulet: gouletMachine,
             chargePercent: maxCharge,
-            // Nouvelles propriétés pour v0.6.32
+            // Nouvelles propriétés pour v0.6.38
             machine: gouletMachine,
             charge: Math.round(maxCharge),
-            surcharge: maxCharge > SEUILS.goulet.critique
+            surcharge: maxCharge >= 100,
+            isGoulet: maxCharge >= 100,
+            label: maxCharge >= 100 ? '🔴 GOULET' : '⚙️ Machine max'
         };
     }
     
-    // Filtrer les cartes
+    // Trier les cartes par prix
     function filterCards(cartes) {
         let filtered = [...cartes];
         
-        // Filtre par recherche
-        if (uxState.searchQuery) {
-            const query = uxState.searchQuery.toLowerCase();
-            filtered = filtered.filter(c => 
-                c.nom.toLowerCase().includes(query) ||
-                c.description.toLowerCase().includes(query) ||
-                (c.secteur && c.secteur.toLowerCase().includes(query))
-            );
-        }
-        
-        // Filtre par type
-        if (uxState.cardFilter !== 'all') {
-            if (uxState.cardFilter === 'low-cost') {
-                filtered = filtered.filter(c => c.cout <= 20);
-            } else if (uxState.cardFilter === 'high-impact') {
-                filtered = filtered.filter(c => {
-                    const impacts = analyzeCardImpacts(c);
-                    return impacts.score >= 60;
-                });
-            } else if (uxState.cardFilter === 'low-risk') {
-                filtered = filtered.filter(c => {
-                    const risk = evaluateCardRisk(c);
-                    return risk.riskLevel === 'low-risk';
-                });
-            }
-        }
-        
-        // Tri
+        // Tri par prix uniquement
         if (uxState.cardSort === 'cost-asc') {
             filtered.sort((a, b) => a.cout - b.cout);
         } else if (uxState.cardSort === 'cost-desc') {
             filtered.sort((a, b) => b.cout - a.cout);
-        } else if (uxState.cardSort === 'score-desc') {
-            filtered.sort((a, b) => {
-                const scoreA = analyzeCardImpacts(a).score;
-                const scoreB = analyzeCardImpacts(b).score;
-                return scoreB - scoreA;
-            });
         }
         
         return filtered;
-    }
-    
-    // Mettre à jour le filtre
-    function setCardFilter(filter) {
-        uxState.cardFilter = filter;
-        render();
     }
     
     // Mettre à jour le tri
@@ -11381,14 +11534,15 @@
             `;
         }
         
-        // N'afficher le goulet que s'il est problématique (>70%)
-        if (goulet && goulet.machine && goulet.charge > SEUILS.goulet.avertissement) {
+        // N'afficher la machine max/goulet que si elle est problématique (>70%)
+        if (goulet && goulet.machine && goulet.charge > 70) {
+            const isGouletBloquant = goulet.charge >= 100;
             html += `
                 <div class="quick-stat">
-                    <span class="quick-stat-icon">🏭</span>
+                    <span class="quick-stat-icon">${isGouletBloquant ? '🔴' : '🏭'}</span>
                     <div>
-                        <div class="quick-stat-label">Goulet</div>
-                        <div class="quick-stat-value ${goulet.surcharge ? 'negative' : goulet.charge > SEUILS.goulet.alerte ? 'warning' : 'positive'}">
+                        <div class="quick-stat-label">${isGouletBloquant ? 'GOULET' : 'Machine max'}</div>
+                        <div class="quick-stat-value ${isGouletBloquant ? 'negative' : goulet.charge > 90 ? 'warning' : 'positive'}">
                             ${goulet.machine}: ${goulet.charge}%
                         </div>
                     </div>
@@ -11399,7 +11553,7 @@
         container.innerHTML = html;
     }
     
-    // Rendu des filtres de cartes
+    // Rendu des filtres de cartes (simplifié - tri par prix uniquement)
     function renderCardFilters() {
         const container = document.getElementById('cardFilters');
         if (!container || gameState.phaseDebriefing) {
@@ -11410,24 +11564,12 @@
         container.style.display = 'flex';
         container.innerHTML = `
             <div class="filter-group">
-                <span class="filter-label">Filtrer:</span>
-                <button class="filter-btn ${uxState.cardFilter === 'all' ? 'active' : ''}" onclick="setCardFilter('all')">Toutes</button>
-                <button class="filter-btn ${uxState.cardFilter === 'low-cost' ? 'active' : ''}" onclick="setCardFilter('low-cost')">💰 ≤20 pts</button>
-                <button class="filter-btn ${uxState.cardFilter === 'high-impact' ? 'active' : ''}" onclick="setCardFilter('high-impact')">⭐ Impact+</button>
-                <button class="filter-btn ${uxState.cardFilter === 'low-risk' ? 'active' : ''}" onclick="setCardFilter('low-risk')">✅ Sûres</button>
-            </div>
-            <div class="filter-group">
-                <span class="filter-label">Trier:</span>
+                <span class="filter-label">Trier par prix:</span>
                 <select class="filter-select" onchange="setCardSort(this.value)">
                     <option value="default" ${uxState.cardSort === 'default' ? 'selected' : ''}>Par défaut</option>
-                    <option value="cost-asc" ${uxState.cardSort === 'cost-asc' ? 'selected' : ''}>Coût ↑</option>
-                    <option value="cost-desc" ${uxState.cardSort === 'cost-desc' ? 'selected' : ''}>Coût ↓</option>
-                    <option value="score-desc" ${uxState.cardSort === 'score-desc' ? 'selected' : ''}>Score ↓</option>
+                    <option value="cost-asc" ${uxState.cardSort === 'cost-asc' ? 'selected' : ''}>Moins cher d'abord ↑</option>
+                    <option value="cost-desc" ${uxState.cardSort === 'cost-desc' ? 'selected' : ''}>Plus cher d'abord ↓</option>
                 </select>
-            </div>
-            <div class="filter-group">
-                <input type="text" class="filter-search" placeholder="🔍 Rechercher..." 
-                    value="${uxState.searchQuery}" oninput="setCardSearch(this.value)">
             </div>
             <div class="filter-group" style="margin-left: auto;">
                 <button class="filter-btn ${uxState.comparisonMode ? 'active' : ''}" onclick="toggleComparisonMode()">
