@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau Tactique v0.6.25 - ES Marbres & Granits</title>
+    <title>Tableau Tactique v0.6.32 - ES Marbres & Granits</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏭</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -1486,6 +1486,41 @@
         .sales-card-info span {
             white-space: nowrap;
         }
+        .sales-minmax-bar {
+            margin-top: 10px;
+            padding: 8px 0;
+        }
+        .sales-minmax-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7em;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .sales-minmax-track {
+            height: 8px;
+            background: var(--bg-card);
+            border-radius: 4px;
+            position: relative;
+            overflow: visible;
+            border: 1px solid var(--border-subtle);
+        }
+        .sales-minmax-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--accent-primary));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        .sales-minmax-fill.warning {
+            background: linear-gradient(90deg, var(--warning), var(--danger));
+        }
+        .sales-minmax-fill.danger {
+            background: linear-gradient(90deg, var(--danger), #dc2626);
+        }
+        .sales-card.goulet-warning {
+            border: 2px solid var(--danger);
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+        }
         .sales-goulet-warning {
             background: rgba(239, 68, 68, 0.1);
             border: 1px solid var(--danger);
@@ -2019,7 +2054,7 @@
             box-shadow: 0 12px 48px rgba(99, 102, 241, 0.6);
         }
         
-        /* ==================== V0.6.25 - AMÉLIRATIONS UX ==================== */
+        /* ==================== V0.6.32 - AMÉLIRATIONS UX ==================== */
         
         /* Quick Stats Bar - Barre de stats rapides toujours visible */
         .quick-stats-bar {
@@ -2791,119 +2826,141 @@
     <!-- Panel Développeur -->
     <div class="dev-panel" id="devPanel">
         <div class="dev-header">
-            <h3>🛠️ Panel Développeur</h3>
+            <h3>🛠️ Panel Développeur / Admin</h3>
             <button class="dev-close" onclick="toggleDevPanel()">✕</button>
         </div>
         
-        <div class="dev-section">
-            <h4>⚙️ Contrôles Manche</h4>
-            <div class="dev-controls">
-                <button onclick="setManche(1)" class="dev-btn">Manche 1</button>
-                <button onclick="setManche(2)" class="dev-btn">Manche 2 (RBE)</button>
-                <button onclick="setManche(3)" class="dev-btn">Manche 3 (PIG)</button>
-            </div>
-            <div class="dev-controls">
-                <button onclick="forceAllReady()" class="dev-btn green">✓ Tous Prêts</button>
-                <button onclick="forceAllCompris()" class="dev-btn green" id="btnAllCompris" style="display:none;">✓ Tous Compris (Débriefing)</button>
-                <button onclick="skipDebriefing()" class="dev-btn" id="btnSkipDebriefing" style="display:none;">⏭️ Skip Débriefing</button>
-                <button onclick="resetGame()" class="dev-btn red">🔄 Reset Jeu</button>
-                <button onclick="showIntro()" class="dev-btn">📖 Voir Intro</button>
-            </div>
+        <!-- Onglets du panel -->
+        <div class="dev-tabs" style="display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap;">
+            <button onclick="showDevTab('controles')" class="dev-tab-btn active" data-tab="controles">⚙️ Contrôles</button>
+            <button onclick="showDevTab('donnees')" class="dev-tab-btn" data-tab="donnees">📊 Données</button>
+            <button onclick="showDevTab('machines')" class="dev-tab-btn" data-tab="machines">🏭 Machines</button>
+            <button onclick="showDevTab('cartes')" class="dev-tab-btn" data-tab="cartes">🃏 Cartes</button>
         </div>
         
-        <div class="dev-section">
-            <h4>🎮 Système de Tours (Manche 1)</h4>
-            <div id="devToursStatus" style="font-size: 0.85em; margin-bottom: 10px;"></div>
-            <div class="dev-controls">
-                <button onclick="devSetJoueur(1)" class="dev-btn">J1</button>
-                <button onclick="devSetJoueur(2)" class="dev-btn">J2</button>
-                <button onclick="devSetJoueur(3)" class="dev-btn">J3</button>
-                <button onclick="devSetJoueur(4)" class="dev-btn">J4</button>
-                <button onclick="devSetJoueur(5)" class="dev-btn">J5</button>
-            </div>
-            <div class="dev-controls" style="margin-top: 8px;">
-                <button onclick="devResetTours()" class="dev-btn">🔄 Reset Tours</button>
-                <button onclick="devFinManche1()" class="dev-btn red">⏭️ Fin Manche 1</button>
-            </div>
-        </div>
-        
-        <div class="dev-section">
-            <h4>📦 Gestion des Ventes (Micro-flux)</h4>
-            <div id="devSalesControls"></div>
-        </div>
-        
-        <div class="dev-section">
-            <h4>⚙️ Charge des Machines</h4>
-            <div id="devMachinesStatus"></div>
-        </div>
-        
-        <div class="dev-section">
-            <h4>👁️ Mode Développeur</h4>
-            <label class="dev-toggle">
-                <input type="checkbox" id="devModeToggle" onchange="toggleDevMode()">
-                <span>Voir tous les indicateurs cachés</span>
-            </label>
-            <label class="dev-toggle">
-                <input type="checkbox" id="vsmUnlockToggle" onchange="toggleVSMUnlock()">
-                <span>Débloquer VSM en Manche 1</span>
-            </label>
-            <label class="dev-toggle">
-                <input type="checkbox" id="infiniteBudgetToggle" onchange="toggleInfiniteBudget()">
-                <span>Tours/Budget infini</span>
-            </label>
-            <label class="dev-toggle">
-                <input type="checkbox" id="riskBadgesToggle" onchange="toggleRiskBadges()">
-                <span>Afficher badges Recommandé/Risqué</span>
-            </label>
-        </div>
-        
-        <div class="dev-section">
-            <h4>📊 Indicateurs Cachés Globaux</h4>
-            <div class="dev-indicators" id="devHiddenIndicators"></div>
-        </div>
-        
-        <div class="dev-section">
-            <h4>🎚️ Modifier Indicateurs</h4>
-            <p style="font-size: 0.75em; opacity: 0.7; margin-bottom: 10px;">⚠️ S, R, Q plafonnés à 95% (toujours améliorable)</p>
-            <div class="dev-sliders">
-                <div class="dev-slider-row">
-                    <label>s (Vitesse)</label>
-                    <input type="range" min="0" max="95" id="sliderS" onchange="updateHiddenFromSlider('s', this.value)">
-                    <span id="valueS">60%</span>
+        <!-- TAB: Contrôles -->
+        <div class="dev-tab-content" id="devTab-controles">
+            <div class="dev-section">
+                <h4>⚙️ Navigation Manches</h4>
+                <div class="dev-controls">
+                    <button onclick="setManche(1)" class="dev-btn">Manche 1</button>
+                    <button onclick="setManche(2)" class="dev-btn">Manche 2 (RBE)</button>
+                    <button onclick="setManche(3)" class="dev-btn">Manche 3 (PIG)</button>
                 </div>
-                <div class="dev-slider-row">
-                    <label>r (Environnement)</label>
-                    <input type="range" min="0" max="95" id="sliderR" onchange="updateHiddenFromSlider('r', this.value)">
-                    <span id="valueR">55%</span>
+                <div class="dev-controls" style="margin-top: 8px;">
+                    <button onclick="forceAllReady()" class="dev-btn green">✓ Tous Prêts</button>
+                    <button onclick="forceAllCompris()" class="dev-btn green" id="btnAllCompris" style="display:none;">✓ Tous Compris</button>
+                    <button onclick="skipDebriefing()" class="dev-btn" id="btnSkipDebriefing" style="display:none;">⏭️ Skip Débriefing</button>
                 </div>
-                <div class="dev-slider-row">
-                    <label>q (Satisfaction)</label>
-                    <input type="range" min="0" max="95" id="sliderQ" onchange="updateHiddenFromSlider('q', this.value)">
-                    <span id="valueQ">70%</span>
+                <div class="dev-controls" style="margin-top: 8px;">
+                    <button onclick="resetGame()" class="dev-btn red">🔄 Reset Jeu</button>
+                    <button onclick="showIntro()" class="dev-btn">📖 Voir Intro</button>
                 </div>
             </div>
+            
+            <div class="dev-section">
+                <h4>🎮 Système de Tours (Manche 1)</h4>
+                <div id="devToursStatus" style="font-size: 0.85em; margin-bottom: 10px;"></div>
+                <div class="dev-controls">
+                    <button onclick="devSetJoueur(1)" class="dev-btn">J1</button>
+                    <button onclick="devSetJoueur(2)" class="dev-btn">J2</button>
+                    <button onclick="devSetJoueur(3)" class="dev-btn">J3</button>
+                    <button onclick="devSetJoueur(4)" class="dev-btn">J4</button>
+                    <button onclick="devSetJoueur(5)" class="dev-btn">J5</button>
+                </div>
+                <div class="dev-controls" style="margin-top: 8px;">
+                    <button onclick="devResetTours()" class="dev-btn">🔄 Reset Tours</button>
+                    <button onclick="devFinManche1()" class="dev-btn red">⏭️ Forcer Fin M1</button>
+                </div>
+            </div>
+            
+            <div class="dev-section">
+                <h4>👁️ Options d'affichage</h4>
+                <label class="dev-toggle">
+                    <input type="checkbox" id="devModeToggle" onchange="toggleDevMode()">
+                    <span>Voir indicateurs cachés (VAG, CGE, RBE)</span>
+                </label>
+                <label class="dev-toggle">
+                    <input type="checkbox" id="vsmUnlockToggle" onchange="toggleVSMUnlock()">
+                    <span>Débloquer VSM en Manche 1</span>
+                </label>
+                <label class="dev-toggle">
+                    <input type="checkbox" id="infiniteBudgetToggle" onchange="toggleInfiniteBudget()">
+                    <span>Budget infini</span>
+                </label>
+                <label class="dev-toggle">
+                    <input type="checkbox" id="cardHelpToggle" onchange="toggleCardHelp()">
+                    <span>Aide sur cartes (badges + scores)</span>
+                </label>
+            </div>
         </div>
         
-        <div class="dev-section">
-            <h4>💰 Budgets (Manche 2-3)</h4>
-            <div class="dev-budgets" id="devBudgets"></div>
-            <button onclick="resetBudgets()" class="dev-btn" style="margin-top: 10px;">🔄 Reset tous les budgets</button>
+        <!-- TAB: Données -->
+        <div class="dev-tab-content" id="devTab-donnees" style="display: none;">
+            <div class="dev-section">
+                <h4>📊 Indicateurs Économiques</h4>
+                <div class="dev-indicators" id="devHiddenIndicators"></div>
+            </div>
+            
+            <div class="dev-section">
+                <h4>🎚️ Modifier SQR (Manche 3)</h4>
+                <p style="font-size: 0.75em; opacity: 0.7; margin-bottom: 10px;">S, R, Q plafonnés à 95%</p>
+                <div class="dev-sliders">
+                    <div class="dev-slider-row">
+                        <label>s (Vitesse)</label>
+                        <input type="range" min="0" max="95" id="sliderS" onchange="updateHiddenFromSlider('s', this.value)">
+                        <span id="valueS">60%</span>
+                    </div>
+                    <div class="dev-slider-row">
+                        <label>q (Satisfaction)</label>
+                        <input type="range" min="0" max="95" id="sliderQ" onchange="updateHiddenFromSlider('q', this.value)">
+                        <span id="valueQ">70%</span>
+                    </div>
+                    <div class="dev-slider-row">
+                        <label>r (Environnement)</label>
+                        <input type="range" min="0" max="95" id="sliderR" onchange="updateHiddenFromSlider('r', this.value)">
+                        <span id="valueR">55%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dev-section">
+                <h4>💰 Budgets</h4>
+                <div class="dev-budgets" id="devBudgets"></div>
+                <button onclick="resetBudgets()" class="dev-btn" style="margin-top: 10px;">🔄 Reset budgets</button>
+            </div>
+            
+            <div class="dev-section">
+                <h4>💸 CGE (Charges Globales)</h4>
+                <div class="dev-cge" id="devCGE"></div>
+            </div>
         </div>
         
-        <div class="dev-section">
-            <h4>💸 CGE (Charges Globales)</h4>
-            <div class="dev-cge" id="devCGE"></div>
+        <!-- TAB: Machines -->
+        <div class="dev-tab-content" id="devTab-machines" style="display: none;">
+            <div class="dev-section">
+                <h4>🏭 État des Machines</h4>
+                <div id="devMachinesStatus"></div>
+            </div>
+            
+            <div class="dev-section">
+                <h4>📦 Mix des Ventes</h4>
+                <div id="devSalesControls"></div>
+            </div>
+            
+            <div class="dev-section">
+                <h4>🗺️ Aperçu VSM</h4>
+                <div class="dev-vsm" id="devVSM"></div>
+            </div>
         </div>
         
-        <div class="dev-section">
-            <h4>🗺️ Mini VSM</h4>
-            <div class="dev-vsm" id="devVSM"></div>
-        </div>
-        
-        <div class="dev-section">
-            <h4>🃏 Cartes Jouées</h4>
-            <div class="dev-cards" id="devCards"></div>
-            <button onclick="resetAllCards()" class="dev-btn red" style="margin-top: 10px;">🗑️ Supprimer toutes les cartes</button>
+        <!-- TAB: Cartes -->
+        <div class="dev-tab-content" id="devTab-cartes" style="display: none;">
+            <div class="dev-section">
+                <h4>🃏 Cartes Jouées</h4>
+                <div class="dev-cards" id="devCards"></div>
+                <button onclick="resetAllCards()" class="dev-btn red" style="margin-top: 10px;">🗑️ Supprimer toutes les cartes</button>
+            </div>
         </div>
     </div>
     
@@ -3007,6 +3064,26 @@
         .dev-btn.green:hover { background: rgba(34, 197, 94, 0.3); }
         .dev-btn.red { background: rgba(239, 68, 68, 0.2); border-color: var(--danger); color: var(--danger); }
         .dev-btn.red:hover { background: rgba(239, 68, 68, 0.3); }
+        
+        /* Onglets du panel dev */
+        .dev-tab-btn {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-default);
+            color: var(--text-secondary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.75em;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .dev-tab-btn:hover { background: var(--bg-card); }
+        .dev-tab-btn.active {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            color: white;
+        }
+        .dev-tab-content { display: block; }
         
         .dev-toggle {
             display: flex;
@@ -3297,7 +3374,7 @@
         <div class="game-header">
             <div class="header-content">
                 <div class="logo-section">
-                    <h1>📋 TABLEAU TACTIQUE <span style="font-size: 0.5em; opacity: 0.7; font-weight: 400;">v0.6.25</span></h1>
+                    <h1>📋 TABLEAU TACTIQUE <span style="font-size: 0.5em; opacity: 0.7; font-weight: 400;">v0.6.32</span></h1>
                     <div style="font-size: 0.85em; opacity: 0.8;">ES Marbres & Granits - Simulation de Management</div>
                 </div>
                 <div class="controls">
@@ -3343,10 +3420,10 @@
                 <p>Décidez ENSEMBLE pour maximiser l'amélioration de la PIG !</p>
             </div>
             
-            <!-- V0.6.25 - Quick Stats Bar -->
+            <!-- V0.6.32 - Quick Stats Bar -->
             <div class="quick-stats-bar" id="quickStatsBar"></div>
             
-            <!-- V0.6.25 - Decision Assistant -->
+            <!-- V0.6.32 - Decision Assistant -->
             <div class="decision-assistant" id="decisionAssistant">
                 <div class="decision-assistant-header">
                     <div class="decision-assistant-title">
@@ -3408,7 +3485,7 @@
                         </div>
                         <div id="budgetDisplay" style="font-weight: 700; color: var(--yellow);"></div>
                     </div>
-                    <!-- V0.6.25 - Card Filters -->
+                    <!-- V0.6.32 - Card Filters -->
                     <div class="card-filters" id="cardFilters"></div>
                     <div class="cards-grid" id="cardsGrid"></div>
                 </div>
@@ -3601,7 +3678,7 @@
             delaiFournisseur: 60, // Délai fournisseur (jours)
             venteMin: 100,
             venteMax: 800,
-            QV: 250,            // Quantité vendue initiale
+            QV: 100,            // Quantité vendue initiale = minimum (J1 doit définir)
             // Indicateurs SQR par micro-flux (Manche 3)
             s: 0.60,            // Vitesse/réactivité
             q: 0.70,            // Satisfaction client
@@ -3623,7 +3700,7 @@
             delaiFournisseur: 60, // Délai fournisseur (jours)
             venteMin: 100,
             venteMax: 400,
-            QV: 200,            // Quantité vendue initiale
+            QV: 100,            // Quantité vendue initiale = minimum (J1 doit définir)
             s: 0.50,            // Plus lent (produit complexe)
             q: 0.75,
             r: 0.45             // Plus polluant (matière rare)
@@ -5145,8 +5222,27 @@
         unlockVSM: false,
         infiniteBudget: false,
         authenticated: false,
-        showRiskBadges: false  // Afficher les badges recommandé/risqué sur les cartes
+        showCardHelp: false  // Afficher l'aide sur les cartes (badges + score) - désactivé en Manche 1 par défaut
     };
+    
+    // Fonction pour basculer entre les onglets du panel développeur
+    function showDevTab(tabName) {
+        // Cacher tous les contenus
+        document.querySelectorAll('.dev-tab-content').forEach(tab => {
+            tab.style.display = 'none';
+        });
+        // Désactiver tous les boutons
+        document.querySelectorAll('.dev-tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        // Afficher le contenu sélectionné
+        const selectedTab = document.getElementById('devTab-' + tabName);
+        if (selectedTab) {
+            selectedTab.style.display = 'block';
+        }
+        // Activer le bouton sélectionné
+        document.querySelector(`.dev-tab-btn[data-tab="${tabName}"]`)?.classList.add('active');
+    }
     
     function toggleDevPanel() {
         const panel = document.getElementById('devPanel');
@@ -5319,18 +5415,26 @@
         let html = gouletMsg;
         
         for (const [mfId, mf] of Object.entries(gameState.microFlux)) {
-            const capaciteMax = calculerCapaciteVenteMax(mfId);
+            const limiteGoulet = calculerCapaciteVenteMax(mfId);
+            const demandeMax = mf.venteMax;
+            const limiteReelle = Math.min(demandeMax, limiteGoulet);
             const vag = mf.PV - mf.DA;
+            const isGouletLimitant = limiteGoulet < demandeMax;
             
             html += `
-                <div class="dev-budget-row" style="margin-bottom: 8px;">
+                <div class="dev-budget-row" style="margin-bottom: 8px; ${isGouletLimitant ? 'background: rgba(239, 68, 68, 0.05); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 6px;' : ''}">
                     <div style="flex: 1;">
                         <span>${mf.emoji} ${mf.nom}</span>
-                        <div style="font-size: 0.7em; color: var(--text-muted);">VAG: ${vag}€ | Max: ${capaciteMax}</div>
+                        <div style="font-size: 0.7em; color: var(--text-muted);">
+                            VAG: ${vag}€ | Demande: ${demandeMax} | 
+                            <span style="color: ${isGouletLimitant ? 'var(--danger)' : 'var(--success)'};">
+                                ${isGouletLimitant ? '🚫 Limite: ' + limiteGoulet : '✅ OK'}
+                            </span>
+                        </div>
                     </div>
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <button onclick="ajusterVentes('${mfId}', -10)" class="dev-btn" style="padding: 4px 8px;">-10</button>
-                        <input type="number" value="${mf.QV}" min="${mf.venteMin}" max="${capaciteMax}" 
+                        <input type="number" value="${mf.QV}" min="${mf.venteMin}" max="${limiteReelle}" 
                                onchange="setVentes('${mfId}', this.value)" style="width: 70px;" step="100">
                         <button onclick="ajusterVentes('${mfId}', 10)" class="dev-btn" style="padding: 4px 8px;">+10</button>
                     </div>
@@ -5455,7 +5559,9 @@
         }
         
         for (const [mfId, mf] of Object.entries(gameState.microFlux)) {
-            const capaciteMax = calculerCapaciteVenteMax(mfId);
+            const limiteGoulet = calculerCapaciteVenteMax(mfId);
+            const demandeMax = mf.venteMax; // Demande marché fixe
+            const isGouletLimitant = limiteGoulet < demandeMax;
             
             // Manche 1 : afficher marge brute (PV - DA), Manche 2+ : afficher VAG
             let valuePerUnit, totalValue, labelPerUnit;
@@ -5475,6 +5581,15 @@
             const tempsMachine = machineKey ? mf[machineKey] : null;
             const chargeTotal = machineKey ? (mf.QV * mf[machineKey]).toFixed(0) : null;
             
+            // Identifier quelle machine est le goulet pour ce produit
+            let gouletInfo = '';
+            if (isGouletLimitant) {
+                const goulet = identifierGoulet();
+                if (goulet) {
+                    gouletInfo = `⚠️ Limité par ${goulet.id} (${goulet.chargePercent.toFixed(0)}%)`;
+                }
+            }
+            
             if (canEdit) {
                 // Affichage avec contrôles (J1 en M1, ou tous en M2+)
                 const labelValue = manche === 1 && !gameState.phaseDebriefing ? 'Marge/u' : 'VAG/u';
@@ -5486,8 +5601,16 @@
                     'Marge Brute Totale = (PV - DA) × QV. Indicateur simplifié.' : 
                     'VAG Totale = VAG × QV. Contribution réelle de ce produit à la richesse créée.';
                 
+                // Limite réelle = min entre demande et goulet (INFRANCHISSABLE)
+                const limiteReelle = Math.min(demandeMax, limiteGoulet);
+                
+                // Calcul des pourcentages pour la barre visuelle
+                const pctQV = ((mf.QV - mf.venteMin) / (demandeMax - mf.venteMin)) * 100;
+                const pctGoulet = isGouletLimitant ? ((limiteGoulet - mf.venteMin) / (demandeMax - mf.venteMin)) * 100 : 100;
+                const isAtLimit = mf.QV >= limiteReelle * 0.95;
+                
                 html += `
-                    <div class="sales-card">
+                    <div class="sales-card ${isGouletLimitant && isAtLimit ? 'goulet-warning' : ''}">
                         <div class="sales-card-header">
                             <div class="sales-card-name"><span>${mf.emoji}</span>${mf.nom}</div>
                             <div class="sales-card-vag" style="color: var(--success);"><span class="tooltip-term" data-tooltip="${tooltipValue}">${formatNumber(valuePerUnit)}€/u</span></div>
@@ -5495,13 +5618,38 @@
                         <div class="sales-card-controls">
                             <button onclick="ajusterVentes('${mfId}', -100)">−100</button>
                             <button onclick="ajusterVentes('${mfId}', -10)">−10</button>
-                            <input type="number" value="${mf.QV}" min="${mf.venteMin}" max="${capaciteMax}" step="100"
-                                   onchange="setVentes('${mfId}', this.value)">
+                            <input type="number" value="${mf.QV}" min="${mf.venteMin}" max="${limiteReelle}" step="100"
+                                   onchange="setVentes('${mfId}', this.value)"
+                                   style="${isGouletLimitant && isAtLimit ? 'border-color: var(--warning); background: rgba(245, 158, 11, 0.1);' : ''}">
                             <button onclick="ajusterVentes('${mfId}', 10)">+10</button>
                             <button onclick="ajusterVentes('${mfId}', 100)">+100</button>
                         </div>
+                        <div class="sales-minmax-bar">
+                            <div class="sales-minmax-labels">
+                                <span class="tooltip-term" data-tooltip="Demande minimum du marché">Min: ${mf.venteMin}</span>
+                                <span style="color: var(--accent-primary); font-weight: 600;">QV: ${mf.QV}</span>
+                                <span class="tooltip-term" data-tooltip="Demande maximum du marché (objectif commercial)${isGouletLimitant ? ' - ⚠️ Limité par goulet à ' + limiteGoulet : ''}">Max: ${demandeMax}</span>
+                            </div>
+                            <div class="sales-minmax-track" style="position: relative;">
+                                <!-- Barre de progression QV -->
+                                <div class="sales-minmax-fill ${isAtLimit ? 'warning' : ''}" 
+                                     style="width: ${Math.min(100, pctQV)}%"></div>
+                                <!-- Marqueur du goulet si limitant (BARRIÈRE ROUGE) -->
+                                ${isGouletLimitant ? `
+                                <div class="sales-goulet-marker" style="position: absolute; left: ${pctGoulet}%; top: -4px; bottom: -4px; width: 4px; background: var(--danger); border-radius: 2px; box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);" 
+                                     title="🚫 LIMITE GOULET: ${limiteGoulet} unités (infranchissable)"></div>
+                                ` : ''}
+                            </div>
+                        </div>
+                        ${isGouletLimitant ? `
+                        <div class="sales-goulet-info" style="font-size: 0.75em; color: var(--danger); margin-top: 6px; padding: 6px 8px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; display: flex; align-items: center; gap: 6px;">
+                            <span>🚫</span>
+                            <span><strong>Limite production:</strong> max ${limiteGoulet} unités</span>
+                            <span style="color: var(--text-muted);">|</span>
+                            <span>${gouletInfo}</span>
+                        </div>
+                        ` : ''}
                         <div class="sales-card-info">
-                            <span><span class="tooltip-term" data-tooltip="Limites en fonction des contraintes et de la demande du marché">Min: ${mf.venteMin} / Max: ${capaciteMax}</span></span>
                             <span style="color: var(--success); font-weight: 600;"><span class="tooltip-term" data-tooltip="${tooltipTotal}">${labelTotal}: ${formatNumber(Math.round(totalValue))}€</span></span>
                         </div>
                     </div>
@@ -5584,8 +5732,18 @@
     
     function ajusterVentes(mfId, delta) {
         const mf = gameState.microFlux[mfId];
-        const capaciteMax = calculerCapaciteVenteMax(mfId);
-        const nouvelleValeur = Math.max(mf.venteMin, Math.min(capaciteMax, mf.QV + delta));
+        const demandeMax = mf.venteMax; // Demande marché fixe (affichage)
+        const limiteGoulet = calculerCapaciteVenteMax(mfId); // Limite de production (BLOQUANTE)
+        
+        // La limite du goulet est INFRANCHISSABLE
+        const limiteReelle = Math.min(demandeMax, limiteGoulet);
+        const nouvelleValeur = Math.max(mf.venteMin, Math.min(limiteReelle, mf.QV + delta));
+        
+        // Si on essaie de dépasser et qu'on est bloqué par le goulet
+        if (mf.QV + delta > limiteGoulet && limiteGoulet < demandeMax) {
+            showToast(`🚫 Bloqué par le goulet ! Max productible: ${limiteGoulet} unités`, 'warning');
+        }
+        
         mf.QV = nouvelleValeur;
         calculerChargesMachines();
         renderDevPanel();
@@ -5594,8 +5752,19 @@
     
     function setVentes(mfId, valeur) {
         const mf = gameState.microFlux[mfId];
-        const capaciteMax = calculerCapaciteVenteMax(mfId);
-        const nouvelleValeur = Math.max(mf.venteMin, Math.min(capaciteMax, parseInt(valeur) || 0));
+        const demandeMax = mf.venteMax; // Demande marché fixe (affichage)
+        const limiteGoulet = calculerCapaciteVenteMax(mfId); // Limite de production (BLOQUANTE)
+        
+        // La limite du goulet est INFRANCHISSABLE
+        const limiteReelle = Math.min(demandeMax, limiteGoulet);
+        const valeurDemandee = parseInt(valeur) || 0;
+        const nouvelleValeur = Math.max(mf.venteMin, Math.min(limiteReelle, valeurDemandee));
+        
+        // Si on essaie de dépasser et qu'on est bloqué par le goulet
+        if (valeurDemandee > limiteGoulet && limiteGoulet < demandeMax) {
+            showToast(`🚫 Bloqué par le goulet ! Max productible: ${limiteGoulet} unités`, 'warning');
+        }
+        
         mf.QV = nouvelleValeur;
         calculerChargesMachines();
         renderDevPanel();
@@ -5979,8 +6148,8 @@
         intro.style.opacity = '0';
         setTimeout(() => {
             intro.classList.add('hidden');
-            // Initialiser le mix au maximum possible
-            initialiserMixMaximum();
+            // Initialiser le mix au minimum (J1 doit le définir)
+            initialiserMixMinimum();
             // Commencer avec le joueur 1, tour 1
             gameState.joueurActuel = 1;
             gameState.tourActuel = 1;
@@ -5992,85 +6161,17 @@
     }
     
     // Initialiser le mix de ventes au maximum possible (limité par le goulet)
-    function initialiserMixMaximum() {
-        // Trouver le goulet (machine limitante)
-        let gouletId = null;
-        let minRatio = Infinity;
-        
-        for (const machineId in gameState.machines) {
-            const machine = gameState.machines[machineId];
-            // Calculer le temps total nécessaire pour les venteMax
-            let tempsTotal = 0;
-            for (const mfId in gameState.microFlux) {
-                const mf = gameState.microFlux[mfId];
-                const temps = mf[`t${machineId}`] || 0;
-                tempsTotal += mf.venteMax * temps;
-            }
-            const ratio = machine.capacite / tempsTotal;
-            if (ratio < minRatio) {
-                minRatio = ratio;
-                gouletId = machineId;
-            }
-        }
-        
-        if (!gouletId) return;
-        
-        const capaciteGoulet = gameState.machines[gouletId].capacite;
-        
-        // Calculer la marge par heure de goulet pour chaque produit
-        const produitsParEfficicacite = [];
+    // Initialiser le mix de ventes au minimum (J1 doit le définir lui-même)
+    function initialiserMixMinimum() {
         for (const mfId in gameState.microFlux) {
             const mf = gameState.microFlux[mfId];
-            const tempsGoulet = mf[`t${gouletId}`] || 0;
-            if (tempsGoulet > 0) {
-                const marge = mf.PV - mf.DA;
-                const efficacite = marge / tempsGoulet; // €/heure de goulet
-                produitsParEfficicacite.push({
-                    mfId,
-                    mf,
-                    tempsGoulet,
-                    efficacite,
-                    venteMax: mf.venteMax,
-                    venteMin: mf.venteMin
-                });
-            }
-        }
-        
-        // Trier par efficacité décroissante (plus rentable d'abord)
-        produitsParEfficicacite.sort((a, b) => b.efficacite - a.efficacite);
-        
-        // Répartir la capacité du goulet
-        let capaciteRestante = capaciteGoulet * 0.95; // Garder 5% de marge
-        
-        for (const produit of produitsParEfficicacite) {
-            // Combien d'unités peut-on faire avec la capacité restante?
-            const unitesMax = Math.floor(capaciteRestante / produit.tempsGoulet);
-            // Limiter au venteMax
-            const unites = Math.min(unitesMax, produit.venteMax);
-            // Assurer au moins le venteMin
-            const unitesFinal = Math.max(produit.venteMin, unites);
-            
-            // Appliquer
-            produit.mf.QV = unitesFinal;
-            
-            // Réduire la capacité restante
-            capaciteRestante -= unitesFinal * produit.tempsGoulet;
-            
-            // Si plus de capacité, arrêter (les produits restants auront leur venteMin)
-            if (capaciteRestante <= 0) {
-                // Mettre les produits restants à leur venteMin
-                const index = produitsParEfficicacite.indexOf(produit);
-                for (let i = index + 1; i < produitsParEfficicacite.length; i++) {
-                    produitsParEfficicacite[i].mf.QV = produitsParEfficicacite[i].venteMin;
-                }
-                break;
-            }
+            mf.QV = mf.venteMin;
         }
         
         // Recalculer les charges
         calculerChargesMachines();
         
-        console.log('Mix initialisé au maximum:', 
+        console.log('Mix initialisé au minimum:', 
             Object.entries(gameState.microFlux).map(([id, mf]) => `${id}: ${mf.QV}`).join(', '));
     }
     
@@ -6123,8 +6224,8 @@
             carteEnAttente: null,
             cibleSelectionnee: null
         };
-        // Initialiser le mix au maximum possible
-        initialiserMixMaximum();
+        // Initialiser le mix au minimum (J1 doit le définir)
+        initialiserMixMinimum();
         gameState.hidden.pig = calculerPIG();
         showToast('Jeu réinitialisé !', 'success');
         render();
@@ -6159,9 +6260,9 @@
         renderDevPanel();
     }
     
-    function toggleRiskBadges() {
-        devMode.showRiskBadges = document.getElementById('riskBadgesToggle').checked;
-        showToast(devMode.showRiskBadges ? '🏷️ Badges de risque activés' : '🏷️ Badges de risque désactivés', 'info');
+    function toggleCardHelp() {
+        devMode.showCardHelp = document.getElementById('cardHelpToggle').checked;
+        showToast(devMode.showCardHelp ? '🏷️ Aide sur cartes activée (badges + scores)' : '🏷️ Aide sur cartes désactivée', 'info');
         render();
     }
     
@@ -6704,6 +6805,18 @@
         const config = JOUEURS_CONFIG[joueur];
         const budgetRestant = gameState.budgetManche1;
         const roundActuel = gameState.roundManche1 || 1;
+        
+        // Si c'est le tour du J1 (Commercial), remettre le mix au minimum
+        // Le J1 doit définir lui-même les quantités optimales
+        if (joueur === 1 && gameState.manche === 1) {
+            for (const mfId in gameState.microFlux) {
+                const mf = gameState.microFlux[mfId];
+                mf.QV = mf.venteMin;
+            }
+            calculerChargesMachines();
+            console.log('Mix réinitialisé au minimum pour J1:', 
+                Object.entries(gameState.microFlux).map(([id, mf]) => `${id}: ${mf.QV}`).join(', '));
+        }
         
         // Consignes personnalisées par service (uniquement au 1er round)
         let consignes = '';
@@ -8168,6 +8281,8 @@
             const chM1 = mf.QV * mf.tM1;
             const chM2 = mf.QV * mf.tM2;
             const chM3 = mf.QV * mf.tM3;
+            const chM4 = mf.QV * mf.tM4;
+            const chM5 = mf.QV * mf.tM5;
             const bfrTotal = bfr * mf.QV;
             
             vagTotal += vagVente;
@@ -8183,6 +8298,8 @@
                 tM1: mf.tM1,
                 tM2: mf.tM2,
                 tM3: mf.tM3,
+                tM4: mf.tM4,
+                tM5: mf.tM5,
                 LT: mf.LT,
                 Tr: mf.Tr,
                 delaiClient: mf.delaiClient,
@@ -8200,6 +8317,8 @@
                 ChM1: chM1,
                 ChM2: chM2,
                 ChM3: chM3,
+                ChM4: chM4,
+                ChM5: chM5,
                 BFRTotal: bfrTotal,
                 // SQR par micro-flux (pour manche 3)
                 s: mf.s,
@@ -8212,6 +8331,8 @@
         const chargeM1 = mfData.reduce((sum, mf) => sum + mf.ChM1, 0);
         const chargeM2 = mfData.reduce((sum, mf) => sum + mf.ChM2, 0);
         const chargeM3 = mfData.reduce((sum, mf) => sum + mf.ChM3, 0);
+        const chargeM4 = mfData.reduce((sum, mf) => sum + mf.ChM4, 0);
+        const chargeM5 = mfData.reduce((sum, mf) => sum + mf.ChM5, 0);
         
         // CGE et RBE
         const cge = gameState.cge;
@@ -8264,7 +8385,7 @@
                     <thead>
                         <tr>
                             <th rowspan="2"></th>
-                            <th colspan="9" class="section-header-blue">Caractéristiques Produits</th>
+                            <th colspan="11" class="section-header-blue">Caractéristiques Produits</th>
                             <th colspan="6" class="section-header-green">${tt('DDP', 'DDP')} Unitaires</th>
                             <th colspan="2" class="section-header-yellow">${tt('VAG', 'VAG')}</th>
                         </tr>
@@ -8274,6 +8395,8 @@
                             <th>${tt('tM1', 'tM1')}</th>
                             <th>${tt('tM2', 'tM2')}</th>
                             <th>${tt('tM3', 'tM3')}</th>
+                            <th>${tt('tM4', 'tM4')}</th>
+                            <th>${tt('tM5', 'tM5')}</th>
                             <th>${tt('LT', 'LT')}</th>
                             <th>${tt('Tr', 'Tr')}</th>
                             <th>${tt('Délai C.', 'DelaiC')}</th>
@@ -8299,6 +8422,8 @@
                             <td>${mf.tM1}</td>
                             <td>${mf.tM2}</td>
                             <td>${mf.tM3}</td>
+                            <td>${mf.tM4}</td>
+                            <td>${mf.tM5}</td>
                             <td>${mf.LT}</td>
                             <td>${(mf.Tr * 100).toFixed(0)}%</td>
                             <td>${mf.delaiClient}</td>
@@ -8315,7 +8440,7 @@
         
         tableHTML += `
                         <tr class="total-row">
-                            <td colspan="16" style="text-align: right;">${tt('VAG Totale', 'VAGVente')}</td>
+                            <td colspan="18" style="text-align: right;">${tt('VAG Totale', 'VAGVente')}</td>
                             <td class="${vagTotal >= 0 ? 'value-positive' : 'value-negative'}">${formatNumber(Math.round(vagTotal))}</td>
                         </tr>
                     </tbody>
@@ -8346,7 +8471,8 @@
                         <tr>
                             <th rowspan="2"></th>
                             <th colspan="3" class="section-header-yellow">Ventes</th>
-                            <th colspan="4" class="section-header-blue">Charges et Capacités</th>
+                            <th colspan="6" class="section-header-blue">Charges Machines (h)</th>
+                            <th class="section-header-green">BFR</th>
                         </tr>
                         <tr>
                             <th>Min</th>
@@ -8355,6 +8481,8 @@
                             <th>${tt('ChM1', 'ChM')}</th>
                             <th>${tt('ChM2', 'ChM')}</th>
                             <th>${tt('ChM3', 'ChM')}</th>
+                            <th style="background: rgba(239, 68, 68, 0.3);">${tt('ChM4', 'ChM')} ⚠️</th>
+                            <th>${tt('ChM5', 'ChM')}</th>
                             <th>${tt('BFR total', 'BFR')}</th>
                         </tr>
                     </thead>
@@ -8370,6 +8498,8 @@
                             <td>${formatNumber(Math.round(mf.ChM1))}</td>
                             <td>${formatNumber(Math.round(mf.ChM2))}</td>
                             <td>${formatNumber(Math.round(mf.ChM3))}</td>
+                            <td style="background: rgba(239, 68, 68, 0.1);">${formatNumber(Math.round(mf.ChM4))}</td>
+                            <td>${formatNumber(Math.round(mf.ChM5))}</td>
                             <td>${formatNumber(Math.round(mf.BFRTotal))} €</td>
                         </tr>`;
         });
@@ -8378,29 +8508,43 @@
         const pctM1 = (chargeM1 / CAPACITES_MACHINES.M1) * 100;
         const pctM2 = (chargeM2 / CAPACITES_MACHINES.M2) * 100;
         const pctM3 = (chargeM3 / CAPACITES_MACHINES.M3) * 100;
+        const pctM4 = (chargeM4 / CAPACITES_MACHINES.M4) * 100;
+        const pctM5 = (chargeM5 / CAPACITES_MACHINES.M5) * 100;
         
         tableHTML += `
                         <tr class="total-row">
-                            <td></td>
+                            <td><strong>Charge</strong></td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td class="capacity-cell ${getConstraintClass(pctM1)}">
-                                <strong>Charge: ${formatNumber(Math.round(chargeM1))}</strong>
+                                <strong>${formatNumber(Math.round(chargeM1))}h</strong>
                                 <div class="constraint-bar-container">
                                     <div class="constraint-bar-fill ${getBarClass(pctM1)}" style="width: ${Math.min(pctM1, 100)}%"></div>
                                 </div>
                             </td>
                             <td class="capacity-cell ${getConstraintClass(pctM2)}">
-                                <strong>Charge: ${formatNumber(Math.round(chargeM2))}</strong>
+                                <strong>${formatNumber(Math.round(chargeM2))}h</strong>
                                 <div class="constraint-bar-container">
                                     <div class="constraint-bar-fill ${getBarClass(pctM2)}" style="width: ${Math.min(pctM2, 100)}%"></div>
                                 </div>
                             </td>
                             <td class="capacity-cell ${getConstraintClass(pctM3)}">
-                                <strong>Charge: ${formatNumber(Math.round(chargeM3))}</strong>
+                                <strong>${formatNumber(Math.round(chargeM3))}h</strong>
                                 <div class="constraint-bar-container">
                                     <div class="constraint-bar-fill ${getBarClass(pctM3)}" style="width: ${Math.min(pctM3, 100)}%"></div>
+                                </div>
+                            </td>
+                            <td class="capacity-cell ${getConstraintClass(pctM4)}" style="background: rgba(239, 68, 68, 0.15);">
+                                <strong>${formatNumber(Math.round(chargeM4))}h</strong>
+                                <div class="constraint-bar-container">
+                                    <div class="constraint-bar-fill ${getBarClass(pctM4)}" style="width: ${Math.min(pctM4, 100)}%"></div>
+                                </div>
+                            </td>
+                            <td class="capacity-cell ${getConstraintClass(pctM5)}">
+                                <strong>${formatNumber(Math.round(chargeM5))}h</strong>
+                                <div class="constraint-bar-container">
+                                    <div class="constraint-bar-fill ${getBarClass(pctM5)}" style="width: ${Math.min(pctM5, 100)}%"></div>
                                 </div>
                             </td>
                             <td class="${getConstraintClass(pctBFR)}">
@@ -8411,20 +8555,34 @@
                             </td>
                         </tr>
                         <tr class="total-row">
+                            <td><strong>Capacité</strong></td>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
-                            <td><strong>Capacité: ${CAPACITES_MACHINES.M1}</strong></td>
-                            <td><strong>Capacité: ${CAPACITES_MACHINES.M2}</strong></td>
-                            <td><strong>Capacité: ${CAPACITES_MACHINES.M3}</strong></td>
+                            <td><strong>${CAPACITES_MACHINES.M1}h</strong></td>
+                            <td><strong>${CAPACITES_MACHINES.M2}h</strong></td>
+                            <td><strong>${CAPACITES_MACHINES.M3}h</strong></td>
+                            <td style="background: rgba(239, 68, 68, 0.1);"><strong>${CAPACITES_MACHINES.M4}h</strong></td>
+                            <td><strong>${CAPACITES_MACHINES.M5}h</strong></td>
                             <td><strong>Max: ${(CONTRAINTES.BFR_max / 1000000).toFixed(1)}M €</strong></td>
                         </tr>
+                        <tr class="total-row">
+                            <td><strong>TRG</strong></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="${pctM1 >= SEUILS.goulet.critique ? 'value-negative' : pctM1 >= SEUILS.goulet.alerte ? 'value-warning' : 'value-positive'}"><strong>${pctM1.toFixed(0)}%</strong></td>
+                            <td class="${pctM2 >= SEUILS.goulet.critique ? 'value-negative' : pctM2 >= SEUILS.goulet.alerte ? 'value-warning' : 'value-positive'}"><strong>${pctM2.toFixed(0)}%</strong></td>
+                            <td class="${pctM3 >= SEUILS.goulet.critique ? 'value-negative' : pctM3 >= SEUILS.goulet.alerte ? 'value-warning' : 'value-positive'}"><strong>${pctM3.toFixed(0)}%</strong></td>
+                            <td style="background: rgba(239, 68, 68, 0.15);" class="${pctM4 >= SEUILS.goulet.critique ? 'value-negative' : pctM4 >= SEUILS.goulet.alerte ? 'value-warning' : 'value-positive'}"><strong>${pctM4.toFixed(0)}% ⚠️</strong></td>
+                            <td class="${pctM5 >= SEUILS.goulet.critique ? 'value-negative' : pctM5 >= SEUILS.goulet.alerte ? 'value-warning' : 'value-positive'}"><strong>${pctM5.toFixed(0)}%</strong></td>
+                            <td><strong>${pctBFR.toFixed(0)}%</strong></td>
+                        </tr>
                         <tr>
-                            <td style="text-align:right;"><strong>Force vente</strong></td>
+                            <td><strong>Force Vente</strong></td>
                             <td></td>
                             <td class="${getConstraintClass(pctForceVente)}">
-                                <strong class="constraint-indicator">${forceVente} / ${FORCE_VENTE_MAX}</strong>
+                                <strong>${forceVente} / ${FORCE_VENTE_MAX}</strong>
                                 <div class="constraint-bar-container">
                                     <div class="constraint-bar-fill ${getBarClass(pctForceVente)}" style="width: ${Math.min(pctForceVente, 100)}%"></div>
                                 </div>
@@ -8433,6 +8591,8 @@
                             <td><strong>${MAINTENANCE_MACHINES.M1} €/h</strong></td>
                             <td><strong>${MAINTENANCE_MACHINES.M2} €/h</strong></td>
                             <td><strong>${MAINTENANCE_MACHINES.M3} €/h</strong></td>
+                            <td style="background: rgba(239, 68, 68, 0.1);"><strong>${MAINTENANCE_MACHINES.M4} €/h</strong></td>
+                            <td><strong>${MAINTENANCE_MACHINES.M5} €/h</strong></td>
                             <td style="text-align:right;"><strong>${tt('Tag', 'Tag')}: ${(TAG * 100).toFixed(0)}%</strong></td>
                         </tr>
                     </tbody>
@@ -8943,18 +9103,21 @@
                     const opacity = c.purchased ? '0.5' : (!c.canAfford ? '0.7' : '1');
                     const buyText = c.purchased ? '✓ Jouée' : (c.canAfford ? '🎴 Acheter' : '💸 Insuffisant');
                     
-                    // V0.6.25: Calculer score et risque
+                    // V0.6.32: Calculer score et risque
                     const impacts = typeof analyzeCardImpacts === 'function' ? analyzeCardImpacts(c) : { score: 50 };
                     const risk = typeof evaluateCardRisk === 'function' ? evaluateCardRisk(c) : { riskLevel: 'low-risk' };
+                    
+                    // Aide visible seulement si activée ou Manche 2+
+                    const showHelp = devMode.showCardHelp || gameState.manche >= 2;
                     
                     let scoreBarClass = 'poor';
                     if (impacts.score >= 70) scoreBarClass = 'excellent';
                     else if (impacts.score >= 55) scoreBarClass = 'good';
                     else if (impacts.score >= 40) scoreBarClass = 'medium';
                     
-                    // Badge de risque
+                    // Badge de risque (seulement si aide activée)
                     let riskBadge = '';
-                    if (!c.purchased && c.canAfford) {
+                    if (!c.purchased && c.canAfford && showHelp) {
                         if (risk.riskLevel === 'high-risk') {
                             riskBadge = `<span style="font-size: 0.7em; padding: 2px 6px; border-radius: 4px; background: rgba(239, 68, 68, 0.2); color: var(--danger); margin-left: 6px;">⚠️</span>`;
                         }
@@ -8969,8 +9132,8 @@
                             <div style="font-size: 0.85em; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.5;">${c.description}</div>
                             ${c.effetVisible ? `<div style="font-size: 0.8em; color: var(--success); margin-bottom: 10px; padding: 6px 10px; background: rgba(34, 197, 94, 0.1); border-radius: 6px;">✨ ${c.effetVisible}</div>` : ''}
                             
-                            <!-- V0.6.25: Score de décision -->
-                            ${!c.purchased ? `
+                            <!-- V0.6.32: Score de décision (seulement si aide activée) -->
+                            ${!c.purchased && showHelp ? `
                             <div class="decision-score" style="margin-bottom: 10px;">
                                 <span class="decision-score-label">Score</span>
                                 <div class="decision-score-bar">
@@ -9012,7 +9175,7 @@
             return;
         }
         
-        // Manche 1 : affichage classique avec fonctionnalités V0.6.25
+        // Manche 1 : affichage classique avec fonctionnalités V0.6.32
         // Bloquer les cartes pour J1 si le mix n'est pas validé
         if (manche === 1 && j === 1 && !gameState.mixValideJ1 && !gameState.phaseDebriefing) {
             document.getElementById('cardsGrid').innerHTML = `
@@ -9027,7 +9190,7 @@
             return;
         }
         
-        // V0.6.25: Appliquer filtres et tri
+        // V0.6.32: Appliquer filtres et tri
         let cartesFiltrées = cartes.map(c => {
             const purchased = cartesAchetees.includes(c.id);
             const canAfford = budget >= c.cout;
@@ -9055,7 +9218,7 @@
             return 0;
         });
         
-        // V0.6.25: Identifier les meilleures cartes pour les badges
+        // V0.6.32: Identifier les meilleures cartes pour les badges
         const recommendedCards = typeof getRecommendedCards === 'function' ? 
             getRecommendedCards(cartesTriees.filter(c => !c.purchased && c.canAfford), 2) : [];
         const recommendedIds = recommendedCards.map(r => r.carte.id);
@@ -9083,15 +9246,16 @@
                 }
             }
             
-            // V0.6.25: Calculer le risque et le score de la carte
+            // V0.6.32: Calculer le risque et le score de la carte
             const risk = typeof evaluateCardRisk === 'function' ? evaluateCardRisk(c) : { riskLevel: 'low-risk' };
             const impacts = typeof analyzeCardImpacts === 'function' ? analyzeCardImpacts(c) : { score: 50 };
             const isRecommended = recommendedIds.includes(c.id);
             const isSelectedForCompare = uxState && uxState.selectedForComparison && uxState.selectedForComparison.includes(c.id);
             
-            // Badge de risque ou recommandation (seulement si activé dans devMode)
+            // Badge de risque ou recommandation (seulement si aide activée dans devMode ou Manche 2+)
             let riskBadgeHTML = '';
-            if (!c.purchased && c.canAfford && devMode.showRiskBadges) {
+            const showHelp = devMode.showCardHelp || gameState.manche >= 2;
+            if (!c.purchased && c.canAfford && showHelp) {
                 if (isRecommended) {
                     riskBadgeHTML = `<div class="card-risk-badge best-choice">⭐ Recommandée</div>`;
                 } else if (risk.riskLevel === 'high-risk') {
@@ -9111,7 +9275,7 @@
             const buyText = c.purchased ? '✓ Jouée' : 
                             (c.canAfford ? '🎴 Acheter cette carte' : '💸 Budget insuffisant');
             
-            // V0.6.25: Ajouter class pour sélection de comparaison
+            // V0.6.32: Ajouter class pour sélection de comparaison
             const compareClass = isSelectedForCompare ? 'selected-for-compare' : '';
             const compareHandler = uxState && uxState.comparisonMode && !c.purchased ? 
                 `onclick="toggleCardComparison('${c.id}')" style="cursor: pointer;"` : '';
@@ -9130,8 +9294,8 @@
                         <span style="color: var(--success); font-weight: 600;">✨ Effet :</span> ${c.effetVisible}
                     </div>` : ''}
                     
-                    <!-- V0.6.25: Score de décision -->
-                    ${!c.purchased ? `
+                    <!-- V0.6.32: Score de décision (seulement si aide activée) -->
+                    ${!c.purchased && showHelp ? `
                     <div class="decision-score">
                         <span class="decision-score-label">Score</span>
                         <div class="decision-score-bar">
@@ -10050,7 +10214,7 @@
         }
     });
     
-    // ==================== V0.6.25 - NOUVELLES FONCTIONNALITÉS UX ====================
+    // ==================== V0.6.32 - NOUVELLES FONCTIONNALITÉS UX ====================
     
     // État des nouvelles fonctionnalités
     const uxState = {
@@ -10095,6 +10259,12 @@
         const panel = document.getElementById('comparisonPanel');
         if (!panel) return;
         
+        // Mettre à jour le compteur
+        const countEl = document.getElementById('comparisonCount');
+        if (countEl) {
+            countEl.textContent = `(${uxState.selectedForComparison.length}/3)`;
+        }
+        
         if (!uxState.comparisonMode || uxState.selectedForComparison.length === 0) {
             panel.classList.remove('active');
             return;
@@ -10102,6 +10272,7 @@
         
         panel.classList.add('active');
         const manche = gameState.manche;
+        const joueur = gameState.joueurActuel;
         
         const cardsHTML = uxState.selectedForComparison.map(carteId => {
             const carte = findCarteById(carteId);
@@ -10114,39 +10285,90 @@
             let metricsHTML = '';
             
             if (manche === 1 && !gameState.phaseDebriefing) {
-                // Manche 1: métriques visibles uniquement
-                // J2 (Approvisionnement) ne voit pas le Lead Time
-                const joueur = gameState.joueurActuel;
-                const showLT = joueur !== 2;
+                // Manche 1: afficher UNIQUEMENT l'indicateur phare du joueur
+                const showHelp = devMode.showCardHelp;
                 
-                metricsHTML = `
-                    ${showLT ? `
-                    <div class="comparison-metric">
-                        <span class="comparison-metric-label">Lead Time</span>
-                        <span class="comparison-metric-value" style="color: ${impacts.ltImpact <= 0 ? 'var(--success)' : 'var(--danger)'}">
-                            ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact}j
-                        </span>
-                    </div>
-                    ` : ''}
-                    <div class="comparison-metric">
-                        <span class="comparison-metric-label">Impact Rebut</span>
-                        <span class="comparison-metric-value" style="color: ${impacts.qualityImpact >= 0 ? 'var(--success)' : 'var(--danger)'}">
-                            ${impacts.qualityImpact >= 0 ? '+' : ''}${impacts.qualityImpact.toFixed(0)}%
-                        </span>
-                    </div>
-                    <div class="comparison-metric">
-                        <span class="comparison-metric-label">Risque</span>
-                        <span class="comparison-metric-value" style="color: ${risk.riskLevel === 'low-risk' ? 'var(--success)' : risk.riskLevel === 'medium-risk' ? 'var(--warning)' : 'var(--danger)'}">
-                            ${risk.riskLevel === 'low-risk' ? '✅ Faible' : risk.riskLevel === 'medium-risk' ? '⚡ Modéré' : '⚠️ Élevé'}
-                        </span>
-                    </div>
-                    <div class="comparison-metric">
-                        <span class="comparison-metric-label">Score</span>
-                        <span class="comparison-metric-value" style="color: var(--accent-primary)">
-                            ${impacts.score}/100
-                        </span>
-                    </div>
-                `;
+                // Calculer l'impact spécifique selon le joueur
+                if (joueur === 1) {
+                    // J1 Commercial: Impact sur la Marge
+                    const pvImpact = carte.impacts?.global?.PV ? (carte.impacts.global.PV * 100) : 0;
+                    const daImpact = carte.impacts?.global?.DA ? (carte.impacts.global.DA * 100) : 0;
+                    const margeImpact = pvImpact - daImpact;
+                    
+                    metricsHTML = `
+                        <div class="comparison-metric">
+                            <span class="comparison-metric-label">💵 Impact Marge</span>
+                            <span class="comparison-metric-value" style="color: ${margeImpact >= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.2em;">
+                                ${margeImpact >= 0 ? '+' : ''}${margeImpact.toFixed(1)}%
+                            </span>
+                        </div>
+                    `;
+                } else if (joueur === 2) {
+                    // J2 Approvisionnement: Impact sur le Coût de Revient
+                    const daImpact = carte.impacts?.global?.DA ? (carte.impacts.global.DA * 100) : 0;
+                    
+                    metricsHTML = `
+                        <div class="comparison-metric">
+                            <span class="comparison-metric-label">📦 Impact Coût Revient</span>
+                            <span class="comparison-metric-value" style="color: ${daImpact <= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.2em;">
+                                ${daImpact > 0 ? '+' : ''}${daImpact.toFixed(1)}%
+                            </span>
+                        </div>
+                    `;
+                } else if (joueur === 3) {
+                    // J3 Logistique: Impact sur le Lead Time
+                    metricsHTML = `
+                        <div class="comparison-metric">
+                            <span class="comparison-metric-label">🚚 Impact Lead Time</span>
+                            <span class="comparison-metric-value" style="color: ${impacts.ltImpact <= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.2em;">
+                                ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact}j
+                            </span>
+                        </div>
+                    `;
+                } else if (joueur === 4) {
+                    // J4 Production: Impact sur la Capacité/TRG
+                    const capImpact = carte.impacts?.global?.CAP ? (carte.impacts.global.CAP * 100) : 0;
+                    const tcImpact = carte.impacts?.global?.TC ? (carte.impacts.global.TC * 100) : 0;
+                    
+                    metricsHTML = `
+                        <div class="comparison-metric">
+                            <span class="comparison-metric-label">🏭 Impact Capacité</span>
+                            <span class="comparison-metric-value" style="color: ${capImpact >= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.2em;">
+                                ${capImpact >= 0 ? '+' : ''}${capImpact.toFixed(0)}%
+                            </span>
+                        </div>
+                        <div class="comparison-metric">
+                            <span class="comparison-metric-label">⏱️ Temps Cycle</span>
+                            <span class="comparison-metric-value" style="color: ${tcImpact <= 0 ? 'var(--success)' : 'var(--danger)'}">
+                                ${tcImpact > 0 ? '+' : ''}${tcImpact.toFixed(0)}%
+                            </span>
+                        </div>
+                    `;
+                } else if (joueur === 5) {
+                    // J5 Qualité: Impact sur la Conformité (inverse du TR)
+                    const trImpact = impacts.qualityImpact; // Déjà calculé
+                    
+                    metricsHTML = `
+                        <div class="comparison-metric">
+                            <span class="comparison-metric-label">✅ Impact Conformité</span>
+                            <span class="comparison-metric-value" style="color: ${trImpact <= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.2em;">
+                                ${trImpact > 0 ? '+' : ''}${trImpact.toFixed(1)}% TR
+                            </span>
+                        </div>
+                    `;
+                }
+                
+                // Ajouter score si aide activée
+                if (showHelp) {
+                    metricsHTML += `
+                        <div class="comparison-metric" style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-subtle);">
+                            <span class="comparison-metric-label">Score</span>
+                            <span class="comparison-metric-value" style="color: var(--accent-primary)">
+                                ${impacts.score}/100
+                            </span>
+                        </div>
+                    `;
+                }
             } else {
                 // Manche 2+: on peut montrer VAG
                 metricsHTML = `
@@ -10572,7 +10794,7 @@
             // Propriétés compatibles avec l'ancienne version
             goulet: gouletMachine,
             chargePercent: maxCharge,
-            // Nouvelles propriétés pour v0.6.25
+            // Nouvelles propriétés pour v0.6.32
             machine: gouletMachine,
             charge: Math.round(maxCharge),
             surcharge: maxCharge > SEUILS.goulet.critique
@@ -10656,6 +10878,9 @@
         const joueur = gameState.joueurActuel;
         const impacts = analyzeCardImpacts(carte);
         const risk = evaluateCardRisk(carte);
+        
+        // Aide visible seulement si activée ou Manche 2+
+        const showHelp = devMode.showCardHelp || manche >= 2;
         
         let metricsHTML = '';
         
@@ -10908,9 +11133,11 @@
                     <span style="background: var(--warning); color: #000; padding: 6px 14px; border-radius: 8px; font-weight: 700;">
                         💰 ${carte.cout} pts
                     </span>
+                    ${showHelp ? `
                     <span class="card-risk-badge ${risk.riskLevel}" style="position: static;">
                         ${risk.riskLevel === 'high-risk' ? '⚠️ Risqué' : risk.riskLevel === 'medium-risk' ? '⚡ Modéré' : '✅ Sûr'}
                     </span>
+                    ` : ''}
                 </div>
             </div>
             
@@ -11230,9 +11457,7 @@
             <div class="comparison-title">
                 <span>⚖️</span>
                 <span>Comparaison des Cartes</span>
-                <span style="color: var(--text-muted); font-weight: 400; font-size: 0.9em;">
-                    (${uxState.selectedForComparison?.length || 0}/3 sélectionnées)
-                </span>
+                <span id="comparisonCount" style="color: var(--text-muted); font-weight: 400; font-size: 0.9em;"></span>
             </div>
             <button onclick="closeComparisonPanel()" style="background: var(--bg-elevated); border: 1px solid var(--border-default); color: var(--text-secondary); padding: 8px 16px; border-radius: 8px; cursor: pointer;">
                 ✕ Fermer
