@@ -4463,7 +4463,7 @@
                 id: "M1-20", nom: "Remise Volume", emoji: "💼", cout: 20,
                 secteur: "Commercial", joueur: 1,
                 description: "Offrir des remises sur volume aux clients",
-                effetVisible: "↓ Marge",
+                effetVisible: "↑ CMP +3%, ↑ +10% DC",
                 effetGlobal: "↑ VAG, ↓ BFR, ↑ CR",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"CMP": 0.03, "DC": 0.1} }
@@ -4472,7 +4472,7 @@
                 id: "M1-21", nom: "Push Rentable", emoji: "💼", cout: 25,
                 secteur: "Commercial", joueur: 1,
                 description: "Pousser les produits les plus rentables",
-                effetVisible: "↑ Marge",
+                effetVisible: "↓ -7% CMP, ↑ LT + 72h, ↑ TC + 2%",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"CMP": -0.07, "LT": 72.0, "TC": 0.02} }
@@ -4481,7 +4481,7 @@
                 id: "M1-22", nom: "Délai Agressif", emoji: "💼", cout: 15,
                 secteur: "Commercial", joueur: 1,
                 description: "Proposer des délais de livraison plus courts",
-                effetVisible: "↑ Marge",
+                effetVisible: "↑ TR +3%, ↑ TC + 3%",
                 effetGlobal: "↑ VAG, ↓ BFR",
                 flux: ["MF2"],
                 impacts: { global: {"TR": 0.03, "TC": 0.03} }
@@ -4490,7 +4490,7 @@
                 id: "M1-23", nom: "Augmenter Stock du MF1", emoji: "💼", cout: 20,
                 secteur: "Commercial", joueur: 1,
                 description: "Augmenter le stock du MF1 (Standard)",
-                effetVisible: "↓ Marge",
+                effetVisible: "↓ -3% CMP",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
                 flux: ["MF1"],
                 impacts: { global: {"CMP": -0.03} }
@@ -4499,7 +4499,7 @@
                 id: "M1-24", nom: "Paiement Long", emoji: "💼", cout: 15,
                 secteur: "Commercial", joueur: 1,
                 description: "Négocier des délais de paiement plus longs avec les clients",
-                effetVisible: "↑ Marge",
+                effetVisible: "↓ -3% DF",
                 effetGlobal: "↑ VAG, ↓ BFR",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"DF": -0.03} }
@@ -4508,7 +4508,7 @@
                 id: "M1-30", nom: "Pénaliser Annulations", emoji: "💼", cout: 15,
                 secteur: "Commercial", joueur: 1,
                 description: "Pénaliser les annulations de commandes",
-                effetVisible: "↑ Marge",
+                effetVisible: "↑ +10% TR",
                 effetGlobal: "↑ BFR, ↓ VAG",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"TR": 0.1} }
@@ -4519,7 +4519,7 @@
                 id: "M1-1", nom: "Fournisseur Lots+", emoji: "📦", cout: 15,
                 secteur: "Approvisionnement", joueur: 2,
                 description: "Négocier des lots plus importants avec le fournisseur pour réduire le coût unitaire",
-                effetVisible: "↓ Coût MP",
+                effetVisible: "↓ -2% CMP, ↑ +72h LT",
                 effetGlobal: "↑ BFR, ↓ CR, ↓ VAG",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"CMP": -0.02, "LT": 72.0} }
@@ -4528,7 +4528,7 @@
                 id: "M1-2", nom: "Fournisseur Cheap", emoji: "📦", cout: 20,
                 secteur: "Approvisionnement", joueur: 2,
                 description: "Choisir un fournisseur moins cher mais avec des délais plus longs",
-                effetVisible: "↓ Coût MP",
+                effetVisible: "↑ LT +120h, ↑TR +2%, ↓ -4% CMP",
                 effetGlobal: "↑ BFR, ↓ VAG",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"LT": 120.0, "TR": 0.02, "CMP": -0.04} }
@@ -4537,7 +4537,7 @@
                 id: "M1-3", nom: "Fournisseur Intl", emoji: "📦", cout: 30,
                 secteur: "Approvisionnement", joueur: 2,
                 description: "Sourcer auprès d\'un fournisseur international à bas coût",
-                effetVisible: "↓ Coût MP",
+                effetVisible: "↑ LT +320h, ↓ -7% CMP",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"LT": 320.0, "CMP": -0.07} }
@@ -4546,7 +4546,7 @@
                 id: "M1-4", nom: "Délai Paiement+", emoji: "📦", cout: 10,
                 secteur: "Approvisionnement", joueur: 2,
                 description: "Négocier des délais de paiement plus longs avec les fournisseurs",
-                effetVisible: "↑ Coût MP",
+                effetVisible: "↓ -10% DF",
                 effetGlobal: "↑ VAG, ↓ BFR",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"DF": -0.1} }
@@ -4555,7 +4555,7 @@
                 id: "M1-5", nom: "Petits Lots", emoji: "📦", cout: 20,
                 secteur: "Approvisionnement", joueur: 2,
                 description: "Commander des lots plus petits pour réduire le stock",
-                effetVisible: "↑ Coût MP",
+                effetVisible: "↑ 5% CMP, ↓ -24h LT",
                 effetGlobal: "↑ VAG, ↓ BFR, ↑ CR",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"CMP": 0.05, "LT": -24.0} }
@@ -4564,7 +4564,7 @@
                 id: "M1-25", nom: "Fournisseur cheap Q-", emoji: "📦", cout: 20,
                 secteur: "Approvisionnement", joueur: 2,
                 description: "Fournisseur bon marché mais qualité moindre",
-                effetVisible: "↓ Coût MP",
+                effetVisible: "↑ TR +3%, ↓ -3% CMP",
                 effetGlobal: "↑ BFR, ↓ CR, ↓ VAG",
                 flux: ["MF1"],
                 impacts: { global: {"TR": 0.03, "CMP": -0.03} }
@@ -4575,7 +4575,7 @@
                 id: "M1-15", nom: "Camions Pleins", emoji: "🚚", cout: 15,
                 secteur: "Logistique", joueur: 3,
                 description: "Optimiser le remplissage des camions",
-                effetVisible: "↓ CGE",
+                effetVisible: "↑ LT +168h",
                 effetGlobal: "↑ BFR, ↓ VAG",
                 flux: ["MF2"],
                 impacts: { global: {"LT": 168.0} }
@@ -4584,7 +4584,7 @@
                 id: "M1-16", nom: "Lots Transport x2", emoji: "🚚", cout: 20,
                 secteur: "Logistique", joueur: 3,
                 description: "Doubler la taille des lots de transport",
-                effetVisible: "↓ CGE",
+                effetVisible: "↑ LT +190h",
                 effetGlobal: "↑ BFR, ↓ VAG",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"LT": 190.0} }
@@ -4593,7 +4593,7 @@
                 id: "M1-17", nom: "Transport Cheap", emoji: "🚚", cout: 20,
                 secteur: "Logistique", joueur: 3,
                 description: "Choisir un transporteur moins cher",
-                effetVisible: "↓ CGE",
+                effetVisible: "↓ -3% CMP, ↑ LT +90h",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
                 flux: ["MF2"],
                 impacts: { global: {"CMP": -0.03, "LT": 90.0} }
@@ -4602,7 +4602,7 @@
                 id: "M1-18", nom: "Stock Sécurité+", emoji: "🚚", cout: 15,
                 secteur: "Logistique", joueur: 3,
                 description: "Augmenter le stock de sécurité pour éviter les ruptures",
-                effetVisible: "↑ CGE",
+                effetVisible: "↓ -3% CMP, ↑ LT +72h, ↓ -2% TR",
                 effetGlobal: "↑ BFR, ↓ VAG, ↑ CR",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"CMP": -0.03, "LT": 72.0, "TR": -0.02} }
@@ -4611,7 +4611,7 @@
                 id: "M1-19", nom: "Stock Sécurité-", emoji: "🚚", cout: 15,
                 secteur: "Logistique", joueur: 3,
                 description: "Diminuer le stock de sécurité pour réduire le BFR",
-                effetVisible: "↓ CGE",
+                effetVisible: "↓ LT -72h, ↑ +5% TR",
                 effetGlobal: "↓ BFR, ↑ VAG",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"LT": -72.0, "TR": 0.05} }
@@ -4620,7 +4620,7 @@
                 id: "M1-29", nom: "Réduire analyse d'inventaires", emoji: "🚚", cout: 10,
                 secteur: "Logistique", joueur: 3,
                 description: "Réduire la fréquence d\'analyse des stocks",
-                effetVisible: "↓ CGE",
+                effetVisible: "↑ TR +4%",
                 effetGlobal: "↑ BFR, ↓ VAG",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"TR": 0.04} }
@@ -4631,7 +4631,7 @@
                 id: "M1-6", nom: "Accélérer M1", emoji: "⚙️", cout: 25,
                 secteur: "Production", joueur: 4,
                 description: "Accélérer la machine M1 pour augmenter la cadence",
-                effetVisible: "↑ Capacité",
+                effetVisible: "↑ TR +4%, ↓ -1% TC",
                 effetGlobal: "↑ BFR, ↓ VAG",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"TR": 0.04, "TC": -0.01} }
@@ -4640,7 +4640,7 @@
                 id: "M1-7", nom: "Accélérer M2", emoji: "⚙️", cout: 20,
                 secteur: "Production", joueur: 4,
                 description: "Accélérer la machine M2 pour augmenter la cadence",
-                effetVisible: "↑ Capacité",
+                effetVisible: "↑ TR +4%, ↓ -1% TC",
                 effetGlobal: "↑ BFR, ↓ VAG",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"TR": 0.04, "TC": -0.01} }
@@ -4649,7 +4649,7 @@
                 id: "M1-8", nom: "Ralentir M4", emoji: "⚙️", cout: 25,
                 secteur: "Production", joueur: 4,
                 description: "Ralentir la machine M4 (goulot) pour stabiliser le flux",
-                effetVisible: "↓ Capacité",
+                effetVisible: "↑ TR +4%, ↑ +3% TC, ↑ LT + 144h",
                 effetGlobal: "↑ BFR, ↓ VAG",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"TR": 0.04, "TC": 0.03, "LT": 144.0} }
@@ -4658,7 +4658,7 @@
                 id: "M1-9", nom: "Machine Neuve", emoji: "⚙️", cout: 60,
                 secteur: "Production", joueur: 4,
                 description: "Investir dans une nouvelle machine pour augmenter la capacité",
-                effetVisible: "↑ Capacité",
+                effetVisible: "↑ CMP +5%, ↑ TR +3%, ↓ TC -2%",
                 effetGlobal: "↑ BFR, ↓ VAG, ↑ CR",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"CMP": 0.05, "TR": 0.03, "TC": -0.02} }
@@ -4667,7 +4667,7 @@
                 id: "M1-10", nom: "Gros Lots Prod", emoji: "⚙️", cout: 20,
                 secteur: "Production", joueur: 4,
                 description: "Produire en lots plus importants pour réduire les temps de changement",
-                effetVisible: "↑ Capacité",
+                effetVisible: "↓ CMP -4%, ↑ 90h LT",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"CMP": -0.04, "LT": 90} }
@@ -4676,7 +4676,7 @@
                 id: "M1-26", nom: "Accélérer M3", emoji: "⚙️", cout: 10,
                 secteur: "Production", joueur: 4,
                 description: "Accélérer la machine M3",
-                effetVisible: "↑ Capacité",
+                effetVisible: "↑ TR +2%, ↓ -1% TC",
                 effetGlobal: "↑ BFR, ↓ VAG",
                 flux: ["MF2"],
                 impacts: { global: {"TR": 0.02, "TC": -0.01} }
@@ -4685,7 +4685,7 @@
                 id: "M1-27", nom: "Machine Neuve M4", emoji: "⚙️", cout: 65,
                 secteur: "Production", joueur: 4,
                 description: "Nouvelle machine pour M4",
-                effetVisible: "↑ Capacité",
+                effetVisible: "↑ CMP +5%, ↑ TR +3%, ↓ TC -5%",
                 effetGlobal: "↑ BFR, ↓ VAG, ↑ CR",
                 flux: ["MF2"],
                 impacts: { global: {"CMP": 0.05, "TR": 0.03, "TC": -0.05} }
@@ -4694,7 +4694,7 @@
                 id: "M1-28", nom: "Push MF2", emoji: "⚙️", cout: 20,
                 secteur: "Production", joueur: 4,
                 description: "Pousser les ventes du MF2 (Premium)",
-                effetVisible: "↑ Capacité",
+                effetVisible: "↓ -4% CMP, ↑ LT + 24h",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
                 flux: ["MF1"],
                 impacts: { global: {"CMP": -0.04, "LT": 24} }
@@ -4705,7 +4705,7 @@
                 id: "M1-11", nom: "Réduire Inspections", emoji: "✅", cout: 15,
                 secteur: "Qualité", joueur: 5,
                 description: "Réduire les inspections qualité pour accélérer le flux",
-                effetVisible: "↑ TR",
+                effetVisible: "↑ TR +5%",
                 effetGlobal: "↑ BFR, ↓ VAG",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"TR": 0.05} }
@@ -4714,7 +4714,7 @@
                 id: "M1-12", nom: "Étude Fournisseurs", emoji: "✅", cout: 20,
                 secteur: "Qualité", joueur: 5,
                 description: "Étudier et qualifier de nouveaux fournisseurs",
-                effetVisible: "↓ TR",
+                effetVisible: "↓ - 3% TC, ↓ -2% TR, ↑ +10% DF",
                 effetGlobal: "↑ VAG, ↓ BFR",
                 flux: ["MF1", "MF2"],
                 impacts: { global: {"TC": -0.03, "TR": -0.02, "DF": 0.1} }
@@ -4723,7 +4723,7 @@
                 id: "M1-13", nom: "Accepter Défauts", emoji: "✅", cout: 10,
                 secteur: "Qualité", joueur: 5,
                 description: "Accepter un taux de défauts plus élevé pour accélérer",
-                effetVisible: "↑ TR",
+                effetVisible: "↑ +7% TR",
                 effetGlobal: "↑ BFR, ↓ VAG",
                 flux: ["MF1"],
                 impacts: { global: {"TR": 0.07} }
@@ -4732,7 +4732,7 @@
                 id: "M1-14", nom: "Contrôle Trop Renforcé", emoji: "✅", cout: 15,
                 secteur: "Qualité", joueur: 5,
                 description: "Renforcer les contrôles qualité",
-                effetVisible: "↓ TR",
+                effetVisible: "↓ -20% TR, ↑ LT + 120h",
                 effetGlobal: "↑ BFR, ↓ VAG",
                 flux: ["MF1"],
                 impacts: { global: {"TR": -0.2, "LT": 120} }
@@ -9702,10 +9702,7 @@
                     </div>
                     <div class="card-description">${c.description}</div>
                     ${c.effetVisible ? `<div class="card-effect" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(16, 185, 129, 0.15)); border: 1px solid var(--success); padding: 8px 12px; border-radius: 8px; margin-top: 8px;">
-                        <span style="color: var(--success); font-weight: 600;">📊 Indicateur visible :</span> ${c.effetVisible}
-                    </div>` : ''}
-                    ${c.effetGlobal ? `<div class="card-effect" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(234, 88, 12, 0.15)); border: 1px solid var(--warning); padding: 8px 12px; border-radius: 8px; margin-top: 6px;">
-                        <span style="color: var(--warning); font-weight: 600;">⚠️ Impact global :</span> ${c.effetGlobal}
+                        <span style="color: var(--success); font-weight: 600;">📊 Effet métrique :</span> ${c.effetVisible}
                     </div>` : ''}
                     
                     <!-- V0.6.38: Score de décision (seulement si aide activée) -->
@@ -10688,124 +10685,110 @@
             const carte = findCarteById(carteId);
             if (!carte) return '';
             
-            const impacts = analyzeCardImpacts(carte);
+            // SIMULATION RÉELLE des impacts
+            const simul = simulerImpactReel(carte);
             const risk = evaluateCardRisk(carte);
             
-            // Métriques différentes selon la manche
+            // Construire le HTML des métriques avec les VRAIS impacts calculés
             let metricsHTML = '';
             
             if (manche === 1 && !gameState.phaseDebriefing) {
-                // Manche 1: afficher UNIQUEMENT l'indicateur phare du joueur
-                const showHelp = devMode.showCardHelp;
+                // Manche 1: Afficher les indicateurs VISIBLES qui changent
+                const impacts = carte.impacts?.global || {};
                 
-                // Calculer l'impact spécifique selon le joueur
-                if (joueur === 1) {
-                    // J1 Commercial: Impact sur la Marge
-                    const pvImpact = carte.impacts?.global?.PV ? (carte.impacts.global.PV * 100) : 0;
-                    const daImpact = carte.impacts?.global?.DA ? (carte.impacts.global.DA * 100) : 0;
-                    const margeImpact = pvImpact - daImpact;
-                    
-                    metricsHTML = `
-                        <div class="comparison-metric">
-                            <span class="comparison-metric-label">💵 Impact Marge</span>
-                            <span class="comparison-metric-value" style="color: ${margeImpact >= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.2em;">
-                                ${margeImpact >= 0 ? '+' : ''}${margeImpact.toFixed(1)}%
-                            </span>
-                        </div>
-                    `;
-                } else if (joueur === 2) {
-                    // J2 Approvisionnement: Impact sur le Coût de Revient
-                    const daImpact = carte.impacts?.global?.DA ? (carte.impacts.global.DA * 100) : 0;
-                    
-                    metricsHTML = `
-                        <div class="comparison-metric">
-                            <span class="comparison-metric-label">📦 Impact Coût Revient</span>
-                            <span class="comparison-metric-value" style="color: ${daImpact <= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.2em;">
-                                ${daImpact > 0 ? '+' : ''}${daImpact.toFixed(1)}%
-                            </span>
-                        </div>
-                    `;
-                } else if (joueur === 3) {
-                    // J3 Logistique: Impact sur le Coût de Transport (via CGE)
-                    const cgeImpact = carte.impacts?.global?.CGE ? (carte.impacts.global.CGE * 100) : 0;
-                    
-                    metricsHTML = `
-                        <div class="comparison-metric">
-                            <span class="comparison-metric-label">🚛 Impact Coût Transport</span>
-                            <span class="comparison-metric-value" style="color: ${cgeImpact <= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.2em;">
-                                ${cgeImpact > 0 ? '+' : ''}${cgeImpact.toFixed(0)}% CGE
-                            </span>
-                        </div>
-                    `;
-                } else if (joueur === 4) {
-                    // J4 Production: Impact sur la Capacité/TRG
-                    const capImpact = carte.impacts?.global?.CAP ? (carte.impacts.global.CAP * 100) : 0;
-                    const tcImpact = carte.impacts?.global?.TC ? (carte.impacts.global.TC * 100) : 0;
-                    
-                    metricsHTML = `
-                        <div class="comparison-metric">
-                            <span class="comparison-metric-label">🏭 Impact Capacité</span>
-                            <span class="comparison-metric-value" style="color: ${capImpact >= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.2em;">
-                                ${capImpact >= 0 ? '+' : ''}${capImpact.toFixed(0)}%
-                            </span>
-                        </div>
-                        <div class="comparison-metric">
-                            <span class="comparison-metric-label">⏱️ Temps Cycle</span>
-                            <span class="comparison-metric-value" style="color: ${tcImpact <= 0 ? 'var(--success)' : 'var(--danger)'}">
-                                ${tcImpact > 0 ? '+' : ''}${tcImpact.toFixed(0)}%
-                            </span>
-                        </div>
-                    `;
-                } else if (joueur === 5) {
-                    // J5 Qualité: Impact sur la Conformité (inverse du TR)
-                    const trImpact = impacts.qualityImpact; // Déjà calculé
-                    
-                    metricsHTML = `
-                        <div class="comparison-metric">
-                            <span class="comparison-metric-label">✅ Impact Conformité</span>
-                            <span class="comparison-metric-value" style="color: ${trImpact <= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.2em;">
-                                ${trImpact > 0 ? '+' : ''}${trImpact.toFixed(1)}% TR
-                            </span>
-                        </div>
-                    `;
-                }
-                
-                // Ajouter score si aide activée
-                if (showHelp) {
+                // Lead Time
+                if (impacts.LT && Math.abs(impacts.LT) > 0) {
+                    const ltDelta = (impacts.LT / 24).toFixed(0);
                     metricsHTML += `
-                        <div class="comparison-metric" style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-subtle);">
-                            <span class="comparison-metric-label">Score</span>
-                            <span class="comparison-metric-value" style="color: var(--accent-primary)">
-                                ${impacts.score}/100
+                        <div class="comparison-metric">
+                            <span class="comparison-metric-label">⏱️ Lead Time</span>
+                            <span class="comparison-metric-value" style="color: ${parseFloat(ltDelta) <= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.1em;">
+                                ${parseFloat(ltDelta) > 0 ? '+' : ''}${ltDelta}j
                             </span>
                         </div>
                     `;
                 }
+                
+                // Taux de Rebut
+                if (impacts.TR && Math.abs(impacts.TR) > 0) {
+                    const trDelta = (impacts.TR * 100).toFixed(1);
+                    metricsHTML += `
+                        <div class="comparison-metric">
+                            <span class="comparison-metric-label">🎯 Taux Rebut</span>
+                            <span class="comparison-metric-value" style="color: ${parseFloat(trDelta) <= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.1em;">
+                                ${parseFloat(trDelta) > 0 ? '+' : ''}${trDelta}%
+                            </span>
+                        </div>
+                    `;
+                }
+                
+                // Coût MP
+                if (impacts.CMP && Math.abs(impacts.CMP) > 0) {
+                    const cmpDelta = (impacts.CMP * 100).toFixed(0);
+                    metricsHTML += `
+                        <div class="comparison-metric">
+                            <span class="comparison-metric-label">📦 Coût MP</span>
+                            <span class="comparison-metric-value" style="color: ${parseFloat(cmpDelta) <= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.1em;">
+                                ${parseFloat(cmpDelta) > 0 ? '+' : ''}${cmpDelta}%
+                            </span>
+                        </div>
+                    `;
+                }
+                
+                // Temps Cycle
+                if (impacts.TC && Math.abs(impacts.TC) > 0) {
+                    const tcDelta = (impacts.TC * 100).toFixed(0);
+                    metricsHTML += `
+                        <div class="comparison-metric">
+                            <span class="comparison-metric-label">⚙️ Temps Cycle</span>
+                            <span class="comparison-metric-value" style="color: ${parseFloat(tcDelta) <= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.1em;">
+                                ${parseFloat(tcDelta) > 0 ? '+' : ''}${tcDelta}%
+                            </span>
+                        </div>
+                    `;
+                }
+                
+                // Si aucun impact visible
+                if (metricsHTML === '') {
+                    metricsHTML = `
+                        <div class="comparison-metric">
+                            <span class="comparison-metric-label" style="color: var(--text-muted);">Pas d'impact visible</span>
+                        </div>
+                    `;
+                }
+                
             } else {
-                // Manche 2+: on peut montrer VAG
+                // Manche 2+: Afficher les VRAIS impacts économiques calculés
                 metricsHTML = `
                     <div class="comparison-metric">
-                        <span class="comparison-metric-label">Impact VAG</span>
-                        <span class="comparison-metric-value" style="color: ${impacts.vagImpact >= 0 ? 'var(--success)' : 'var(--danger)'}">
-                            ${impacts.vagImpact >= 0 ? '+' : ''}${impacts.vagImpact.toFixed(0)}%
+                        <span class="comparison-metric-label">💰 VAG</span>
+                        <span class="comparison-metric-value" style="color: ${simul.deltaVAG >= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.1em;">
+                            ${simul.deltaVAG >= 0 ? '+' : ''}${formatNumber(simul.deltaVAG)}€
+                            <small style="font-size: 0.7em; opacity: 0.7;">(${simul.pctVAG}%)</small>
                         </span>
                     </div>
                     <div class="comparison-metric">
-                        <span class="comparison-metric-label">Impact LT</span>
-                        <span class="comparison-metric-value" style="color: ${impacts.ltImpact <= 0 ? 'var(--success)' : 'var(--danger)'}">
-                            ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact}j
+                        <span class="comparison-metric-label">📊 BFR</span>
+                        <span class="comparison-metric-value" style="color: ${simul.deltaBFR <= 0 ? 'var(--success)' : 'var(--danger)'}">
+                            ${simul.deltaBFR >= 0 ? '+' : ''}${formatNumber(simul.deltaBFR)}€
                         </span>
                     </div>
                     <div class="comparison-metric">
-                        <span class="comparison-metric-label">Impact Qualité</span>
-                        <span class="comparison-metric-value" style="color: ${impacts.qualityImpact >= 0 ? 'var(--success)' : 'var(--danger)'}">
-                            ${impacts.qualityImpact >= 0 ? '+' : ''}${impacts.qualityImpact.toFixed(0)}%
+                        <span class="comparison-metric-label">📈 RBE</span>
+                        <span class="comparison-metric-value" style="color: ${simul.deltaRBE >= 0 ? 'var(--success)' : 'var(--danger)'}">
+                            ${simul.deltaRBE >= 0 ? '+' : ''}${formatNumber(simul.deltaRBE)}€
                         </span>
                     </div>
                     <div class="comparison-metric">
-                        <span class="comparison-metric-label">Score Décision</span>
-                        <span class="comparison-metric-value" style="color: var(--accent-primary)">
-                            ${impacts.score}/100
+                        <span class="comparison-metric-label">⏱️ Lead Time</span>
+                        <span class="comparison-metric-value" style="color: ${parseFloat(simul.deltaLT) <= 0 ? 'var(--success)' : 'var(--danger)'}">
+                            ${parseFloat(simul.deltaLT) >= 0 ? '+' : ''}${simul.deltaLT}j
+                        </span>
+                    </div>
+                    <div class="comparison-metric">
+                        <span class="comparison-metric-label">🎯 Taux Rebut</span>
+                        <span class="comparison-metric-value" style="color: ${parseFloat(simul.deltaTR) <= 0 ? 'var(--success)' : 'var(--danger)'}">
+                            ${parseFloat(simul.deltaTR) >= 0 ? '+' : ''}${simul.deltaTR}%
                         </span>
                     </div>
                 `;
@@ -10880,6 +10863,142 @@
         score = Math.max(0, Math.min(100, Math.round(score)));
         
         return { vagImpact, ltImpact, qualityImpact, cgeImpact, score };
+    }
+    
+    // ==================== SIMULATION RÉELLE DES IMPACTS ====================
+    // Calcule l'impact RÉEL d'une carte sur les indicateurs économiques
+    function simulerImpactReel(carte) {
+        // 1. Calculer les indicateurs ACTUELS
+        let vagAvant = 0, bfrAvant = 0, ltAvant = 0, trAvant = 0;
+        let cgeAvant = calculerCGETotal();
+        
+        for (const mfId in gameState.microFlux) {
+            const mf = gameState.microFlux[mfId];
+            vagAvant += calculerVAGVente(mf);
+            bfrAvant += calculerBFR(mf) * mf.QV;
+            ltAvant += mf.LT;
+            trAvant += mf.Tr;
+        }
+        ltAvant = ltAvant / 2; // Moyenne des 2 produits
+        trAvant = (trAvant / 2) * 100; // En %
+        const rbeAvant = vagAvant - cgeAvant;
+        
+        // 2. Créer une copie virtuelle des micro-flux pour simulation
+        const mfSimule = JSON.parse(JSON.stringify(gameState.microFlux));
+        let cgeSimule = JSON.parse(JSON.stringify(gameState.cge));
+        
+        // 3. Appliquer les impacts de la carte
+        const impacts = carte.impacts?.global || {};
+        const flux = carte.flux || ["MF1", "MF2"];
+        
+        for (const mfId of flux) {
+            if (!mfSimule[mfId]) continue;
+            const mf = mfSimule[mfId];
+            
+            // CMP: affecte DA (Dépenses d'Achat)
+            if (impacts.CMP) {
+                mf.DA = mf.DA * (1 + impacts.CMP);
+            }
+            
+            // LT: ajout en heures, converti en jours
+            if (impacts.LT) {
+                mf.LT = mf.LT + (impacts.LT / 24);
+            }
+            
+            // TR: ajout direct au taux de rebut
+            if (impacts.TR) {
+                mf.Tr = Math.max(0, mf.Tr + impacts.TR);
+            }
+            
+            // TC: affecte les temps machines (simplifié)
+            if (impacts.TC) {
+                mf.tM1 = mf.tM1 * (1 + impacts.TC);
+                mf.tM2 = mf.tM2 * (1 + impacts.TC);
+                mf.tM3 = mf.tM3 * (1 + impacts.TC);
+                mf.tM4 = mf.tM4 * (1 + impacts.TC);
+                mf.tM5 = mf.tM5 * (1 + impacts.TC);
+            }
+            
+            // DF: affecte délai fournisseur
+            if (impacts.DF) {
+                mf.delaiFournisseur = mf.delaiFournisseur * (1 + impacts.DF);
+            }
+            
+            // DC: affecte délai client
+            if (impacts.DC) {
+                mf.delaiClient = mf.delaiClient * (1 + impacts.DC);
+            }
+        }
+        
+        // CGE: impact direct sur les charges
+        if (impacts.CGE) {
+            const totalCGE = cgeSimule.achats + cgeSimule.vente + cgeSimule.production + cgeSimule.logistique + cgeSimule.conception;
+            const reduction = totalCGE * impacts.CGE;
+            cgeSimule.production = cgeSimule.production + reduction; // Appliqué sur production
+        }
+        
+        // 4. Recalculer les indicateurs APRÈS avec les données simulées
+        let vagApres = 0, bfrApres = 0, ltApres = 0, trApres = 0;
+        
+        for (const mfId in mfSimule) {
+            const mf = mfSimule[mfId];
+            
+            // Recalculer DAR, DDP, VAG pour ce mf simulé
+            const dar = mf.DA * (1 + mf.Tr);
+            const bfr = (dar * mf.LT - mf.delaiFournisseur * mf.DA + mf.delaiClient * mf.PV) / 360;
+            const dbfr = TAG * bfr;
+            
+            // DMAINT simplifié
+            let tTotal = mf.tM1 + mf.tM2 + mf.tM3 + mf.tM4 + mf.tM5;
+            const dmaint = tTotal * 50 * 1.1 * 1.5 / mf.QV; // Approximation
+            
+            const ddp = dar + dmaint + dbfr;
+            const vag = mf.PV - ddp;
+            
+            vagApres += vag * mf.QV;
+            bfrApres += bfr * mf.QV;
+            ltApres += mf.LT;
+            trApres += mf.Tr;
+        }
+        
+        ltApres = ltApres / 2;
+        trApres = (trApres / 2) * 100;
+        
+        // CGE après
+        const cgeApres = cgeSimule.achats + cgeSimule.vente + cgeSimule.production + cgeSimule.logistique + cgeSimule.conception;
+        const rbeApres = vagApres - cgeApres;
+        
+        // 5. Calculer les deltas
+        return {
+            // Valeurs avant
+            vagAvant: Math.round(vagAvant),
+            bfrAvant: Math.round(bfrAvant),
+            rbeAvant: Math.round(rbeAvant),
+            ltAvant: ltAvant.toFixed(0),
+            trAvant: trAvant.toFixed(1),
+            cgeAvant: Math.round(cgeAvant),
+            
+            // Valeurs après
+            vagApres: Math.round(vagApres),
+            bfrApres: Math.round(bfrApres),
+            rbeApres: Math.round(rbeApres),
+            ltApres: ltApres.toFixed(0),
+            trApres: trApres.toFixed(1),
+            cgeApres: Math.round(cgeApres),
+            
+            // Deltas
+            deltaVAG: Math.round(vagApres - vagAvant),
+            deltaBFR: Math.round(bfrApres - bfrAvant),
+            deltaRBE: Math.round(rbeApres - rbeAvant),
+            deltaLT: (ltApres - ltAvant).toFixed(1),
+            deltaTR: (trApres - trAvant).toFixed(2),
+            deltaCGE: Math.round(cgeApres - cgeAvant),
+            
+            // Pourcentages
+            pctVAG: vagAvant !== 0 ? ((vagApres - vagAvant) / Math.abs(vagAvant) * 100).toFixed(1) : 0,
+            pctBFR: bfrAvant !== 0 ? ((bfrApres - bfrAvant) / Math.abs(bfrAvant) * 100).toFixed(1) : 0,
+            pctRBE: rbeAvant !== 0 ? ((rbeApres - rbeAvant) / Math.abs(rbeAvant) * 100).toFixed(1) : 0
+        };
     }
     
     // Évaluer le risque d'une carte
