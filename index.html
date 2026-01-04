@@ -851,6 +851,23 @@
             color: var(--accent-tertiary);
             text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
         }
+        /* Styles pour les options de classement GreenSkills */
+        .ranking-option {
+            background: var(--bg-card);
+            transition: all 0.2s ease;
+        }
+        .ranking-option:hover {
+            border-color: var(--accent-primary) !important;
+            transform: translateY(-2px);
+        }
+        .ranking-option:has(input:checked) {
+            border-color: var(--success) !important;
+            background: rgba(34, 197, 94, 0.1);
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+        }
+        .ranking-option input:checked + span {
+            transform: scale(1.1);
+        }
         .modal-content p { font-size: 0.95em; line-height: 1.7; margin-bottom: 16px; color: var(--text-secondary); }
         .modal-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 24px 0; }
         .modal-stat { 
@@ -3365,7 +3382,104 @@
                 <p style="color: var(--accent-secondary); font-weight: 700; font-size: 1.05em; margin-bottom: 12px;">🌿 PROCHAINE ÉTAPE : MANCHE 3 - PERFORMANCE GLOBALE</p>
                 <p style="color: var(--text-secondary); margin: 0; font-size: 1em; font-style: italic;">« En Manche 3, nous allons nous concentrer sur la <strong>Performance Interactionnelle Globale (PIG)</strong> : réactivité (s), qualité (q) et responsabilité environnementale (r). L'excellence opérationnelle est à portée de main ! »</p>
             </div>
-            <button class="btn-modal" onclick="passerManche3()" style="font-size: 1.1em; padding: 20px 48px;">🚀 Passer à la Manche 3</button>
+            <button class="btn-modal" onclick="afficherGreenSkillsSponsoring()" style="font-size: 1.1em; padding: 20px 48px;">🌿 Continuer</button>
+        </div>
+    </div>
+    
+    <!-- Modal GreenSkills Sponsoring -->
+    <div class="modal-overlay" id="greenSkillsModal">
+        <div class="modal-content" style="max-width: 700px; text-align: center;">
+            <div style="font-size: 4em; margin-bottom: 16px;">🌱</div>
+            <h2 style="color: var(--success); margin-bottom: 20px;">SPONSORING GREENSKILLS</h2>
+            
+            <div style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(16, 185, 129, 0.15)); border: 2px solid var(--success); border-radius: 16px; padding: 24px; margin-bottom: 24px; text-align: left;">
+                <p style="font-style: italic; color: var(--text-secondary); margin: 0 0 12px 0;">« Chers dirigeants,</p>
+                <p style="font-size: 1.05em; margin: 0; line-height: 1.6;">Votre entreprise a obtenu d'<strong>excellents résultats</strong> grâce à la mise en œuvre du Lean. L'entreprise <strong style="color: var(--success);">GreenSkills</strong> souhaite vous sponsoriser afin d'investir dans des <strong>actions environnementales et sociales</strong>.</p>
+                <p style="font-size: 1.05em; margin: 16px 0 0 0; line-height: 1.6;">Nous vous accordons un budget de <strong style="color: var(--success); font-size: 1.2em;">300 points</strong> + un bonus selon votre classement ! »</p>
+            </div>
+            
+            <div style="background: var(--bg-elevated); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+                <h4 style="color: var(--text-secondary); margin: 0 0 16px 0;">🔐 Validation Administrateur</h4>
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; color: var(--text-muted); margin-bottom: 6px; font-size: 0.9em;">Mot de passe admin :</label>
+                    <input type="password" id="greenSkillsPassword" placeholder="••••••••" 
+                           style="width: 200px; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-default); background: var(--bg-card); color: var(--text-primary); font-size: 1em; text-align: center;">
+                </div>
+                <div id="greenSkillsPasswordError" style="color: var(--danger); font-size: 0.85em; margin-top: 8px; display: none;">❌ Mot de passe incorrect</div>
+            </div>
+            
+            <div style="background: var(--bg-elevated); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+                <h4 style="color: var(--text-secondary); margin: 0 0 16px 0;">🏆 Classement de l'équipe (fin Manche 2)</h4>
+                <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                    <label class="ranking-option" style="display: flex; flex-direction: column; align-items: center; padding: 16px 24px; border-radius: 12px; border: 2px solid var(--border-default); cursor: pointer; transition: all 0.2s;">
+                        <input type="radio" name="teamRanking" value="1" style="display: none;">
+                        <span style="font-size: 2em;">🥇</span>
+                        <span style="font-weight: 700; margin: 8px 0;">1ère place</span>
+                        <span style="color: var(--success); font-weight: 600;">+100 pts</span>
+                    </label>
+                    <label class="ranking-option" style="display: flex; flex-direction: column; align-items: center; padding: 16px 24px; border-radius: 12px; border: 2px solid var(--border-default); cursor: pointer; transition: all 0.2s;">
+                        <input type="radio" name="teamRanking" value="2" style="display: none;">
+                        <span style="font-size: 2em;">🥈</span>
+                        <span style="font-weight: 700; margin: 8px 0;">2ème place</span>
+                        <span style="color: var(--info); font-weight: 600;">+75 pts</span>
+                    </label>
+                    <label class="ranking-option" style="display: flex; flex-direction: column; align-items: center; padding: 16px 24px; border-radius: 12px; border: 2px solid var(--border-default); cursor: pointer; transition: all 0.2s;">
+                        <input type="radio" name="teamRanking" value="3" style="display: none;">
+                        <span style="font-size: 2em;">🥉</span>
+                        <span style="font-weight: 700; margin: 8px 0;">3ème place</span>
+                        <span style="color: var(--warning); font-weight: 600;">+50 pts</span>
+                    </label>
+                </div>
+                <div id="greenSkillsRankingError" style="color: var(--danger); font-size: 0.85em; margin-top: 12px; display: none;">❌ Veuillez sélectionner un classement</div>
+            </div>
+            
+            <div id="greenSkillsBudgetPreview" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(168, 139, 250, 0.2)); border-radius: 12px; padding: 16px; margin-bottom: 24px; display: none;">
+                <span style="color: var(--text-muted);">Budget total Manche 3 :</span>
+                <span id="greenSkillsTotalBudget" style="font-size: 1.5em; font-weight: 700; color: var(--accent-secondary); margin-left: 12px;">---</span>
+            </div>
+            
+            <button class="btn-modal" onclick="validerGreenSkillsSponsoring()" style="font-size: 1.1em; padding: 20px 48px;">🚀 Lancer la Manche 3</button>
+        </div>
+    </div>
+    
+    <!-- Modal Alerte Compétition Manche 2 -->
+    <div class="modal-overlay" id="competitionAlertModal">
+        <div class="modal-content" style="max-width: 650px; text-align: center;">
+            <div style="font-size: 4em; margin-bottom: 16px;">⚔️</div>
+            <h2 style="color: var(--warning); margin-bottom: 20px;">MODE COMPÉTITION ACTIVÉ</h2>
+            
+            <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(251, 191, 36, 0.15)); border: 2px solid var(--warning); border-radius: 16px; padding: 24px; margin-bottom: 24px;">
+                <p style="font-size: 1.1em; margin: 0; line-height: 1.6;">
+                    <strong>Attention !</strong> À partir de maintenant, votre équipe est en <strong style="color: var(--warning);">compétition contre les autres équipes</strong> de la classe.
+                </p>
+                <p style="font-size: 1.05em; margin: 16px 0 0 0; line-height: 1.6; color: var(--text-secondary);">
+                    Vos décisions en Manche 2 détermineront votre <strong>classement</strong> et influenceront le <strong>budget bonus</strong> que vous recevrez pour la Manche 3 !
+                </p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;">
+                <div style="background: var(--bg-elevated); border-radius: 10px; padding: 16px;">
+                    <div style="font-size: 1.5em;">🥇</div>
+                    <div style="font-weight: 600; margin: 8px 0;">1ère place</div>
+                    <div style="color: var(--success); font-weight: 700;">+100 pts</div>
+                </div>
+                <div style="background: var(--bg-elevated); border-radius: 10px; padding: 16px;">
+                    <div style="font-size: 1.5em;">🥈</div>
+                    <div style="font-weight: 600; margin: 8px 0;">2ème place</div>
+                    <div style="color: var(--info); font-weight: 700;">+75 pts</div>
+                </div>
+                <div style="background: var(--bg-elevated); border-radius: 10px; padding: 16px;">
+                    <div style="font-size: 1.5em;">🥉</div>
+                    <div style="font-weight: 600; margin: 8px 0;">3ème place</div>
+                    <div style="color: var(--warning); font-weight: 700;">+50 pts</div>
+                </div>
+            </div>
+            
+            <p style="color: var(--text-muted); font-size: 0.95em; margin-bottom: 24px;">
+                💡 <em>Conseil : Optimisez votre RBE et vos indicateurs pour vous démarquer !</em>
+            </p>
+            
+            <button class="btn-modal" onclick="fermerAlerteCompetition()" style="font-size: 1.1em; padding: 20px 48px;">🤝 C'est compris, collaborons !</button>
         </div>
     </div>
     
@@ -3522,6 +3636,10 @@
                 <h3>🤝 MODE COLLABORATION ACTIVÉ</h3>
                 <p>Toutes les cartes sont maintenant communes. Points partagés : <strong id="budgetCommun">50 pts</strong></p>
                 <p>Décidez ENSEMBLE pour maximiser l'amélioration de la PIG !</p>
+                <div style="margin-top: 12px; padding: 12px; background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(234, 88, 12, 0.2)); border: 2px solid var(--warning); border-radius: 12px;">
+                    <p style="margin: 0; font-weight: 700; color: var(--warning); font-size: 1.1em;">🏆 COMPÉTITION INTER-ÉQUIPES</p>
+                    <p style="margin: 8px 0 0 0; color: var(--text-primary);">Les équipes de la classe sont en compétition pour gagner des <strong>points bonus</strong> attribués par le sponsor ! Optimisez vos indicateurs pour remporter le challenge.</p>
+                </div>
             </div>
             
             <!-- V0.6.38 - Quick Stats Bar -->
@@ -3794,7 +3912,7 @@
         MF2: {
             nom: "Marbre Premium",
             emoji: "💎",
-            PV: 3500,           // Prix de vente (premium)
+            PV: 5000,           // Prix de vente (premium) - CORRIGÉ
             DA: 2200,           // Dépenses d'achat
             tM1: 2.0,           // Temps machine 1 (heures)
             tM2: 2.0,           // Temps machine 2 (heures)
@@ -3837,7 +3955,7 @@
                 actives: true,
                 contraintesBFR: true,
                 contraintesMachines: true,
-                forceVenteMax: 600, // Force de vente limitée
+                forceVenteMax: 99999, // Force de vente illimitée en M2/M3
                 getMin: (mf) => mf.venteMinM2 || 50,
                 getMax: (mf) => mf.venteMaxM2 || 400,
                 message: "⚠️ Toutes les contraintes actives (BFR, machines, force de vente)"
@@ -4340,10 +4458,10 @@
     };
     
     const CARTES_MANCHE1 = {
-        1: [ // Commercial (J1)
+        1: [
             {
-                id: "R1-20", nom: "Remise Volume", emoji: "💼", cout: 20,
-                secteur: "Commercial",
+                id: "M1-20", nom: "Remise Volume", emoji: "💼", cout: 20,
+                secteur: "Commercial", joueur: 1,
                 description: "Offrir des remises sur volume aux clients",
                 effetVisible: "↓ Marge",
                 effetGlobal: "↑ VAG, ↓ BFR, ↑ CR",
@@ -4351,8 +4469,8 @@
                 impacts: { global: {"CMP": 0.03, "DC": 0.1} }
             },
             {
-                id: "R1-21", nom: "Push Rentable", emoji: "💼", cout: 25,
-                secteur: "Commercial",
+                id: "M1-21", nom: "Push Rentable", emoji: "💼", cout: 25,
+                secteur: "Commercial", joueur: 1,
                 description: "Pousser les produits les plus rentables",
                 effetVisible: "↑ Marge",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
@@ -4360,8 +4478,8 @@
                 impacts: { global: {"CMP": -0.07, "LT": 72.0, "TC": 0.02} }
             },
             {
-                id: "R1-22", nom: "Délai Agressif", emoji: "💼", cout: 15,
-                secteur: "Commercial",
+                id: "M1-22", nom: "Délai Agressif", emoji: "💼", cout: 15,
+                secteur: "Commercial", joueur: 1,
                 description: "Proposer des délais de livraison plus courts",
                 effetVisible: "↑ Marge",
                 effetGlobal: "↑ VAG, ↓ BFR",
@@ -4369,8 +4487,8 @@
                 impacts: { global: {"TR": 0.03, "TC": 0.03} }
             },
             {
-                id: "R1-23", nom: "Augmenter Stock du MF1", emoji: "💼", cout: 20,
-                secteur: "Commercial",
+                id: "M1-23", nom: "Augmenter Stock du MF1", emoji: "💼", cout: 20,
+                secteur: "Commercial", joueur: 1,
                 description: "Augmenter le stock du MF1 (Standard)",
                 effetVisible: "↓ Marge",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
@@ -4378,8 +4496,8 @@
                 impacts: { global: {"CMP": -0.03} }
             },
             {
-                id: "R1-24", nom: "Paiement Long", emoji: "💼", cout: 15,
-                secteur: "Commercial",
+                id: "M1-24", nom: "Paiement Long", emoji: "💼", cout: 15,
+                secteur: "Commercial", joueur: 1,
                 description: "Négocier des délais de paiement plus longs avec les clients",
                 effetVisible: "↑ Marge",
                 effetGlobal: "↑ VAG, ↓ BFR",
@@ -4387,8 +4505,8 @@
                 impacts: { global: {"DF": -0.03} }
             },
             {
-                id: "R1-30", nom: "Penalizar Cancelamentos", emoji: "💼", cout: 15,
-                secteur: "Commercial",
+                id: "M1-30", nom: "Pénaliser Annulations", emoji: "💼", cout: 15,
+                secteur: "Commercial", joueur: 1,
                 description: "Pénaliser les annulations de commandes",
                 effetVisible: "↑ Marge",
                 effetGlobal: "↑ BFR, ↓ VAG",
@@ -4396,10 +4514,10 @@
                 impacts: { global: {"TR": 0.1} }
             }
         ],
-        2: [ // Approvisionnement (J2)
+        2: [
             {
-                id: "R1-1", nom: "Fournisseur Lots+", emoji: "📦", cout: 15,
-                secteur: "Approvisionnement",
+                id: "M1-1", nom: "Fournisseur Lots+", emoji: "📦", cout: 15,
+                secteur: "Approvisionnement", joueur: 2,
                 description: "Négocier des lots plus importants avec le fournisseur pour réduire le coût unitaire",
                 effetVisible: "↓ Coût MP",
                 effetGlobal: "↑ BFR, ↓ CR, ↓ VAG",
@@ -4407,8 +4525,8 @@
                 impacts: { global: {"CMP": -0.02, "LT": 72.0} }
             },
             {
-                id: "R1-2", nom: "Fournisseur Cheap", emoji: "📦", cout: 20,
-                secteur: "Approvisionnement",
+                id: "M1-2", nom: "Fournisseur Cheap", emoji: "📦", cout: 20,
+                secteur: "Approvisionnement", joueur: 2,
                 description: "Choisir un fournisseur moins cher mais avec des délais plus longs",
                 effetVisible: "↓ Coût MP",
                 effetGlobal: "↑ BFR, ↓ VAG",
@@ -4416,8 +4534,8 @@
                 impacts: { global: {"LT": 120.0, "TR": 0.02, "CMP": -0.04} }
             },
             {
-                id: "R1-3", nom: "Fournisseur Intl", emoji: "📦", cout: 30,
-                secteur: "Approvisionnement",
+                id: "M1-3", nom: "Fournisseur Intl", emoji: "📦", cout: 30,
+                secteur: "Approvisionnement", joueur: 2,
                 description: "Sourcer auprès d\'un fournisseur international à bas coût",
                 effetVisible: "↓ Coût MP",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
@@ -4425,8 +4543,8 @@
                 impacts: { global: {"LT": 320.0, "CMP": -0.07} }
             },
             {
-                id: "R1-4", nom: "Délai Paiement+", emoji: "📦", cout: 10,
-                secteur: "Approvisionnement",
+                id: "M1-4", nom: "Délai Paiement+", emoji: "📦", cout: 10,
+                secteur: "Approvisionnement", joueur: 2,
                 description: "Négocier des délais de paiement plus longs avec les fournisseurs",
                 effetVisible: "↑ Coût MP",
                 effetGlobal: "↑ VAG, ↓ BFR",
@@ -4434,8 +4552,8 @@
                 impacts: { global: {"DF": -0.1} }
             },
             {
-                id: "R1-5", nom: "Lots Menores", emoji: "📦", cout: 20,
-                secteur: "Approvisionnement",
+                id: "M1-5", nom: "Petits Lots", emoji: "📦", cout: 20,
+                secteur: "Approvisionnement", joueur: 2,
                 description: "Commander des lots plus petits pour réduire le stock",
                 effetVisible: "↑ Coût MP",
                 effetGlobal: "↑ VAG, ↓ BFR, ↑ CR",
@@ -4443,8 +4561,8 @@
                 impacts: { global: {"CMP": 0.05, "LT": -24.0} }
             },
             {
-                id: "R1-25", nom: "Fournisseur cheap Q-", emoji: "📦", cout: 20,
-                secteur: "Approvisionnement",
+                id: "M1-25", nom: "Fournisseur cheap Q-", emoji: "📦", cout: 20,
+                secteur: "Approvisionnement", joueur: 2,
                 description: "Fournisseur bon marché mais qualité moindre",
                 effetVisible: "↓ Coût MP",
                 effetGlobal: "↑ BFR, ↓ CR, ↓ VAG",
@@ -4452,10 +4570,10 @@
                 impacts: { global: {"TR": 0.03, "CMP": -0.03} }
             }
         ],
-        3: [ // Logistique (J3)
+        3: [
             {
-                id: "R1-15", nom: "Camions Pleins", emoji: "🚛", cout: 15,
-                secteur: "Logistique",
+                id: "M1-15", nom: "Camions Pleins", emoji: "🚚", cout: 15,
+                secteur: "Logistique", joueur: 3,
                 description: "Optimiser le remplissage des camions",
                 effetVisible: "↓ CGE",
                 effetGlobal: "↑ BFR, ↓ VAG",
@@ -4463,8 +4581,8 @@
                 impacts: { global: {"LT": 168.0} }
             },
             {
-                id: "R1-16", nom: "Lots Transport x2", emoji: "🚛", cout: 20,
-                secteur: "Logistique",
+                id: "M1-16", nom: "Lots Transport x2", emoji: "🚚", cout: 20,
+                secteur: "Logistique", joueur: 3,
                 description: "Doubler la taille des lots de transport",
                 effetVisible: "↓ CGE",
                 effetGlobal: "↑ BFR, ↓ VAG",
@@ -4472,8 +4590,8 @@
                 impacts: { global: {"LT": 190.0} }
             },
             {
-                id: "R1-17", nom: "Transport Cheap", emoji: "🚛", cout: 20,
-                secteur: "Logistique",
+                id: "M1-17", nom: "Transport Cheap", emoji: "🚚", cout: 20,
+                secteur: "Logistique", joueur: 3,
                 description: "Choisir un transporteur moins cher",
                 effetVisible: "↓ CGE",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
@@ -4481,8 +4599,8 @@
                 impacts: { global: {"CMP": -0.03, "LT": 90.0} }
             },
             {
-                id: "R1-18", nom: "Stock Sécurité+", emoji: "🚛", cout: 15,
-                secteur: "Logistique",
+                id: "M1-18", nom: "Stock Sécurité+", emoji: "🚚", cout: 15,
+                secteur: "Logistique", joueur: 3,
                 description: "Augmenter le stock de sécurité pour éviter les ruptures",
                 effetVisible: "↑ CGE",
                 effetGlobal: "↑ BFR, ↓ VAG, ↑ CR",
@@ -4490,8 +4608,8 @@
                 impacts: { global: {"CMP": -0.03, "LT": 72.0, "TR": -0.02} }
             },
             {
-                id: "R1-19", nom: "Stock Sécurité-", emoji: "🚛", cout: 15,
-                secteur: "Logistique",
+                id: "M1-19", nom: "Stock Sécurité-", emoji: "🚚", cout: 15,
+                secteur: "Logistique", joueur: 3,
                 description: "Diminuer le stock de sécurité pour réduire le BFR",
                 effetVisible: "↓ CGE",
                 effetGlobal: "↓ BFR, ↑ VAG",
@@ -4499,8 +4617,8 @@
                 impacts: { global: {"LT": -72.0, "TR": 0.05} }
             },
             {
-                id: "R1-29", nom: "Réduire analyse d'inventaires", emoji: "🚛", cout: 10,
-                secteur: "Logistique",
+                id: "M1-29", nom: "Réduire analyse d'inventaires", emoji: "🚚", cout: 10,
+                secteur: "Logistique", joueur: 3,
                 description: "Réduire la fréquence d\'analyse des stocks",
                 effetVisible: "↓ CGE",
                 effetGlobal: "↑ BFR, ↓ VAG",
@@ -4508,10 +4626,10 @@
                 impacts: { global: {"TR": 0.04} }
             }
         ],
-        4: [ // Production (J4)
+        4: [
             {
-                id: "R1-6", nom: "Accélérer M1", emoji: "🔧", cout: 25,
-                secteur: "Production",
+                id: "M1-6", nom: "Accélérer M1", emoji: "⚙️", cout: 25,
+                secteur: "Production", joueur: 4,
                 description: "Accélérer la machine M1 pour augmenter la cadence",
                 effetVisible: "↑ Capacité",
                 effetGlobal: "↑ BFR, ↓ VAG",
@@ -4519,8 +4637,8 @@
                 impacts: { global: {"TR": 0.04, "TC": -0.01} }
             },
             {
-                id: "R1-7", nom: "Accélérer M2", emoji: "🔧", cout: 20,
-                secteur: "Production",
+                id: "M1-7", nom: "Accélérer M2", emoji: "⚙️", cout: 20,
+                secteur: "Production", joueur: 4,
                 description: "Accélérer la machine M2 pour augmenter la cadence",
                 effetVisible: "↑ Capacité",
                 effetGlobal: "↑ BFR, ↓ VAG",
@@ -4528,8 +4646,8 @@
                 impacts: { global: {"TR": 0.04, "TC": -0.01} }
             },
             {
-                id: "R1-8", nom: "Ralentir M4", emoji: "🔧", cout: 25,
-                secteur: "Production",
+                id: "M1-8", nom: "Ralentir M4", emoji: "⚙️", cout: 25,
+                secteur: "Production", joueur: 4,
                 description: "Ralentir la machine M4 (goulot) pour stabiliser le flux",
                 effetVisible: "↓ Capacité",
                 effetGlobal: "↑ BFR, ↓ VAG",
@@ -4537,8 +4655,8 @@
                 impacts: { global: {"TR": 0.04, "TC": 0.03, "LT": 144.0} }
             },
             {
-                id: "R1-9", nom: "Machine Neuve", emoji: "🔧", cout: 60,
-                secteur: "Production",
+                id: "M1-9", nom: "Machine Neuve", emoji: "⚙️", cout: 60,
+                secteur: "Production", joueur: 4,
                 description: "Investir dans une nouvelle machine pour augmenter la capacité",
                 effetVisible: "↑ Capacité",
                 effetGlobal: "↑ BFR, ↓ VAG, ↑ CR",
@@ -4546,17 +4664,17 @@
                 impacts: { global: {"CMP": 0.05, "TR": 0.03, "TC": -0.02} }
             },
             {
-                id: "R1-10", nom: "Gros Lots Prod", emoji: "🔧", cout: 20,
-                secteur: "Production",
+                id: "M1-10", nom: "Gros Lots Prod", emoji: "⚙️", cout: 20,
+                secteur: "Production", joueur: 4,
                 description: "Produire en lots plus importants pour réduire les temps de changement",
                 effetVisible: "↑ Capacité",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
                 flux: ["MF1", "MF2"],
-                impacts: { global: {"CMP": -0.04, "LT": 90.0} }
+                impacts: { global: {"CMP": -0.04, "LT": 90} }
             },
             {
-                id: "R1-26", nom: "Accélérer M3", emoji: "🔧", cout: 10,
-                secteur: "Production",
+                id: "M1-26", nom: "Accélérer M3", emoji: "⚙️", cout: 10,
+                secteur: "Production", joueur: 4,
                 description: "Accélérer la machine M3",
                 effetVisible: "↑ Capacité",
                 effetGlobal: "↑ BFR, ↓ VAG",
@@ -4564,8 +4682,8 @@
                 impacts: { global: {"TR": 0.02, "TC": -0.01} }
             },
             {
-                id: "R1-27", nom: "Machine Neuve M4", emoji: "🔧", cout: 65,
-                secteur: "Production",
+                id: "M1-27", nom: "Machine Neuve M4", emoji: "⚙️", cout: 65,
+                secteur: "Production", joueur: 4,
                 description: "Nouvelle machine pour M4",
                 effetVisible: "↑ Capacité",
                 effetGlobal: "↑ BFR, ↓ VAG, ↑ CR",
@@ -4573,19 +4691,19 @@
                 impacts: { global: {"CMP": 0.05, "TR": 0.03, "TC": -0.05} }
             },
             {
-                id: "R1-28", nom: "Push MF2", emoji: "🔧", cout: 20,
-                secteur: "Production",
+                id: "M1-28", nom: "Push MF2", emoji: "⚙️", cout: 20,
+                secteur: "Production", joueur: 4,
                 description: "Pousser les ventes du MF2 (Premium)",
                 effetVisible: "↑ Capacité",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
                 flux: ["MF1"],
-                impacts: { global: {"CMP": -0.04, "LT": 24.0} }
+                impacts: { global: {"CMP": -0.04, "LT": 24} }
             }
         ],
-        5: [ // Qualité (J5)
+        5: [
             {
-                id: "R1-11", nom: "Réduire Inspections", emoji: "✅", cout: 15,
-                secteur: "Qualité",
+                id: "M1-11", nom: "Réduire Inspections", emoji: "✅", cout: 15,
+                secteur: "Qualité", joueur: 5,
                 description: "Réduire les inspections qualité pour accélérer le flux",
                 effetVisible: "↑ TR",
                 effetGlobal: "↑ BFR, ↓ VAG",
@@ -4593,8 +4711,8 @@
                 impacts: { global: {"TR": 0.05} }
             },
             {
-                id: "R1-12", nom: "Étude Fournisseurs", emoji: "✅", cout: 20,
-                secteur: "Qualité",
+                id: "M1-12", nom: "Étude Fournisseurs", emoji: "✅", cout: 20,
+                secteur: "Qualité", joueur: 5,
                 description: "Étudier et qualifier de nouveaux fournisseurs",
                 effetVisible: "↓ TR",
                 effetGlobal: "↑ VAG, ↓ BFR",
@@ -4602,8 +4720,8 @@
                 impacts: { global: {"TC": -0.03, "TR": -0.02, "DF": 0.1} }
             },
             {
-                id: "R1-13", nom: "Accepter Défauts", emoji: "✅", cout: 10,
-                secteur: "Qualité",
+                id: "M1-13", nom: "Accepter Défauts", emoji: "✅", cout: 10,
+                secteur: "Qualité", joueur: 5,
                 description: "Accepter un taux de défauts plus élevé pour accélérer",
                 effetVisible: "↑ TR",
                 effetGlobal: "↑ BFR, ↓ VAG",
@@ -4611,18 +4729,18 @@
                 impacts: { global: {"TR": 0.07} }
             },
             {
-                id: "R1-14", nom: "Contrôle Trop Renforcé", emoji: "✅", cout: 15,
-                secteur: "Qualité",
+                id: "M1-14", nom: "Contrôle Trop Renforcé", emoji: "✅", cout: 15,
+                secteur: "Qualité", joueur: 5,
                 description: "Renforcer les contrôles qualité",
                 effetVisible: "↓ TR",
                 effetGlobal: "↑ BFR, ↓ VAG",
                 flux: ["MF1"],
-                impacts: { global: {"TR": -0.2, "LT": 120.0} }
+                impacts: { global: {"TR": -0.2, "LT": 120} }
             }
         ]
     };
 
-    // ==================== CARTES MANCHE 2 - LEAN (Outils Lean et TOC) v0.7.1 ====================
+    // ==================== CARTES MANCHE 2 - LEAN v0.7.2 ====================
 
     const CARTES_MANCHE2 = [
         {
@@ -4658,7 +4776,7 @@
             impacts: { global: {"TR": -0.08, "DF": 0.25} }
         },
         {
-            id: "M2-5", nom: "SMED Coupe Initiale", emoji: "🔧", cout: 20,
+            id: "M2-5", nom: "SMED Coupe Initiale", emoji: "⚙️", cout: 20,
             secteur: "Production", joueur: 4,
             description: "Appliquer SMED sur la coupe initiale pour réduire les temps de changement",
             effetVisible: "SMED Corte",
@@ -4666,7 +4784,7 @@
             impacts: { global: {"TC": -0.15} }
         },
         {
-            id: "M2-6", nom: "SMED Polissage", emoji: "🔧", cout: 20,
+            id: "M2-6", nom: "SMED Polissage", emoji: "⚙️", cout: 20,
             secteur: "Production", joueur: 4,
             description: "Appliquer SMED sur le polissage pour réduire les temps de changement",
             effetVisible: "SMED Poliss.",
@@ -4674,7 +4792,7 @@
             impacts: { global: {"TC": -0.15} }
         },
         {
-            id: "M2-7", nom: "SMED Coupe Finale", emoji: "🔧", cout: 25,
+            id: "M2-7", nom: "SMED Coupe Finale", emoji: "⚙️", cout: 25,
             secteur: "Production", joueur: 4,
             description: "Appliquer SMED sur la coupe finale pour réduire les temps de changement",
             effetVisible: "SMED Goulot",
@@ -4682,7 +4800,7 @@
             impacts: { global: {"TC": -0.17} }
         },
         {
-            id: "M2-8", nom: "5S Atelier", emoji: "🔧", cout: 10,
+            id: "M2-8", nom: "5S Atelier", emoji: "⚙️", cout: 10,
             secteur: "Production", joueur: 4,
             description: "Appliquer 5S dans l\'atelier de production",
             effetVisible: "5S Atelier",
@@ -4690,7 +4808,7 @@
             impacts: { global: {"TC": -0.02, "TR": -0.05, "LT": -48.0} }
         },
         {
-            id: "M2-9", nom: "Kanban Interne", emoji: "🔧", cout: 20,
+            id: "M2-9", nom: "Kanban Interne", emoji: "⚙️", cout: 20,
             secteur: "Production", joueur: 4,
             description: "Mettre en place un Kanban interne pour le flux tiré",
             effetVisible: "Kanban Int.",
@@ -4698,7 +4816,7 @@
             impacts: { global: {"LT": -16.0, "TC": -0.05} }
         },
         {
-            id: "M2-10", nom: "TOC Subordination", emoji: "🔧", cout: 25,
+            id: "M2-10", nom: "TOC Subordination", emoji: "⚙️", cout: 25,
             secteur: "Production", joueur: 4,
             description: "Appliquer la subordination TOC au goulot (Machine 4)",
             effetVisible: "TOC DBR",
@@ -4706,7 +4824,7 @@
             impacts: { global: {"LT": -24.0} }
         },
         {
-            id: "M2-11", nom: "TPM", emoji: "🔧", cout: 30,
+            id: "M2-11", nom: "TPM", emoji: "⚙️", cout: 30,
             secteur: "Production", joueur: 4,
             description: "Implémenter la maintenance productive totale (TPM)",
             effetVisible: "TPM",
@@ -4714,7 +4832,7 @@
             impacts: { global: {"TR": -0.14} }
         },
         {
-            id: "M2-12", nom: "Jidoka", emoji: "🔧", cout: 50,
+            id: "M2-12", nom: "Jidoka", emoji: "⚙️", cout: 50,
             secteur: "Production", joueur: 4,
             description: "Installer des systèmes Jidoka (autonomation)",
             effetVisible: "Jidoka",
@@ -4770,7 +4888,7 @@
             impacts: { global: {"LT": -30.0} }
         },
         {
-            id: "M2-19", nom: "5S Entrepôt", emoji: "🚛", cout: 15,
+            id: "M2-19", nom: "5S Entrepôt", emoji: "🚚", cout: 15,
             secteur: "Logistique", joueur: 3,
             description: "Implémenter le management visuel sur le shop floor",
             effetVisible: "5S Entrepôt",
@@ -4778,7 +4896,7 @@
             impacts: { global: {"TR": -0.02, "TC": -0.03, "LT": -36.0} }
         },
         {
-            id: "M2-20", nom: "Kanban Distribution", emoji: "🚛", cout: 20,
+            id: "M2-20", nom: "Kanban Distribution", emoji: "🚚", cout: 20,
             secteur: "Logistique", joueur: 3,
             description: "Standardiser les postes de travail",
             effetVisible: "Kanban Dist.",
@@ -4786,7 +4904,7 @@
             impacts: { global: {"LT": -50.0} }
         },
         {
-            id: "M2-21", nom: "Heijunka Expéditions", emoji: "🚛", cout: 25,
+            id: "M2-21", nom: "Heijunka Expéditions", emoji: "🚚", cout: 25,
             secteur: "Logistique", joueur: 3,
             description: "Appliquer Heijunka aux expéditions pour lisser les envois",
             effetVisible: "Heijunka Exp.",
@@ -4794,7 +4912,7 @@
             impacts: { global: {"LT": -64.0} }
         },
         {
-            id: "M2-22", nom: "JIT Livraison", emoji: "🚛", cout: 25,
+            id: "M2-22", nom: "JIT Livraison", emoji: "🚚", cout: 25,
             secteur: "Logistique", joueur: 3,
             description: "Réduire les temps de changement généraux (SMED avancé)",
             effetVisible: "JIT",
@@ -4802,7 +4920,7 @@
             impacts: { global: {"LT": -120.0} }
         },
         {
-            id: "M2-23", nom: "TOC Logistique", emoji: "🚛", cout: 20,
+            id: "M2-23", nom: "TOC Logistique", emoji: "🚚", cout: 20,
             secteur: "Logistique", joueur: 3,
             description: "Implémenter le flux tiré (Pull) dans toute l\'usine",
             effetVisible: "TOC Logist.",
@@ -4867,7 +4985,7 @@
         }
     ];
 
-    // ==================== CARTES MANCHE 3 - EXCELLENCE (Lean & PIG) v0.7.1 ====================
+    // ==================== CARTES MANCHE 3 - EXCELLENCE v0.7.2 ====================
 
     const CARTES_MANCHE3 = [
         {
@@ -4927,7 +5045,7 @@
             impacts: { global: {"TR": -0.15} }
         },
         {
-            id: "M3-8", nom: "Opérateurs Polyvalents", emoji: "🔧", cout: 30,
+            id: "M3-8", nom: "Opérateurs Polyvalents", emoji: "⚙️", cout: 30,
             secteur: "Production", joueur: 4,
             description: "Former des opérateurs polyvalents pour plus de flexibilité",
             effetVisible: "Polyvalence",
@@ -4935,7 +5053,7 @@
             impacts: { global: {"TR": -0.05, "LT": -48.0, "TC": -0.03} }
         },
         {
-            id: "M3-9", nom: "Maintenance Préventive", emoji: "🔧", cout: 25,
+            id: "M3-9", nom: "Maintenance Préventive", emoji: "⚙️", cout: 25,
             secteur: "Production", joueur: 4,
             description: "Implémenter la maintenance préventive planifiée",
             effetVisible: "Préventive",
@@ -4943,7 +5061,7 @@
             impacts: { global: {"TC": -0.12} }
         },
         {
-            id: "M3-10", nom: "Outillage Rénové", emoji: "🔧", cout: 35,
+            id: "M3-10", nom: "Outillage Rénové", emoji: "⚙️", cout: 35,
             secteur: "Production", joueur: 4,
             description: "Rénover l\'outillage pour améliorer la qualité",
             effetVisible: "Outillage",
@@ -4951,7 +5069,7 @@
             impacts: { global: {"TC": -0.02, "TR": -0.03} }
         },
         {
-            id: "M3-11", nom: "LED Haute Efficacité", emoji: "🔧", cout: 35,
+            id: "M3-11", nom: "LED Haute Efficacité", emoji: "⚙️", cout: 35,
             secteur: "Production", joueur: 4,
             description: "Installer un éclairage LED haute efficacité",
             effetVisible: "-60% conso éclairage",
@@ -4959,7 +5077,7 @@
             impacts: { global: {"CGE": -0.1} }
         },
         {
-            id: "M3-12", nom: "Panneaux Solaires 60kW", emoji: "🔧", cout: 120,
+            id: "M3-12", nom: "Panneaux Solaires 60kW", emoji: "⚙️", cout: 120,
             secteur: "Production", joueur: 4,
             description: "Installer des panneaux solaires sur le toit",
             effetVisible: "60kW capacité",
@@ -4967,7 +5085,7 @@
             impacts: { global: {"CGE": -0.3} }
         },
         {
-            id: "M3-13", nom: "Récupération Eau", emoji: "🔧", cout: 15,
+            id: "M3-13", nom: "Récupération Eau", emoji: "⚙️", cout: 15,
             secteur: "Production", joueur: 4,
             description: "Récupérer l\'eau de pluie pour les usages industriels",
             effetVisible: "Récupération",
@@ -5031,7 +5149,7 @@
             impacts: { global: {"TR": -0.03} }
         },
         {
-            id: "M3-21", nom: "Tournées Groupées", emoji: "🚛", cout: 8,
+            id: "M3-21", nom: "Tournées Groupées", emoji: "🚚", cout: 8,
             secteur: "Logistique", joueur: 3,
             description: "Implémenter un système MES",
             effetVisible: "Tournées",
@@ -5039,7 +5157,7 @@
             impacts: { global: {"LT": -24.0} }
         },
         {
-            id: "M3-22", nom: "Emballage Renforcé", emoji: "🚛", cout: 15,
+            id: "M3-22", nom: "Emballage Renforcé", emoji: "🚚", cout: 15,
             secteur: "Logistique", joueur: 3,
             description: "Créer un jumeau numérique de l\'usine",
             effetVisible: "Emballage",
@@ -5047,7 +5165,7 @@
             impacts: { global: {"TR": -0.02} }
         },
         {
-            id: "M3-23", nom: "Transporteur Dédié", emoji: "🚛", cout: 20,
+            id: "M3-23", nom: "Transporteur Dédié", emoji: "🚚", cout: 20,
             secteur: "Logistique", joueur: 3,
             description: "Utiliser la réalité augmentée pour la maintenance",
             effetVisible: "Dédié",
@@ -5055,7 +5173,7 @@
             impacts: { global: {"LT": -36.0, "DC": -0.1} }
         },
         {
-            id: "M3-24", nom: "Vendre Chutes", emoji: "🚛", cout: 5,
+            id: "M3-24", nom: "Vendre Chutes", emoji: "🚚", cout: 5,
             secteur: "Logistique", joueur: 3,
             description: "Blockchain pour la traçabilité des produits",
             effetVisible: "Chutes",
@@ -5063,7 +5181,7 @@
             impacts: { global: {"TR": -0.01} }
         },
         {
-            id: "M3-25", nom: "Stock Tampon Client", emoji: "🚛", cout: 25,
+            id: "M3-25", nom: "Stock Tampon Client", emoji: "🚚", cout: 25,
             secteur: "Logistique", joueur: 3,
             description: "Impression 3D pour les pièces de rechange",
             effetVisible: "Stock Client",
@@ -5138,6 +5256,7 @@
         // Phase de débriefing entre manches
         phaseDebriefing: false,
         phaseDebriefing2: false,  // Débriefing entre manche 2 et 3
+        classementM2: null,       // Classement de l'équipe en fin de Manche 2 (1, 2, ou 3)
         joueursCompris: { 1: false, 2: false, 3: false, 4: false, 5: false },
         // NOUVEAU: Micro-flux et Machines
         microFlux: JSON.parse(JSON.stringify(MICRO_FLUX)),
@@ -5915,7 +6034,10 @@
                 for (let i = 1; i <= 5; i++) gameState.joueursReady[i] = false;
                 // Fusionner les budgets pour la collaboration
                 gameState.budgetCommun = Object.values(gameState.budgets).reduce((a, b) => a + b, 0);
-                showToast('🤝 Passage à la Manche 2 - Collaboration !', 'success');
+                
+                // Afficher l'alerte de compétition
+                afficherAlerteCompetition();
+                
                 render();
                 renderDevPanel();
             }, 500);
@@ -6343,6 +6465,7 @@
             historique: [],
             phaseDebriefing: false,
             phaseDebriefing2: false,
+            classementM2: null,
             joueursCompris: { 1: false, 2: false, 3: false, 4: false, 5: false },
             // Reset micro-flux et machines
             microFlux: JSON.parse(JSON.stringify(MICRO_FLUX)),
@@ -7888,10 +8011,10 @@
     
     function passerManche3() {
         document.getElementById('revelationModalM2').classList.remove('active');
+        document.getElementById('greenSkillsModal').classList.remove('active');
         
         gameState.phaseDebriefing2 = false;
         gameState.manche = 3;
-        gameState.budgetCommun = 300;
         
         // Réinitialiser les états
         for (let i = 1; i <= 5; i++) {
@@ -7901,6 +8024,91 @@
         showToast('🌿 Bienvenue en Manche 3 - Optimisez le PIG !', 'success');
         render();
         renderDevPanel();
+    }
+    
+    // Afficher le modal GreenSkills après le bilan M2
+    function afficherGreenSkillsSponsoring() {
+        document.getElementById('revelationModalM2').classList.remove('active');
+        
+        // Reset des erreurs et sélections
+        document.getElementById('greenSkillsPasswordError').style.display = 'none';
+        document.getElementById('greenSkillsRankingError').style.display = 'none';
+        document.getElementById('greenSkillsPassword').value = '';
+        document.getElementById('greenSkillsBudgetPreview').style.display = 'none';
+        document.querySelectorAll('input[name="teamRanking"]').forEach(r => r.checked = false);
+        
+        // Ajouter les event listeners pour la prévisualisation
+        document.querySelectorAll('input[name="teamRanking"]').forEach(radio => {
+            radio.addEventListener('change', updateGreenSkillsBudgetPreview);
+        });
+        
+        document.getElementById('greenSkillsModal').classList.add('active');
+    }
+    
+    // Mettre à jour la prévisualisation du budget
+    function updateGreenSkillsBudgetPreview() {
+        const ranking = document.querySelector('input[name="teamRanking"]:checked');
+        if (ranking) {
+            const bonusMap = { '1': 100, '2': 75, '3': 50 };
+            const bonus = bonusMap[ranking.value] || 0;
+            const total = 300 + bonus;
+            document.getElementById('greenSkillsTotalBudget').textContent = total + ' pts';
+            document.getElementById('greenSkillsBudgetPreview').style.display = 'block';
+        }
+    }
+    
+    // Valider le sponsoring GreenSkills
+    function validerGreenSkillsSponsoring() {
+        const password = document.getElementById('greenSkillsPassword').value;
+        const ranking = document.querySelector('input[name="teamRanking"]:checked');
+        
+        // Vérifier le mot de passe
+        if (password !== devMode.adminPassword) {
+            document.getElementById('greenSkillsPasswordError').style.display = 'block';
+            document.getElementById('greenSkillsPassword').style.borderColor = 'var(--danger)';
+            return;
+        }
+        document.getElementById('greenSkillsPasswordError').style.display = 'none';
+        document.getElementById('greenSkillsPassword').style.borderColor = 'var(--border-default)';
+        
+        // Vérifier la sélection du classement
+        if (!ranking) {
+            document.getElementById('greenSkillsRankingError').style.display = 'block';
+            return;
+        }
+        document.getElementById('greenSkillsRankingError').style.display = 'none';
+        
+        // Calculer le budget
+        const bonusMap = { '1': 100, '2': 75, '3': 50 };
+        const bonus = bonusMap[ranking.value] || 0;
+        const totalBudget = 300 + bonus;
+        
+        // Appliquer le budget
+        gameState.budgetCommun = totalBudget;
+        gameState.classementM2 = parseInt(ranking.value);
+        
+        // Message personnalisé selon le classement
+        const rankingMessages = {
+            1: '🥇 Félicitations ! Votre équipe est 1ère avec un bonus de 100 pts !',
+            2: '🥈 Bravo ! Votre équipe est 2ème avec un bonus de 75 pts !',
+            3: '🥉 Bien joué ! Votre équipe est 3ème avec un bonus de 50 pts !'
+        };
+        
+        showToast(rankingMessages[ranking.value], 'success');
+        
+        // Passer à la manche 3
+        passerManche3();
+    }
+    
+    // Afficher l'alerte de compétition au début de la Manche 2
+    function afficherAlerteCompetition() {
+        document.getElementById('competitionAlertModal').classList.add('active');
+    }
+    
+    // Fermer l'alerte de compétition
+    function fermerAlerteCompetition() {
+        document.getElementById('competitionAlertModal').classList.remove('active');
+        showToast('🤝 Mode collaboratif activé - Travaillez ensemble !', 'info');
     }
     
     function changeJoueur() {
@@ -9494,7 +9702,10 @@
                     </div>
                     <div class="card-description">${c.description}</div>
                     ${c.effetVisible ? `<div class="card-effect" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(16, 185, 129, 0.15)); border: 1px solid var(--success); padding: 8px 12px; border-radius: 8px; margin-top: 8px;">
-                        <span style="color: var(--success); font-weight: 600;">✨ Effet :</span> ${c.effetVisible}
+                        <span style="color: var(--success); font-weight: 600;">📊 Indicateur visible :</span> ${c.effetVisible}
+                    </div>` : ''}
+                    ${c.effetGlobal ? `<div class="card-effect" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(234, 88, 12, 0.15)); border: 1px solid var(--warning); padding: 8px 12px; border-radius: 8px; margin-top: 6px;">
+                        <span style="color: var(--warning); font-weight: 600;">⚠️ Impact global :</span> ${c.effetGlobal}
                     </div>` : ''}
                     
                     <!-- V0.6.38: Score de décision (seulement si aide activée) -->
@@ -10113,21 +10324,30 @@
             let explanationHTML = '';
             
             if (enManche1SansDebriefing) {
-                // En Manche 1 (avant débriefing) : montrer les effets GLOBAUX
-                if (entry.carte.effetGlobal) {
-                    effectsHTML += `<span class="history-effect hidden" style="background: rgba(245, 158, 11, 0.15); border-color: var(--warning);">⚠️ ${entry.carte.effetGlobal}</span>`;
+                // En Manche 1 (avant débriefing) : montrer seulement l'effet VISIBLE (indicateur local)
+                if (entry.carte.effetVisible) {
+                    effectsHTML += `<span class="history-effect visible" style="background: rgba(34, 197, 94, 0.15); border-color: var(--success);">📊 Indicateur visible: ${entry.carte.effetVisible}</span>`;
                 }
-                effectsHTML += `<span class="history-effect" style="background: rgba(99, 102, 241, 0.1); border-color: var(--accent-primary); font-size: 0.75em; color: var(--text-muted);">ℹ️ Impact local masqué jusqu'au débriefing</span>`;
+                effectsHTML += `<span class="history-effect" style="background: rgba(245, 158, 11, 0.1); border-color: var(--warning); font-size: 0.75em; color: var(--warning);">🔒 Métrique réelle masquée jusqu'au débriefing</span>`;
             } else {
                 // Après débriefing ou Manche 2+ : montrer TOUT
-                // Effet visible (local)
+                
+                // Effet visible (indicateur local - ce que le joueur voyait)
                 if (entry.carte.effetVisible) {
-                    effectsHTML += `<span class="history-effect visible">📈 ${entry.carte.effetVisible}</span>`;
+                    effectsHTML += `<span class="history-effect visible" style="background: rgba(99, 102, 241, 0.1); border-color: var(--accent-primary);">📊 Indicateur visible: ${entry.carte.effetVisible}</span>`;
                 }
                 
-                // Effet global (caché)
+                // Effet global RÉVÉLÉ (métrique réelle - impact caché révélé en M2)
                 if (entry.carte.effetGlobal && entry.manche === 1) {
-                    effectsHTML += `<span class="history-effect hidden" style="background: rgba(239, 68, 68, 0.15); border-color: var(--danger);">⚠️ ${entry.carte.effetGlobal}</span>`;
+                    effectsHTML += `<span class="history-effect hidden" style="background: rgba(239, 68, 68, 0.15); border-color: var(--danger);">⚠️ Métrique réelle: ${entry.carte.effetGlobal}</span>`;
+                }
+                
+                // Pour cartes M2+ (Lean) - pas de distinction visible/caché
+                if (entry.manche >= 2 && entry.carte.effetVisible) {
+                    effectsHTML += `<span class="history-effect positive" style="background: rgba(34, 197, 94, 0.15); border-color: var(--success);">✨ ${entry.carte.effetVisible}</span>`;
+                    if (entry.carte.effetGlobal) {
+                        effectsHTML += `<span class="history-effect positive" style="background: rgba(16, 185, 129, 0.1); border-color: var(--success);">📈 ${entry.carte.effetGlobal}</span>`;
+                    }
                 }
                 
                 // Explication pédagogique (uniquement pour les cartes Manche 1)
@@ -10142,11 +10362,6 @@
                 
                 if (entry.carte.type === 'revelation') {
                     effectsHTML += `<span class="history-effect visible">🔍 Révélation</span>`;
-                }
-                
-                // Pour manche 2+, afficher les impacts positifs
-                if (entry.manche >= 2 && entry.carte.effetVisible) {
-                    effectsHTML += `<span class="history-effect positive">✨ Amélioration Lean</span>`;
                 }
             }
             
@@ -11030,236 +11245,148 @@
         
         let metricsHTML = '';
         
-        // En Manche 1: afficher des métriques VISIBLES spécifiques au joueur
+        // En Manche 1: afficher UNIQUEMENT les indicateurs VISIBLES qui changent
         if (manche === 1) {
-            // Métriques communes visibles
-            const ltBefore = calculerLTMoyen();
-            const ltAfter = ltBefore + impacts.ltImpact;
+            // Extraire les impacts de la carte
+            const cmpImpact = (carte.impacts?.global?.CMP || 0) * 100;  // Coût MP en %
+            const ltImpact = (carte.impacts?.global?.LT || 0) / 24;     // Lead Time en jours
+            const trImpact = (carte.impacts?.global?.TR || 0) * 100;    // Taux Rebut en %
+            const tcImpact = (carte.impacts?.global?.TC || 0) * 100;    // Temps Cycle en %
+            const dfImpact = (carte.impacts?.global?.DF || 0) * 100;    // Délai Fournisseur en %
+            const dcImpact = (carte.impacts?.global?.DC || 0) * 100;    // Délai Client en %
             
-            // Calculer TR moyen
-            let trTotal = 0;
-            let mfCount = Object.keys(gameState.microFlux).length;
-            for (const mfId in gameState.microFlux) {
-                trTotal += gameState.microFlux[mfId].Tr;
-            }
-            const trBefore = mfCount > 0 ? (trTotal / mfCount) * 100 : 0;
-            const trAfter = Math.max(0, trBefore + impacts.qualityImpact);
-            
-            // Capacité (affectée par certaines cartes)
-            const capImpact = carte.impacts?.global?.CAP ? (carte.impacts.global.CAP * 100) : 0;
-            
-            // Budget impact
+            // Budget
             const budgetBefore = gameState.budgetManche1;
             const budgetAfter = budgetBefore - carte.cout;
             
-            // Métriques spécifiques selon le joueur
-            if (joueur === 1) {
-                // J1 Commercial: Marge
-                let margeBefore = 0;
-                for (const mfId in gameState.microFlux) {
-                    const mf = gameState.microFlux[mfId];
-                    margeBefore += (mf.PV - mf.DA) * mf.QV;
-                }
-                const pvImpact = carte.impacts?.global?.PV ? (carte.impacts.global.PV * 100) : 0;
-                const daImpact = carte.impacts?.global?.DA ? (carte.impacts.global.DA * 100) : 0;
-                const margeChange = pvImpact - daImpact;
-                const margeAfter = margeBefore * (1 + margeChange / 100);
-                
-                metricsHTML = `
+            // Valeurs actuelles
+            const ltMF1Before = gameState.microFlux.MF1.LT;
+            const ltMF2Before = gameState.microFlux.MF2.LT;
+            
+            let trTotal = 0, mfCount = 0;
+            for (const mfId in gameState.microFlux) {
+                trTotal += gameState.microFlux[mfId].Tr;
+                mfCount++;
+            }
+            const trBefore = mfCount > 0 ? (trTotal / mfCount) * 100 : 9.5;
+            
+            // Construire les lignes dynamiquement - SEULEMENT si l'impact existe
+            let rows = '';
+            
+            // Coût MP (CMP)
+            if (Math.abs(cmpImpact) > 0.01) {
+                const direction = cmpImpact < 0 ? '↓' : '↑';
+                const color = cmpImpact < 0 ? 'positive' : 'negative';
+                rows += `
                     <div class="simulation-metric-row">
-                        <span>💵 Marge Totale</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(margeBefore))}</span>
+                        <span>📦 Coût MP</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">Base</span>
                         <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(margeAfter))}</span>
-                        <span class="simulation-change ${margeAfter >= margeBefore ? 'positive' : 'negative'}">
-                            ${margeChange >= 0 ? '+' : ''}${margeChange.toFixed(1)}%
-                        </span>
-                    </div>
-                `;
-            } else if (joueur === 2) {
-                // J2 Approvisionnement: Coût de Revient
-                let crTotal = 0, qvTotal = 0;
-                for (const mfId in gameState.microFlux) {
-                    const mf = gameState.microFlux[mfId];
-                    crTotal += calculerDDP(mf) * mf.QV;
-                    qvTotal += mf.QV;
-                }
-                const crBefore = qvTotal > 0 ? crTotal / qvTotal : 0;
-                const daImpact = carte.impacts?.global?.DA ? (carte.impacts.global.DA * 100) : 0;
-                const crAfter = crBefore * (1 + daImpact / 100);
-                
-                metricsHTML = `
-                    <div class="simulation-metric-row">
-                        <span>📦 Coût de Revient Moy.</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(crBefore))}</span>
-                        <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(crAfter))}</span>
-                        <span class="simulation-change ${crAfter <= crBefore ? 'positive' : 'negative'}">
-                            ${daImpact > 0 ? '+' : ''}${daImpact.toFixed(1)}%
-                        </span>
-                    </div>
-                `;
-            } else if (joueur === 4) {
-                // J4 Production: TRG/Capacité et Lead Time par produit
-                let trgSum = 0, machineCount = 0;
-                for (const [machineId, machine] of Object.entries(gameState.machines)) {
-                    const chargePercent = machine.capacite > 0 ? Math.min(100, (machine.charge / machine.capacite * 100)) : 0;
-                    trgSum += chargePercent;
-                    machineCount++;
-                }
-                const trgBefore = machineCount > 0 ? trgSum / machineCount : 0;
-                // TRG après dépend de la capacité ajoutée
-                const trgAfter = capImpact > 0 ? trgBefore * (100 / (100 + capImpact)) : trgBefore;
-                
-                // Lead Time par produit (en jours)
-                const ltP1 = gameState.microFlux['MF1'] ? gameState.microFlux['MF1'].LT : 0;
-                const ltP2 = gameState.microFlux['MF2'] ? gameState.microFlux['MF2'].LT : 0;
-                const ltImpactVal = impacts.ltImpact || 0;
-                
-                metricsHTML = `
-                    <div class="simulation-metric-row">
-                        <span>🏭 TRG Moyen</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${trgBefore.toFixed(0)}%</span>
-                        <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${trgAfter.toFixed(0)}%</span>
-                        <span class="simulation-change ${trgAfter <= trgBefore ? 'positive' : 'negative'}">
-                            ${capImpact > 0 ? '↗️ Cap +' + capImpact.toFixed(0) + '%' : '—'}
-                        </span>
-                    </div>
-                    <div class="simulation-metric-row">
-                        <span>⬜ LT Standard</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltP1.toFixed(0)}j</span>
-                        <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(ltP1 + ltImpactVal).toFixed(0)}j</span>
-                        <span class="simulation-change ${ltImpactVal <= 0 ? 'positive' : 'negative'}">
-                            ${ltImpactVal > 0 ? '+' : ''}${ltImpactVal.toFixed(0)}j
-                        </span>
-                    </div>
-                    <div class="simulation-metric-row">
-                        <span>💎 LT Premium</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltP2.toFixed(0)}j</span>
-                        <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(ltP2 + ltImpactVal).toFixed(0)}j</span>
-                        <span class="simulation-change ${ltImpactVal <= 0 ? 'positive' : 'negative'}">
-                            ${ltImpactVal > 0 ? '+' : ''}${ltImpactVal.toFixed(0)}j
-                        </span>
-                    </div>
-                `;
-            } else if (joueur === 5) {
-                // J5 Qualité: Conformité (1-TR)
-                const confBefore = 100 - trBefore;
-                const confAfter = 100 - trAfter;
-                
-                metricsHTML = `
-                    <div class="simulation-metric-row">
-                        <span>✅ Conformité</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${confBefore.toFixed(1)}%</span>
-                        <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${confAfter.toFixed(1)}%</span>
-                        <span class="simulation-change ${confAfter >= confBefore ? 'positive' : 'negative'}">
-                            ${confAfter >= confBefore ? '+' : ''}${(confAfter - confBefore).toFixed(1)}%
-                        </span>
-                    </div>
-                `;
-            } else {
-                // J3 Logistique: Coût de transport par unité
-                const cgeLogistique = gameState.cge.logistique || 0;
-                let qvTotal = 0;
-                for (const mfId in gameState.microFlux) {
-                    qvTotal += gameState.microFlux[mfId].QV;
-                }
-                const coutTransportUnit = qvTotal > 0 ? cgeLogistique / qvTotal : 0;
-                const cgeImpact = carte.impacts?.global?.CGE ? (carte.impacts.global.CGE * 100) : 0;
-                const coutTransportAfter = coutTransportUnit * (1 + cgeImpact / 100);
-                
-                metricsHTML = `
-                    <div class="simulation-metric-row">
-                        <span>🚛 Coût Transport/unité</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${coutTransportUnit.toFixed(0)}</span>
-                        <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${coutTransportAfter.toFixed(0)}</span>
-                        <span class="simulation-change ${coutTransportAfter <= coutTransportUnit ? 'positive' : 'negative'}">
-                            ${cgeImpact > 0 ? '+' : ''}${cgeImpact.toFixed(1)}%
-                        </span>
-                    </div>
-                    <div class="simulation-metric-row">
-                        <span>⬜ LT Standard</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${gameState.microFlux.MF1.LT.toFixed(0)}j</span>
-                        <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(gameState.microFlux.MF1.LT + impacts.ltImpact).toFixed(0)}j</span>
-                        <span class="simulation-change ${impacts.ltImpact <= 0 ? 'positive' : 'negative'}">
-                            ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact.toFixed(0)}j
-                        </span>
-                    </div>
-                    <div class="simulation-metric-row">
-                        <span>💎 LT Premium</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${gameState.microFlux.MF2.LT.toFixed(0)}j</span>
-                        <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(gameState.microFlux.MF2.LT + impacts.ltImpact).toFixed(0)}j</span>
-                        <span class="simulation-change ${impacts.ltImpact <= 0 ? 'positive' : 'negative'}">
-                            ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact.toFixed(0)}j
-                        </span>
-                    </div>
-                `;
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${direction} ${Math.abs(cmpImpact).toFixed(0)}%</span>
+                        <span class="simulation-change ${color}">${cmpImpact > 0 ? '+' : ''}${cmpImpact.toFixed(0)}%</span>
+                    </div>`;
             }
             
-            // Ajouter métriques communes pour tous (sauf J3 qui l'a déjà, J4 qui a LT par produit)
-            // Affichage des Lead Times par produit
-            if (joueur !== 2 && joueur !== 3 && joueur !== 4) {
-                metricsHTML += `
+            // Lead Time (LT)
+            if (Math.abs(ltImpact) > 0.01) {
+                rows += `
                     <div class="simulation-metric-row">
                         <span>⬜ LT Standard</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${gameState.microFlux.MF1.LT.toFixed(0)}j</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltMF1Before.toFixed(0)}j</span>
                         <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(gameState.microFlux.MF1.LT + impacts.ltImpact).toFixed(0)}j</span>
-                        <span class="simulation-change ${impacts.ltImpact <= 0 ? 'positive' : 'negative'}">
-                            ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact.toFixed(0)}j
-                        </span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(ltMF1Before + ltImpact).toFixed(0)}j</span>
+                        <span class="simulation-change ${ltImpact <= 0 ? 'positive' : 'negative'}">${ltImpact > 0 ? '+' : ''}${ltImpact.toFixed(0)}j</span>
                     </div>
                     <div class="simulation-metric-row">
                         <span>💎 LT Premium</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${gameState.microFlux.MF2.LT.toFixed(0)}j</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltMF2Before.toFixed(0)}j</span>
                         <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(gameState.microFlux.MF2.LT + impacts.ltImpact).toFixed(0)}j</span>
-                        <span class="simulation-change ${impacts.ltImpact <= 0 ? 'positive' : 'negative'}">
-                            ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact.toFixed(0)}j
-                        </span>
-                    </div>
-                `;
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(ltMF2Before + ltImpact).toFixed(0)}j</span>
+                        <span class="simulation-change ${ltImpact <= 0 ? 'positive' : 'negative'}">${ltImpact > 0 ? '+' : ''}${ltImpact.toFixed(0)}j</span>
+                    </div>`;
             }
+            
+            // Taux de Rebut (TR)
+            if (Math.abs(trImpact) > 0.01) {
+                const trAfter = trBefore + trImpact;
+                rows += `
+                    <div class="simulation-metric-row">
+                        <span>🎯 Taux Rebut</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${trBefore.toFixed(1)}%</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${trAfter.toFixed(1)}%</span>
+                        <span class="simulation-change ${trImpact <= 0 ? 'positive' : 'negative'}">${trImpact > 0 ? '+' : ''}${trImpact.toFixed(1)}%</span>
+                    </div>`;
+            }
+            
+            // Temps Cycle (TC)
+            if (Math.abs(tcImpact) > 0.01) {
+                rows += `
+                    <div class="simulation-metric-row">
+                        <span>⏱️ Temps Cycle</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">Base</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${tcImpact > 0 ? '↑' : '↓'} ${Math.abs(tcImpact).toFixed(0)}%</span>
+                        <span class="simulation-change ${tcImpact <= 0 ? 'positive' : 'negative'}">${tcImpact > 0 ? '+' : ''}${tcImpact.toFixed(0)}%</span>
+                    </div>`;
+            }
+            
+            // Délai Fournisseur (DF)
+            if (Math.abs(dfImpact) > 0.01) {
+                rows += `
+                    <div class="simulation-metric-row">
+                        <span>🚚 Délai Fournisseur</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">Base</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${dfImpact > 0 ? '↑' : '↓'} ${Math.abs(dfImpact).toFixed(0)}%</span>
+                        <span class="simulation-change ${dfImpact >= 0 ? 'positive' : 'negative'}">${dfImpact > 0 ? '+' : ''}${dfImpact.toFixed(0)}%</span>
+                    </div>`;
+            }
+            
+            // Délai Client (DC)
+            if (Math.abs(dcImpact) > 0.01) {
+                rows += `
+                    <div class="simulation-metric-row">
+                        <span>👤 Délai Client</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">Base</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${dcImpact > 0 ? '↑' : '↓'} ${Math.abs(dcImpact).toFixed(0)}%</span>
+                        <span class="simulation-change ${dcImpact >= 0 ? 'positive' : 'negative'}">${dcImpact > 0 ? '+' : ''}${dcImpact.toFixed(0)}%</span>
+                    </div>`;
+            }
+            
+            // Si aucun impact visible, afficher un message
+            if (rows === '') {
+                metricsHTML = `
+                    <div style="text-align: center; padding: 16px; color: var(--text-muted);">
+                        <span style="font-size: 1.5em;">📋</span>
+                        <p style="margin-top: 8px;">Pas d'impact mesurable visible sur les indicateurs.</p>
+                    </div>`;
+            } else {
+                metricsHTML = rows;
+            }
+            
+            // Ajouter le coût en points
             metricsHTML += `
-                <div class="simulation-metric-row">
-                    <span>🎯 Taux de Rebut</span>
-                    <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${trBefore.toFixed(1)}%</span>
-                    <span>→</span>
-                    <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${trAfter.toFixed(1)}%</span>
-                    <span class="simulation-change ${trAfter <= trBefore ? 'positive' : 'negative'}">
-                        ${trAfter > trBefore ? '+' : ''}${(trAfter - trBefore).toFixed(1)}%
-                    </span>
-                </div>
-                <div class="simulation-metric-row">
-                    <span>🎯 Points Équipe</span>
-                    <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${budgetBefore} pts</span>
-                    <span>→</span>
-                    <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${budgetAfter} pts</span>
-                    <span class="simulation-change negative">
-                        -${carte.cout} pts
-                    </span>
-                </div>
-            `;
+                <div style="margin-top: 16px; padding: 12px; background: var(--bg-elevated); border-radius: 8px; text-align: center;">
+                    <span style="color: var(--text-muted);">Coût :</span>
+                    <span style="font-weight: 700; color: var(--warning); margin-left: 8px;">−${carte.cout} pts</span>
+                    <span style="color: var(--text-muted); margin-left: 16px;">|</span>
+                    <span style="color: var(--text-muted); margin-left: 16px;">Reste :</span>
+                    <span style="font-weight: 700; color: var(--success); margin-left: 8px;">${budgetAfter} pts</span>
+                </div>`;
             
             // Note sur les effets cachés
             if (carte.effetGlobal) {
                 metricsHTML += `
-                    <div style="margin-top: 16px; padding: 12px; background: rgba(245, 158, 11, 0.1); border: 1px solid var(--warning); border-radius: 8px; font-size: 0.85em;">
+                    <div style="margin-top: 12px; padding: 12px; background: rgba(245, 158, 11, 0.1); border: 1px solid var(--warning); border-radius: 8px; font-size: 0.85em;">
                         <span style="color: var(--warning); font-weight: 600;">⚠️ Attention :</span>
-                        <span style="color: var(--text-secondary);"> Cette carte peut avoir des effets cachés qui seront révélés au débriefing.</span>
-                    </div>
-                `;
+                        <span style="color: var(--text-secondary);"> Cette carte a des effets cachés qui seront révélés au débriefing.</span>
+                    </div>`;
             }
             
         } else {
-            // Manche 2/3: afficher VAG, CGE, RBE, BFR (indicateurs révélés)
+            // Manche 2/3: afficher UNIQUEMENT les variables qui changent
             const vagBefore = calculerVAGTotal();
             const cgeBefore = calculerCGETotal();
             const rbeBefore = calculerRBE();
@@ -11268,94 +11395,114 @@
             // LT par produit
             const ltMF1Before = gameState.microFlux.MF1.LT;
             const ltMF2Before = gameState.microFlux.MF2.LT;
-            const ltMF1After = ltMF1Before + impacts.ltImpact;
-            const ltMF2After = ltMF2Before + impacts.ltImpact;
             
-            const vagAfter = vagBefore * (1 + impacts.vagImpact / 100);
-            const cgeAfter = cgeBefore + impacts.cgeImpact;
-            const rbeAfter = vagAfter - cgeAfter;
+            // TR moyen
+            let trTotal = 0, mfCount = 0;
+            for (const mfId in gameState.microFlux) {
+                trTotal += gameState.microFlux[mfId].Tr;
+                mfCount++;
+            }
+            const trBefore = mfCount > 0 ? (trTotal / mfCount) * 100 : 0;
             
-            // Calculer l'impact BFR
+            // Calculer les impacts depuis la carte
+            const vagImpact = impacts.vagImpact || 0;
+            const cgeImpact = impacts.cgeImpact || 0;
+            const ltImpact = impacts.ltImpact || 0;
             const bfrImpact = carte.impacts?.bfr || 0;
-            const bfrAfter = bfrBefore * (1 + bfrImpact);
+            const trImpact = (carte.impacts?.global?.TR || carte.impacts?.global?.Tr || 0) * 100;
+            const tcImpact = carte.impacts?.global?.TC || 0;
             
-            metricsHTML = `
-                <div class="simulation-comparison">
-                    <div class="simulation-before">
-                        <div class="simulation-title">Avant</div>
-                        <div class="simulation-metric-row">
-                            <span>VAG Total</span>
-                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(vagBefore))}</span>
+            // Calculer les valeurs après
+            const vagAfter = vagBefore * (1 + vagImpact / 100);
+            const cgeAfter = cgeBefore + cgeImpact;
+            const rbeAfter = vagAfter - cgeAfter;
+            const bfrAfter = bfrBefore * (1 + bfrImpact);
+            const ltMF1After = ltMF1Before + ltImpact;
+            const ltMF2After = ltMF2Before + ltImpact;
+            const trAfter = trBefore + trImpact;
+            
+            // Construire les lignes dynamiquement - SEULEMENT si l'impact existe
+            let beforeRows = '';
+            let afterRows = '';
+            
+            // VAG
+            if (Math.abs(vagImpact) > 0.01) {
+                beforeRows += `<div class="simulation-metric-row"><span>💰 VAG Total</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(vagBefore))}</span></div>`;
+                afterRows += `<div class="simulation-metric-row"><span>💰 VAG Total</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(vagAfter))}</span><span class="simulation-change ${vagAfter >= vagBefore ? 'positive' : 'negative'}">${vagImpact >= 0 ? '+' : ''}${vagImpact.toFixed(1)}%</span></div>`;
+            }
+            
+            // CGE
+            if (Math.abs(cgeImpact) > 0.01) {
+                beforeRows += `<div class="simulation-metric-row"><span>💸 CGE Total</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(cgeBefore))}</span></div>`;
+                afterRows += `<div class="simulation-metric-row"><span>💸 CGE Total</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(cgeAfter))}</span><span class="simulation-change ${cgeAfter <= cgeBefore ? 'positive' : 'negative'}">${cgeImpact > 0 ? '+' : ''}${cgeImpact.toFixed(0)}</span></div>`;
+            }
+            
+            // RBE (toujours affiché si VAG ou CGE change)
+            if (Math.abs(vagImpact) > 0.01 || Math.abs(cgeImpact) > 0.01) {
+                beforeRows += `<div class="simulation-metric-row"><span>📊 RBE</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: ${rbeBefore >= 0 ? 'var(--success)' : 'var(--danger)'};">€${formatNumber(Math.round(rbeBefore))}</span></div>`;
+                afterRows += `<div class="simulation-metric-row"><span>📊 RBE</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: ${rbeAfter >= 0 ? 'var(--success)' : 'var(--danger)'};">€${formatNumber(Math.round(rbeAfter))}</span><span class="simulation-change ${rbeAfter >= rbeBefore ? 'positive' : 'negative'}">${rbeAfter >= rbeBefore ? '+' : ''}${formatNumber(Math.round(rbeAfter - rbeBefore))}</span></div>`;
+            }
+            
+            // BFR
+            if (Math.abs(bfrImpact) > 0.001) {
+                beforeRows += `<div class="simulation-metric-row"><span>💳 BFR</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(bfrBefore))}</span></div>`;
+                afterRows += `<div class="simulation-metric-row"><span>💳 BFR</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(bfrAfter))}</span><span class="simulation-change ${bfrAfter <= bfrBefore ? 'positive' : 'negative'}">${bfrImpact > 0 ? '+' : ''}${(bfrImpact * 100).toFixed(0)}%</span></div>`;
+            }
+            
+            // Lead Time
+            if (Math.abs(ltImpact) > 0.01) {
+                beforeRows += `<div class="simulation-metric-row"><span>⬜ LT Standard</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltMF1Before.toFixed(0)}j</span></div>`;
+                beforeRows += `<div class="simulation-metric-row"><span>💎 LT Premium</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltMF2Before.toFixed(0)}j</span></div>`;
+                afterRows += `<div class="simulation-metric-row"><span>⬜ LT Standard</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltMF1After.toFixed(0)}j</span><span class="simulation-change ${ltImpact <= 0 ? 'positive' : 'negative'}">${ltImpact > 0 ? '+' : ''}${ltImpact.toFixed(0)}j</span></div>`;
+                afterRows += `<div class="simulation-metric-row"><span>💎 LT Premium</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltMF2After.toFixed(0)}j</span><span class="simulation-change ${ltImpact <= 0 ? 'positive' : 'negative'}">${ltImpact > 0 ? '+' : ''}${ltImpact.toFixed(0)}j</span></div>`;
+            }
+            
+            // Taux de Rebut
+            if (Math.abs(trImpact) > 0.01) {
+                beforeRows += `<div class="simulation-metric-row"><span>🎯 Taux Rebut</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${trBefore.toFixed(1)}%</span></div>`;
+                afterRows += `<div class="simulation-metric-row"><span>🎯 Taux Rebut</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${trAfter.toFixed(1)}%</span><span class="simulation-change ${trAfter <= trBefore ? 'positive' : 'negative'}">${trImpact > 0 ? '+' : ''}${trImpact.toFixed(1)}%</span></div>`;
+            }
+            
+            // Temps Cycle (TC)
+            if (Math.abs(tcImpact) > 0.001) {
+                const tcPctChange = (tcImpact * 100).toFixed(0);
+                beforeRows += `<div class="simulation-metric-row"><span>⏱️ Temps Cycle</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">—</span></div>`;
+                afterRows += `<div class="simulation-metric-row"><span>⏱️ Temps Cycle</span><span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">—</span><span class="simulation-change ${tcImpact < 0 ? 'positive' : 'negative'}">${tcImpact > 0 ? '+' : ''}${tcPctChange}%</span></div>`;
+            }
+            
+            // Si aucun impact détecté, afficher un message
+            if (beforeRows === '') {
+                metricsHTML = `
+                    <div style="text-align: center; padding: 20px; color: var(--text-muted);">
+                        <span style="font-size: 2em;">📋</span>
+                        <p style="margin-top: 12px;">Cette carte n'a pas d'impact mesurable direct sur les indicateurs.</p>
+                        <p style="font-size: 0.9em;">Elle peut avoir des effets qualitatifs ou organisationnels.</p>
+                    </div>
+                `;
+            } else {
+                metricsHTML = `
+                    <div class="simulation-comparison">
+                        <div class="simulation-before">
+                            <div class="simulation-title">Avant</div>
+                            ${beforeRows}
                         </div>
-                        <div class="simulation-metric-row">
-                            <span>CGE Total</span>
-                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(cgeBefore))}</span>
-                        </div>
-                        <div class="simulation-metric-row">
-                            <span>RBE</span>
-                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: ${rbeBefore >= 0 ? 'var(--success)' : 'var(--danger)'};">€${formatNumber(Math.round(rbeBefore))}</span>
-                        </div>
-                        <div class="simulation-metric-row">
-                            <span>💳 BFR</span>
-                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(bfrBefore))}</span>
-                        </div>
-                        <div class="simulation-metric-row">
-                            <span>⬜ LT Standard</span>
-                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltMF1Before.toFixed(0)}j</span>
-                        </div>
-                        <div class="simulation-metric-row">
-                            <span>💎 LT Premium</span>
-                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltMF2Before.toFixed(0)}j</span>
+                        <div class="simulation-arrow">→</div>
+                        <div class="simulation-after">
+                            <div class="simulation-title">Après</div>
+                            ${afterRows}
                         </div>
                     </div>
-                    
-                    <div class="simulation-arrow">→</div>
-                    
-                    <div class="simulation-after">
-                        <div class="simulation-title">Après</div>
-                        <div class="simulation-metric-row">
-                            <span>VAG Total</span>
-                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(vagAfter))}</span>
-                            <span class="simulation-change ${vagAfter >= vagBefore ? 'positive' : 'negative'}">
-                                ${vagAfter >= vagBefore ? '+' : ''}${((vagAfter - vagBefore) / Math.abs(vagBefore) * 100).toFixed(1)}%
-                            </span>
-                        </div>
-                        <div class="simulation-metric-row">
-                            <span>CGE Total</span>
-                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(cgeAfter))}</span>
-                            <span class="simulation-change ${cgeAfter <= cgeBefore ? 'positive' : 'negative'}">
-                                ${cgeAfter > cgeBefore ? '+' : ''}${(cgeAfter - cgeBefore).toFixed(0)}
-                            </span>
-                        </div>
-                        <div class="simulation-metric-row">
-                            <span>RBE</span>
-                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: ${rbeAfter >= 0 ? 'var(--success)' : 'var(--danger)'};">€${formatNumber(Math.round(rbeAfter))}</span>
-                            <span class="simulation-change ${rbeAfter >= rbeBefore ? 'positive' : 'negative'}">
-                                ${rbeAfter >= rbeBefore ? '+' : ''}${formatNumber(Math.round(rbeAfter - rbeBefore))}
-                            </span>
-                        </div>
-                        <div class="simulation-metric-row">
-                            <span>💳 BFR</span>
-                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(bfrAfter))}</span>
-                            <span class="simulation-change ${bfrAfter <= bfrBefore ? 'positive' : 'negative'}">
-                                ${bfrImpact !== 0 ? (bfrImpact > 0 ? '+' : '') + (bfrImpact * 100).toFixed(0) + '%' : '—'}
-                            </span>
-                        </div>
-                        <div class="simulation-metric-row">
-                            <span>⬜ LT Standard</span>
-                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltMF1After.toFixed(0)}j</span>
-                            <span class="simulation-change ${impacts.ltImpact <= 0 ? 'positive' : 'negative'}">
-                                ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact.toFixed(0)}j
-                            </span>
-                        </div>
-                        <div class="simulation-metric-row">
-                            <span>💎 LT Premium</span>
-                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltMF2After.toFixed(0)}j</span>
-                            <span class="simulation-change ${impacts.ltImpact <= 0 ? 'positive' : 'negative'}">
-                                ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact.toFixed(0)}j
-                            </span>
-                        </div>
-                    </div>
+                `;
+            }
+            
+            // Ajouter le coût en points
+            metricsHTML += `
+                <div style="margin-top: 16px; padding: 12px; background: var(--bg-elevated); border-radius: 8px; text-align: center;">
+                    <span style="color: var(--text-muted);">Coût :</span>
+                    <span style="font-weight: 700; color: var(--warning); margin-left: 8px;">−${carte.cout} pts</span>
+                    <span style="color: var(--text-muted); margin-left: 16px;">|</span>
+                    <span style="color: var(--text-muted); margin-left: 16px;">Reste :</span>
+                    <span style="font-weight: 700; color: var(--success); margin-left: 8px;">${gameState.budgetCommun - carte.cout} pts</span>
                 </div>
             `;
         }
