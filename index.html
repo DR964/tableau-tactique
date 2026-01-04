@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau Tactique v0.6.38 - ES Marbres & Granits</title>
+    <title>Tableau Tactique v0.7.1 - ES Marbres & Granits</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏭</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -2305,14 +2305,14 @@
         .impact-preview-value.negative { color: var(--danger); }
         .impact-preview-value.neutral { color: var(--text-secondary); }
         
-        /* Card Risk Badge */
+        /* Card Risk Badge - V0.7: Position ajustée pour ne pas recouvrir le prix */
         .card-risk-badge {
             position: absolute;
-            top: 10px;
+            top: 40px;
             right: 10px;
             padding: 4px 10px;
             border-radius: 20px;
-            font-size: 0.7em;
+            font-size: 0.65em;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -2729,33 +2729,80 @@
             <div class="intro-card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15)); border-color: var(--accent-primary);">
                 <h2>🏛️ Bienvenue chez ES Marbres & Granits</h2>
                 <p>
-                    Vous êtes <strong>manager de département</strong> dans une entreprise française leader de la transformation 
-                    de pierres naturelles haut de gamme. Depuis 35 ans, ES Marbres & Granits accompagne architectes et 
-                    décorateurs dans leurs projets les plus prestigieux.
+                    <strong>ES Marbres</strong> est une entreprise fictive de taille moyenne spécialisée dans la transformation de marbre haut de gamme. 
+                    Le scénario s'inspire d'une marbrerie réelle située dans le sud du Brésil et a été adapté au contexte pédagogique du jeu.
                 </p>
                 <p style="margin-top: 12px; color: var(--text-secondary);">
-                    <strong style="color: var(--accent-primary);">Chaque joueur se voit attribuer un poste</strong> parmi les 5 départements de l'entreprise :
+                    L'entreprise existe depuis <strong>35 ans</strong> et conserve des pratiques de gestion traditionnelles héritées de son origine familiale, 
+                    avec une <span style="color: var(--warning);">forte culture de silos départementaux</span> et un accent sur l'optimisation locale des indicateurs.
                 </p>
+                
+                <!-- Entrée des noms des joueurs -->
+                <div style="margin-top: 20px; padding: 16px; background: var(--bg-elevated); border-radius: 12px; border: 1px solid var(--border-default);">
+                    <h3 style="color: var(--accent-tertiary); margin-bottom: 12px; font-size: 1em;">👥 Qui joue aujourd'hui ?</h3>
+                    <p style="font-size: 0.85em; color: var(--text-muted); margin-bottom: 12px;">
+                        Entrez les prénoms des joueurs. Les rôles seront attribués <strong>aléatoirement</strong>. 
+                        Si vous êtes moins de 5, certains auront plusieurs rôles.
+                    </p>
+                    <div style="display: grid; gap: 8px; max-width: 500px; margin: 0 auto;">
+                        <input type="text" id="playerName1" placeholder="Prénom du joueur 1" style="background: var(--bg-card); border: 1px solid var(--border-default); color: var(--text-primary); padding: 10px 14px; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                        <input type="text" id="playerName2" placeholder="Prénom du joueur 2 (optionnel)" style="background: var(--bg-card); border: 1px solid var(--border-default); color: var(--text-primary); padding: 10px 14px; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                        <input type="text" id="playerName3" placeholder="Prénom du joueur 3 (optionnel)" style="background: var(--bg-card); border: 1px solid var(--border-default); color: var(--text-primary); padding: 10px 14px; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                        <input type="text" id="playerName4" placeholder="Prénom du joueur 4 (optionnel)" style="background: var(--bg-card); border: 1px solid var(--border-default); color: var(--text-primary); padding: 10px 14px; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                        <input type="text" id="playerName5" placeholder="Prénom du joueur 5 (optionnel)" style="background: var(--bg-card); border: 1px solid var(--border-default); color: var(--text-primary); padding: 10px 14px; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CADRE 1b : LES RÔLES -->
+            <div class="intro-card">
+                <h2>👔 Les 5 Départements</h2>
+                <p style="margin-bottom: 12px; color: var(--text-secondary);">Chaque joueur gère un département avec ses propres indicateurs et leviers d'action :</p>
                 <div class="intro-roles">
                     <div class="intro-role">
                         <span class="intro-role-icon">💼</span>
-                        <div><strong>J1 - Commercial</strong><div class="intro-role-desc">Ventes, prix, mix produits</div></div>
+                        <div>
+                            <strong>J1 - Commercial</strong>
+                            <div class="intro-role-desc"><strong>Mission :</strong> Maximiser les ventes et la marge</div>
+                            <div class="intro-role-desc" style="margin-top: 4px;"><strong>Leviers :</strong> Mix produit, prix, volumes</div>
+                            <div class="intro-role-desc" style="margin-top: 4px; color: var(--success);"><strong>Indicateur clé :</strong> Marge brute totale</div>
+                        </div>
                     </div>
                     <div class="intro-role">
                         <span class="intro-role-icon">🛒</span>
-                        <div><strong>J2 - Approvisionnement</strong><div class="intro-role-desc">Fournisseurs, achats, délais</div></div>
+                        <div>
+                            <strong>J2 - Approvisionnement</strong>
+                            <div class="intro-role-desc"><strong>Mission :</strong> Réduire les coûts d'achat</div>
+                            <div class="intro-role-desc" style="margin-top: 4px;"><strong>Leviers :</strong> Fournisseurs, lots, délais de paiement</div>
+                            <div class="intro-role-desc" style="margin-top: 4px; color: var(--success);"><strong>Indicateur clé :</strong> Coût de Revient moyen</div>
+                        </div>
                     </div>
                     <div class="intro-role">
                         <span class="intro-role-icon">🚛</span>
-                        <div><strong>J3 - Logistique</strong><div class="intro-role-desc">Transport, stocks, expédition</div></div>
+                        <div>
+                            <strong>J3 - Logistique</strong>
+                            <div class="intro-role-desc"><strong>Mission :</strong> Optimiser transport et stocks</div>
+                            <div class="intro-role-desc" style="margin-top: 4px;"><strong>Leviers :</strong> Transporteurs, tournées, stockage</div>
+                            <div class="intro-role-desc" style="margin-top: 4px; color: var(--success);"><strong>Indicateur clé :</strong> Coût Transport par unité</div>
+                        </div>
                     </div>
                     <div class="intro-role">
                         <span class="intro-role-icon">🏭</span>
-                        <div><strong>J4 - Production</strong><div class="intro-role-desc">Machines, capacité, temps de cycle</div></div>
+                        <div>
+                            <strong>J4 - Production</strong>
+                            <div class="intro-role-desc"><strong>Mission :</strong> Gérer les capacités machines</div>
+                            <div class="intro-role-desc" style="margin-top: 4px;"><strong>Leviers :</strong> Vitesse, maintenance, investissements</div>
+                            <div class="intro-role-desc" style="margin-top: 4px; color: var(--success);"><strong>Indicateur clé :</strong> Taux de charge machines (TRG)</div>
+                        </div>
                     </div>
                     <div class="intro-role">
                         <span class="intro-role-icon">✅</span>
-                        <div><strong>J5 - Qualité</strong><div class="intro-role-desc">Inspections, contrôles, défauts</div></div>
+                        <div>
+                            <strong>J5 - Qualité</strong>
+                            <div class="intro-role-desc"><strong>Mission :</strong> Garantir la conformité</div>
+                            <div class="intro-role-desc" style="margin-top: 4px;"><strong>Leviers :</strong> Inspections, contrôles, standards</div>
+                            <div class="intro-role-desc" style="margin-top: 4px; color: var(--success);"><strong>Indicateur clé :</strong> Taux de Conformité (1 - Rebut)</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2782,28 +2829,29 @@
             
             <!-- CADRE 3 : OBJECTIF MANCHE 1 - SILOS -->
             <div class="intro-card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1)); border-color: var(--accent-primary);">
-                <h2>🎯 Votre Mission - Manche 1 : Maximiser vos Indicateurs</h2>
-                <p style="background: rgba(99, 102, 241, 0.15); padding: 16px; border-radius: 12px; border-left: 4px solid var(--accent-primary); margin-bottom: 16px;">
-                    <strong>📊 Indicateurs :</strong> Marge (MRG), Coût de Revient (CR), Budget, Charges Globales d'Exploitation (CGE), Taux de Rendement Global (TRG), Lead Time (LT), Taux de Rebut (TR)
+                <h2>🎯 Votre Mission - Manche 1 : Optimiser VOS Indicateurs</h2>
+                
+                <div style="background: rgba(245, 158, 11, 0.15); padding: 16px; border-radius: 12px; border-left: 4px solid var(--warning); margin-bottom: 16px;">
+                    <strong>💳 Le BFR (Besoin en Fonds de Roulement)</strong>
+                    <p style="margin-top: 8px; font-size: 0.9em; color: var(--text-secondary);">
+                        Le BFR représente l'argent immobilisé dans les stocks et les créances clients. 
+                        Plus il est élevé, moins vous avez de liquidités disponibles pour investir.
+                        Certaines cartes augmentent ou diminuent le BFR.
+                    </p>
+                </div>
+                
+                <div style="display: grid; gap: 8px; font-size: 0.9em;">
+                    <p><strong>💼 J1 - Commercial :</strong> Maximisez la <em>Marge</em> en ajustant le Mix des Ventes</p>
+                    <p><strong>🛒 J2 - Approvisionnement :</strong> Minimisez le <em>Coût de Revient (CR)</em> en optimisant les achats</p>
+                    <p><strong>🚛 J3 - Logistique :</strong> Minimisez le <em>Coût de Transport par unité</em></p>
+                    <p><strong>🏭 J4 - Production :</strong> Surveillez le <em>TRG</em> et identifiez le goulet (machine la plus chargée)</p>
+                    <p><strong>✅ J5 - Qualité :</strong> Maximisez la <em>Conformité</em> en réduisant le Taux de Rebut</p>
+                </div>
+                
+                <p style="margin-top: 16px; padding: 12px; background: var(--bg-elevated); border-radius: 10px;">
+                    <strong>🎯 Points d'Investissement : 300 points PARTAGÉS</strong> - Chaque carte a un coût. Décidez ensemble !
                 </p>
-                <p>
-                    <strong>💼 J1 - Commercial :</strong> Maximisez la <em>Marge</em> en paramétrant le Mix des Ventes (ajustez les QV dans le tableau)
-                </p>
-                <p>
-                    <strong>🛒 J2 - Approvisionnement :</strong> Minimisez le <em>Coût de Revient (CR)</em> en optimisant les Dépenses d'Achat (DA) et votre Budget
-                </p>
-                <p>
-                    <strong>🚛 J3 - Logistique :</strong> Minimisez le <em>Coût de Transport</em> par produit (CGE Logistique / QV)
-                </p>
-                <p>
-                    <strong>🏭 J4 - Production :</strong> Surveillez la <em>machine la plus chargée</em> ! Si elle atteint 100%, c'est un GOULET qui bloque la production.
-                </p>
-                <p>
-                    <strong>✅ J5 - Qualité :</strong> Maximisez la <em>Conformité (1-TR)</em> en réduisant le Taux de Rebut et le Lead Time
-                </p>
-                <p style="margin-top: 12px; padding: 12px; background: var(--bg-elevated); border-radius: 10px;">
-                    <strong>🎮 Budget : 300 points PARTAGÉS par l'équipe</strong> - Chaque carte a un coût. Dépensez judicieusement !
-                </p>
+                
                 <p style="text-align: center; margin-top: 16px; padding: 16px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(99, 102, 241, 0.15)); border-radius: 12px; border: 1px solid var(--accent-secondary);">
                     <em style="color: var(--accent-secondary); font-weight: 600; font-size: 1.05em;">🔮 Dans une entreprise, rien n'est isolé... Vos décisions pourraient bien avoir des répercussions insoupçonnées.</em>
                 </p>
@@ -2819,6 +2867,47 @@
     </div>
 
     <div class="toast-container" id="toastContainer"></div>
+    
+    <!-- Modal Information Entreprise -->
+    <div class="modal-overlay" id="companyInfoModal">
+        <div class="modal-content" style="max-width: 650px;">
+            <h2 style="color: var(--accent-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+                🏛️ ES Marbres & Granits
+            </h2>
+            <div style="background: var(--bg-elevated); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                <p style="line-height: 1.7; color: var(--text-secondary);">
+                    <strong style="color: var(--text-primary);">ES Marbres</strong> est une entreprise fictive de taille moyenne 
+                    spécialisée dans la transformation de marbre haut de gamme.
+                </p>
+                <p style="line-height: 1.7; color: var(--text-secondary); margin-top: 12px;">
+                    Le scénario s'inspire d'une <strong style="color: var(--accent-secondary);">marbrerie réelle située dans le sud du Brésil</strong> 
+                    et a été adapté au contexte pédagogique du jeu.
+                </p>
+                <p style="line-height: 1.7; color: var(--text-secondary); margin-top: 12px;">
+                    L'entreprise existe depuis <strong style="color: var(--text-primary);">35 ans</strong> et conserve des pratiques de gestion 
+                    traditionnelles héritées de son origine familiale, avec une <span style="color: var(--warning);">forte culture de silos départementaux</span> 
+                    et un accent sur l'optimisation locale des indicateurs.
+                </p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px;">
+                <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid var(--success); border-radius: 10px; padding: 12px; text-align: center;">
+                    <div style="font-size: 1.8em;">⬜</div>
+                    <div style="font-weight: 600; margin-top: 4px;">Marbre Standard</div>
+                    <div style="font-size: 0.85em; color: var(--text-muted);">PV: 2.500€ | Marge: 1.100€</div>
+                </div>
+                <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid var(--accent-primary); border-radius: 10px; padding: 12px; text-align: center;">
+                    <div style="font-size: 1.8em;">💎</div>
+                    <div style="font-weight: 600; margin-top: 4px;">Marbre Premium</div>
+                    <div style="font-size: 0.85em; color: var(--text-muted);">PV: 5.000€ | Marge: 2.800€</div>
+                </div>
+            </div>
+            
+            <button class="btn-modal" onclick="document.getElementById('companyInfoModal').classList.remove('active')">
+                ✓ Compris
+            </button>
+        </div>
+    </div>
     
     <!-- Bouton Développeur -->
     <div class="dev-button" onclick="toggleDevPanel()">🛠️</div>
@@ -2856,6 +2945,9 @@
                     <button onclick="resetGame()" class="dev-btn red">🔄 Reset Jeu</button>
                     <button onclick="showIntro()" class="dev-btn">📖 Voir Intro</button>
                 </div>
+                <div class="dev-controls" style="margin-top: 8px;">
+                    <button onclick="undoLastCard()" class="dev-btn" style="background: var(--warning); color: #000;">↩️ Annuler dernière carte</button>
+                </div>
             </div>
             
             <div class="dev-section">
@@ -2886,11 +2978,15 @@
                 </label>
                 <label class="dev-toggle">
                     <input type="checkbox" id="infiniteBudgetToggle" onchange="toggleInfiniteBudget()">
-                    <span>Budget infini</span>
+                    <span>Points infinis</span>
                 </label>
                 <label class="dev-toggle">
                     <input type="checkbox" id="cardHelpToggle" onchange="toggleCardHelp()">
                     <span>Aide sur cartes (badges + scores)</span>
+                </label>
+                <label class="dev-toggle">
+                    <input type="checkbox" id="assistantToggle" checked onchange="toggleAssistant()">
+                    <span>Afficher l'assistant de décision</span>
                 </label>
             </div>
         </div>
@@ -2930,9 +3026,9 @@
             </div>
             
             <div class="dev-section">
-                <h4>💰 Budgets par Joueur</h4>
+                <h4>🎯 Points par Joueur</h4>
                 <div class="dev-budgets" id="devBudgets"></div>
-                <button onclick="resetBudgets()" class="dev-btn" style="margin-top: 10px;">🔄 Reset budgets</button>
+                <button onclick="resetBudgets()" class="dev-btn" style="margin-top: 10px;">🔄 Reset points</button>
             </div>
             
             <div class="dev-section">
@@ -3379,10 +3475,13 @@
         <div class="game-header">
             <div class="header-content">
                 <div class="logo-section">
-                    <h1>📋 TABLEAU TACTIQUE <span style="font-size: 0.5em; opacity: 0.7; font-weight: 400;">v0.6.38</span></h1>
+                    <h1>📋 TABLEAU TACTIQUE <span style="font-size: 0.5em; opacity: 0.7; font-weight: 400;">v0.7.0</span></h1>
                     <div style="font-size: 0.85em; opacity: 0.8;">ES Marbres & Granits - Simulation de Management</div>
                 </div>
                 <div class="controls">
+                    <button onclick="showCompanyInfo()" style="background: var(--bg-elevated); border: 1px solid var(--border-default); color: var(--text-secondary); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 0.85em; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--accent-primary)'; this.style.color='var(--accent-primary)';" onmouseout="this.style.borderColor='var(--border-default)'; this.style.color='var(--text-secondary)';">
+                        🏛️ L'Entreprise
+                    </button>
                     <div class="control-group" id="selectJoueurGroup">
                         <div class="control-label">Joueur Actuel</div>
                         <div id="currentPlayerDisplay" style="font-weight: 700; font-size: 1.1em; color: var(--accent-primary); padding: 8px 16px; background: rgba(99, 102, 241, 0.15); border-radius: 8px;">J1 - Commercial</div>
@@ -3421,7 +3520,7 @@
             <!-- Collaborative Notice (Manche 2) -->
             <div class="collab-notice" id="collabNotice" style="display: none;">
                 <h3>🤝 MODE COLLABORATION ACTIVÉ</h3>
-                <p>Toutes les cartes sont maintenant communes. Budget partagé : <strong id="budgetCommun">50 pts</strong></p>
+                <p>Toutes les cartes sont maintenant communes. Points partagés : <strong id="budgetCommun">50 pts</strong></p>
                 <p>Décidez ENSEMBLE pour maximiser l'amélioration de la PIG !</p>
             </div>
             
@@ -3664,7 +3763,7 @@
     
     // ==================== CONFIGURATION JOUEURS ====================
     
-    // ==================== MICRO-FLUX (PRODUITS) - Données du tableau Excel ====================
+    // ==================== MICRO-FLUX (PRODUITS) - Données du tableau Excel v0.7.1 ====================
     
     const MICRO_FLUX = {
         MF1: {
@@ -3672,43 +3771,43 @@
             emoji: "⬜",
             PV: 2500,           // Prix de vente
             DA: 1400,           // Dépenses d'achat
-            tM1: 0.8,           // Temps machine 1 (heures)
-            tM2: 1.5,           // Temps machine 2 (heures)
-            tM3: 0.4,           // Temps machine 3 (heures)
-            tM4: 0.8,           // Temps machine 4 (heures) - GOULET
-            tM5: 1.0,           // Temps machine 5 (heures)
-            LT: 60,             // Lead Time (jours)
-            Tr: 0.08,           // Taux de rebus global (8%)
-            delaiClient: 90,    // Délai client (jours)
-            delaiFournisseur: 60, // Délai fournisseur (jours)
+            tM1: 1.0,           // Temps machine 1 (heures)
+            tM2: 2.0,           // Temps machine 2 (heures)
+            tM3: 0.5,           // Temps machine 3 (heures)
+            tM4: 1.0,           // Temps machine 4 (heures)
+            tM5: 1.5,           // Temps machine 5 (heures)
+            LT: 88,             // Lead Time (jours) = 2112h
+            Tr: 0.15,           // Taux de rebus global (15%)
+            delaiClient: 100,   // Délai client (jours)
+            delaiFournisseur: 90, // Délai fournisseur (jours)
             venteMin: 100,
             venteMax: 800,
-            QV: 100,            // Quantité vendue initiale = minimum (J1 doit définir)
+            QV: 200,            // Quantité vendue initiale
             // Indicateurs SQR par micro-flux (Manche 3)
-            s: 0.60,            // Vitesse/réactivité
-            q: 0.70,            // Satisfaction client
-            r: 0.55             // RSE/Environnement
+            s: 0.114,           // Vitesse/réactivité (LTI/LT)
+            q: 0.83,            // Satisfaction client
+            r: 0.20             // RSE/Environnement
         },
         MF2: {
             nom: "Marbre Premium",
             emoji: "💎",
-            PV: 5000,           // Prix de vente (premium)
-            DA: 2400,           // Dépenses d'achat
-            tM1: 1.5,           // Temps machine 1 (heures) - travail plus fin
+            PV: 3500,           // Prix de vente (premium)
+            DA: 2200,           // Dépenses d'achat
+            tM1: 2.0,           // Temps machine 1 (heures)
             tM2: 2.0,           // Temps machine 2 (heures)
             tM3: 1.0,           // Temps machine 3 (heures)
-            tM4: 2.5,           // Temps machine 4 (heures) - GOULET (réduit pour équilibre)
-            tM5: 1.8,           // Temps machine 5 (heures)
-            LT: 80,             // Lead Time (jours)
+            tM4: 4.0,           // Temps machine 4 (heures) - GOULET
+            tM5: 2.0,           // Temps machine 5 (heures)
+            LT: 115,            // Lead Time (jours) = 2760h
             Tr: 0.10,           // Taux de rebus global (10%)
-            delaiClient: 120,   // Délai client (jours)
-            delaiFournisseur: 60, // Délai fournisseur (jours)
+            delaiClient: 100,   // Délai client (jours)
+            delaiFournisseur: 90, // Délai fournisseur (jours)
             venteMin: 100,
             venteMax: 400,
-            QV: 100,            // Quantité vendue initiale = minimum (J1 doit définir)
-            s: 0.50,            // Plus lent (produit complexe)
-            q: 0.75,
-            r: 0.45             // Plus polluant (matière rare)
+            QV: 200,            // Quantité vendue initiale
+            s: 0.130,           // Plus lent (produit complexe)
+            q: 0.85,
+            r: 0.30             // RSE
         }
     };
     
@@ -3722,19 +3821,19 @@
         M5: 80      // Coût maintenance machine 5 (€/h)
     };
     
-    // ==================== CAPACITÉS MACHINES (heures) ====================
+    // ==================== CAPACITÉS MACHINES (heures) - v0.7.1 ====================
     
     const CAPACITES_MACHINES = {
-        M1: 1800,   // Capacité machine 1 (heures)
-        M2: 1800,   // Capacité machine 2 (heures)
-        M3: 1200,   // Capacité machine 3 (heures)
-        M4: 1200,   // Capacité machine 4 (heures) - Goulet
-        M5: 1500    // Capacité machine 5 (heures)
+        M1: 3300,   // Capacité machine 1 (heures)
+        M2: 3250,   // Capacité machine 2 (heures)
+        M3: 3500,   // Capacité machine 3 (heures)
+        M4: 3100,   // Capacité machine 4 (heures) - Goulet
+        M5: 3200    // Capacité machine 5 (heures)
     };
     
     // ==================== TAUX DE L'ARGENT ====================
     
-    const TAG = 0.12;  // Taux de l'argent (12%) - Le BFR coûte très cher
+    const TAG = 0.05;  // Taux de l'argent (5%)
     
     // ==================== FORCE DE VENTE MAX ====================
     
@@ -3754,22 +3853,22 @@
     // ==================== CONTRAINTES ====================
     
     const CONTRAINTES = {
-        BFR_max: 5000000,           // BFR maximum en €
+        BFR_max: 1100000,           // BFR maximum en € (v0.7.1)
         BFR_actuel: 0,
         force_vente_max: FORCE_VENTE_MAX,
         force_vente_utilisee: 0,
         taux_argent: TAG             // Taux d'intérêt pour le BFR
     };
     
-    // ==================== CHARGES GLOBALES D'EXPLOITATION (CGE) en € ====================
+    // ==================== CHARGES GLOBALES D'EXPLOITATION (CGE) en € - v0.7.1 ====================
     
     const CGE_INITIAL = {
-        achats: 900000,             // Charges fixes achats
-        vente: 700000,              // Charges fixes vente/commercial
-        production: 2900000,        // Charges fixes production
-        logistique: 800000,         // Charges fixes logistique
-        conception: 1200000         // Charges fixes conception/R&D
-    };
+        achats: 20000,              // Charges fixes achats
+        vente: 25000,               // Charges fixes vente/commercial
+        production: 60000,          // Charges fixes production
+        logistique: 25000,          // Charges fixes logistique
+        conception: 20000           // Charges fixes conception/R&D
+    };  // Total = 150000€
     
     // ==================== FORMULES DE CALCUL ÉCONOMIQUE (CR TP PIG) ====================
     
@@ -4147,13 +4246,13 @@
         "R1-20": "Vendre en gros volumes avec des remises réduit la marge unitaire et immobilise du capital dans les stocks clients.",
         "R1-21": "Se concentrer sur un seul produit surcharge le goulet et réduit la capacité globale de l'entreprise.",
         "R1-22": "Promettre des délais courts sans moyens crée du stress, des erreurs (TR+) et des coûts supplémentaires (CGE+).",
-        "R1-23": "Brader les stocks pour libérer du budget détruit la marge et la perception de valeur du produit.",
-        "R1-24": "Des délais de paiement longs augmentent le crédit client et immobilisent du capital (Budget consommé).",
+        "R1-23": "Brader les stocks pour libérer de la trésorerie détruit la marge et la perception de valeur du produit.",
+        "R1-24": "Des délais de paiement longs augmentent le crédit client et immobilisent du capital (BFR augmenté).",
         "R1-30": "Les pénalités d'annulation peuvent faire fuir les clients hésitants et réduire les marges.",
         "R1-1": "Acheter en gros lots réduit le coût unitaire mais immobilise beaucoup de capital et réduit l'agilité.",
         "R1-2": "Un fournisseur moins cher livre souvent plus lentement et avec moins de qualité (TR+).",
         "R1-3": "L'international offre des prix bas mais des délais très longs et une perte de réactivité totale.",
-        "R1-4": "Payer plus tard libère du budget mais peut dégrader la relation fournisseur.",
+        "R1-4": "Payer plus tard libère de la trésorerie mais peut dégrader la relation fournisseur.",
         "R1-5": "Des lots plus petits sont plus chers mais permettent d'être plus agile et réactif.",
         "R1-25": "Anticiper avec du stock crée de l'immobilisation de capital et du risque d'obsolescence.",
         "R1-15": "Réduire les expéditions baisse les CGE mais allonge les délais pour les clients.",
@@ -4177,987 +4276,775 @@
     };
     
     const CARTES_MANCHE1 = {
-        1: [ // Commercial (J1) - Indicateur: Marge
+        1: [ // Commercial (J1)
             {
                 id: "R1-20", nom: "Remise Volume", emoji: "💼", cout: 20,
                 secteur: "Commercial",
-                description: "Accorder une remise aux clients pour les commandes en grande quantité.",
-                effetVisible: "↗️ Volume +20%",
-                effetGlobal: "⚠️ DA +10%, BFR +15%",
-                VA: 0, NVA: 24, LT_effect: 24,
-                impacts: {
-                    global: {"QV": 0.20, "DA": 0.10},
-                    bfr: 0.15
-                }
+                description: "Offrir des remises sur volume aux clients",
+                effetVisible: "↓ Marge",
+                effetGlobal: "↑ VAG, ↓ BFR, ↑ CR",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"CMP": 0.03, "DC": 0.1} }
             },
             {
                 id: "R1-21", nom: "Push Rentable", emoji: "💼", cout: 25,
                 secteur: "Commercial",
-                description: "Concentrer les efforts commerciaux sur le produit le plus rentable.",
-                effetVisible: "↗️ Marge +10%",
-                effetGlobal: "⚠️ Capacité -15%",
-                VA: 1, NVA: 23, LT_effect: 24,
-                impacts: {
-                    global: {"DA": -0.10, "CAP": -0.15}
-                }
+                description: "Pousser les produits les plus rentables",
+                effetVisible: "↑ Marge",
+                effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"CMP": -0.07, "LT": 72.0, "TC": 0.02} }
             },
             {
                 id: "R1-22", nom: "Délai Agressif", emoji: "💼", cout: 15,
                 secteur: "Commercial",
-                description: "Promettre des délais de livraison agressifs aux clients.",
-                effetVisible: "↗️ Volume +15%",
-                effetGlobal: "⚠️ TR +8%, CGE +5%",
-                VA: 0, NVA: -24, LT_effect: -24,
-                impacts: {
-                    global: {"QV": 0.15, "Tr": 0.08, "CGE": 0.05}
-                }
+                description: "Proposer des délais de livraison plus courts",
+                effetVisible: "↑ Marge",
+                effetGlobal: "↑ VAG, ↓ BFR",
+                flux: ["MF2"],
+                impacts: { global: {"TR": 0.03, "TC": 0.03} }
             },
             {
-                id: "R1-23", nom: "Promo Stock", emoji: "💼", cout: 20,
+                id: "R1-23", nom: "Augmenter Stock du MF1", emoji: "💼", cout: 20,
                 secteur: "Commercial",
-                description: "Lancer une promotion pour écouler les stocks rapidement.",
-                effetVisible: "↘️ BFR -30%",
-                effetGlobal: "⚠️ DA +15%",
-                VA: 2, NVA: -18, LT_effect: -16,
-                impacts: {
-                    global: {"DA": 0.15},
-                    bfr: -0.30
-                }
+                description: "Augmenter le stock du MF1 (Standard)",
+                effetVisible: "↓ Marge",
+                effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
+                flux: ["MF1"],
+                impacts: { global: {"CMP": -0.03} }
             },
             {
                 id: "R1-24", nom: "Paiement Long", emoji: "💼", cout: 15,
                 secteur: "Commercial",
-                description: "Proposer des délais de paiement plus longs aux clients.",
-                effetVisible: "↗️ Volume +15%",
-                effetGlobal: "⚠️ BFR +18%",
-                VA: 0, NVA: 16, LT_effect: 16,
-                impacts: {
-                    global: {"QV": 0.15},
-                    bfr: 0.18
-                }
+                description: "Négocier des délais de paiement plus longs avec les clients",
+                effetVisible: "↑ Marge",
+                effetGlobal: "↑ VAG, ↓ BFR",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"DF": -0.03} }
             },
             {
-                id: "R1-30", nom: "Pénalités Annulation", emoji: "💼", cout: 15,
+                id: "R1-30", nom: "Penalizar Cancelamentos", emoji: "💼", cout: 15,
                 secteur: "Commercial",
-                description: "Appliquer des pénalités financières en cas d'annulation de commande.",
-                effetVisible: "↗️ Volume +10%",
-                effetGlobal: "⚠️ DA +5%, BFR -8%",
-                VA: 0, NVA: -8, LT_effect: -8,
-                impacts: {
-                    global: {"QV": 0.10, "DA": 0.05},
-                    bfr: -0.08
-                }
+                description: "Pénaliser les annulations de commandes",
+                effetVisible: "↑ Marge",
+                effetGlobal: "↑ BFR, ↓ VAG",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"TR": 0.1} }
             }
         ],
-        2: [ // Approvisionnement (J2) - Indicateur: Coût de Revient (DA)
+        2: [ // Approvisionnement (J2)
             {
                 id: "R1-1", nom: "Fournisseur Lots+", emoji: "📦", cout: 15,
                 secteur: "Approvisionnement",
-                description: "Le fournisseur propose une remise pour l'achat de lots plus importants.",
-                effetVisible: "↘️ DA -8%",
-                effetGlobal: "⚠️ BFR +25%",
-                VA: 0, NVA: 24, LT_effect: 24,
-                impacts: {
-                    global: {"DA": -0.08},
-                    bfr: 0.25
-                }
+                description: "Négocier des lots plus importants avec le fournisseur pour réduire le coût unitaire",
+                effetVisible: "↓ Coût MP",
+                effetGlobal: "↑ BFR, ↓ CR, ↓ VAG",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"CMP": -0.02, "LT": 72.0} }
             },
             {
                 id: "R1-2", nom: "Fournisseur Cheap", emoji: "📦", cout: 20,
                 secteur: "Approvisionnement",
-                description: "Fournisseur moins cher avec délais de livraison plus longs.",
-                effetVisible: "↘️ DA -12%",
-                effetGlobal: "⚠️ LT +120h, TR +5%",
-                VA: 0, NVA: 120, LT_effect: 120,
-                impacts: {
-                    global: {"DA": -0.12, "LT": 120, "Tr": 0.05}
-                }
+                description: "Choisir un fournisseur moins cher mais avec des délais plus longs",
+                effetVisible: "↓ Coût MP",
+                effetGlobal: "↑ BFR, ↓ VAG",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"LT": 120.0, "TR": 0.02, "CMP": -0.04} }
             },
             {
-                id: "R1-3", nom: "Fournisseur International", emoji: "📦", cout: 30,
+                id: "R1-3", nom: "Fournisseur Intl", emoji: "📦", cout: 30,
                 secteur: "Approvisionnement",
-                description: "Fournisseur international avec très bons prix de matière première.",
-                effetVisible: "↘️ DA -20%",
-                effetGlobal: "⚠️ LT +320h, BFR +20%",
-                VA: 0, NVA: 320, LT_effect: 320,
-                impacts: {
-                    global: {"DA": -0.20, "LT": 320},
-                    bfr: 0.20
-                }
+                description: "Sourcer auprès d\'un fournisseur international à bas coût",
+                effetVisible: "↓ Coût MP",
+                effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"LT": 320.0, "CMP": -0.07} }
             },
             {
                 id: "R1-4", nom: "Délai Paiement+", emoji: "📦", cout: 10,
                 secteur: "Approvisionnement",
-                description: "Négocier des délais de paiement plus longs avec les fournisseurs.",
-                effetVisible: "↘️ BFR -12%",
-                effetGlobal: "⚠️ Délai Fournisseur +80h",
-                VA: 0, NVA: 16, LT_effect: 16,
-                impacts: {
-                    global: {"delaiFournisseur": 80},
-                    bfr: -0.12
-                }
+                description: "Négocier des délais de paiement plus longs avec les fournisseurs",
+                effetVisible: "↑ Coût MP",
+                effetGlobal: "↑ VAG, ↓ BFR",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"DF": -0.1} }
             },
             {
                 id: "R1-5", nom: "Lots Menores", emoji: "📦", cout: 20,
                 secteur: "Approvisionnement",
-                description: "Commander des lots plus petits et augmenter la cadence.",
-                effetVisible: "↘️ BFR -15%",
-                effetGlobal: "⚠️ DA +10%",
-                VA: 2, NVA: -42, LT_effect: -40,
-                impacts: {
-                    global: {"DA": 0.10},
-                    bfr: -0.15
-                }
+                description: "Commander des lots plus petits pour réduire le stock",
+                effetVisible: "↑ Coût MP",
+                effetGlobal: "↑ VAG, ↓ BFR, ↑ CR",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"CMP": 0.05, "LT": -24.0} }
             },
             {
-                id: "R1-25", nom: "Fournisseur Cheap Q-", emoji: "📦", cout: 20,
+                id: "R1-25", nom: "Fournisseur cheap Q-", emoji: "📦", cout: 20,
                 secteur: "Approvisionnement",
-                description: "Fournisseur avec nouvelles options de matière première moins chères.",
-                effetVisible: "↘️ DA -15%",
-                effetGlobal: "⚠️ TR +10%, LT +16h",
-                VA: 0, NVA: 16, LT_effect: 16,
-                impacts: {
-                    global: {"DA": -0.15, "Tr": 0.10, "LT": 16}
-                }
+                description: "Fournisseur bon marché mais qualité moindre",
+                effetVisible: "↓ Coût MP",
+                effetGlobal: "↑ BFR, ↓ CR, ↓ VAG",
+                flux: ["MF1"],
+                impacts: { global: {"TR": 0.03, "CMP": -0.03} }
             }
         ],
-        3: [ // Logistique (J3) - Indicateur: Coût Transport/u
+        3: [ // Logistique (J3)
             {
-                id: "R1-15", nom: "Camions Pleins", emoji: "🚚", cout: 15,
+                id: "R1-15", nom: "Camions Pleins", emoji: "🚛", cout: 15,
                 secteur: "Logistique",
-                description: "Optimiser l'occupation maximale des camions.",
-                effetVisible: "↘️ CGE -5%",
-                effetGlobal: "⚠️ TC +24h, DA +3%",
-                VA: 0, NVA: 24, LT_effect: 24,
-                impacts: {
-                    global: {"CGE": -0.05, "TC": 24, "DA": 0.03}
-                }
+                description: "Optimiser le remplissage des camions",
+                effetVisible: "↓ CGE",
+                effetGlobal: "↑ BFR, ↓ VAG",
+                flux: ["MF2"],
+                impacts: { global: {"LT": 168.0} }
             },
             {
-                id: "R1-16", nom: "Lots Transport x2", emoji: "🚚", cout: 20,
+                id: "R1-16", nom: "Lots Transport x2", emoji: "🚛", cout: 20,
                 secteur: "Logistique",
-                description: "Doubler les lots de transport interne entre ateliers.",
-                effetVisible: "↘️ TC -20%",
-                effetGlobal: "⚠️ BFR +30%, LT +32h",
-                VA: 0, NVA: 32, LT_effect: 32,
-                impacts: {
-                    global: {"TC": -0.20, "LT": 32},
-                    bfr: 0.30
-                }
+                description: "Doubler la taille des lots de transport",
+                effetVisible: "↓ CGE",
+                effetGlobal: "↑ BFR, ↓ VAG",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"LT": 190.0} }
             },
             {
-                id: "R1-17", nom: "Transport Cheap", emoji: "🚚", cout: 20,
+                id: "R1-17", nom: "Transport Cheap", emoji: "🚛", cout: 20,
                 secteur: "Logistique",
-                description: "Passer à un transporteur moins cher.",
-                effetVisible: "↘️ CGE -8%",
-                effetGlobal: "⚠️ LT +40h, TR +3%",
-                VA: 0, NVA: 40, LT_effect: 40,
-                impacts: {
-                    global: {"CGE": -0.08, "LT": 40, "Tr": 0.03}
-                }
+                description: "Choisir un transporteur moins cher",
+                effetVisible: "↓ CGE",
+                effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
+                flux: ["MF2"],
+                impacts: { global: {"CMP": -0.03, "LT": 90.0} }
             },
             {
-                id: "R1-18", nom: "Stock Sécurité+", emoji: "🚚", cout: 15,
+                id: "R1-18", nom: "Stock Sécurité+", emoji: "🚛", cout: 15,
                 secteur: "Logistique",
-                description: "Augmenter le stock de sécurité pour éviter les ruptures.",
-                effetVisible: "↗️ Volume +5%",
-                effetGlobal: "⚠️ BFR +12%",
-                VA: 0, NVA: 8, LT_effect: 8,
-                impacts: {
-                    global: {"QV": 0.05},
-                    bfr: 0.12
-                }
+                description: "Augmenter le stock de sécurité pour éviter les ruptures",
+                effetVisible: "↑ CGE",
+                effetGlobal: "↑ BFR, ↓ VAG, ↑ CR",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"CMP": -0.03, "LT": 72.0, "TR": -0.02} }
             },
             {
-                id: "R1-19", nom: "Stock Sécurité-", emoji: "🚚", cout: 15,
+                id: "R1-19", nom: "Stock Sécurité-", emoji: "🚛", cout: 15,
                 secteur: "Logistique",
-                description: "Réduire le stock de sécurité pour diminuer les coûts.",
-                effetVisible: "↘️ BFR -6%",
-                effetGlobal: "⚠️ Volume -5%",
-                VA: 0, NVA: -8, LT_effect: -8,
-                impacts: {
-                    global: {"QV": -0.05},
-                    bfr: -0.06
-                }
+                description: "Diminuer le stock de sécurité pour réduire le BFR",
+                effetVisible: "↓ CGE",
+                effetGlobal: "↓ BFR, ↑ VAG",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"LT": -72.0, "TR": 0.05} }
             },
             {
-                id: "R1-29", nom: "Réduire Inventaires", emoji: "🚚", cout: 10,
+                id: "R1-29", nom: "Réduire analyse d'inventaires", emoji: "🚛", cout: 10,
                 secteur: "Logistique",
-                description: "Réduire la fréquence des inventaires.",
-                effetVisible: "↘️ BFR -5%",
-                effetGlobal: "⚠️ TR +8%",
-                VA: 0, NVA: 0, LT_effect: 0,
-                impacts: {
-                    global: {"Tr": 0.08},
-                    bfr: -0.05
-                }
+                description: "Réduire la fréquence d\'analyse des stocks",
+                effetVisible: "↓ CGE",
+                effetGlobal: "↑ BFR, ↓ VAG",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"TR": 0.04} }
             }
         ],
-        4: [ // Production (J4) - Indicateur: TRG Moyen
+        4: [ // Production (J4)
             {
-                id: "R1-6", nom: "Accélérer M1", emoji: "⚙️", cout: 25,
+                id: "R1-6", nom: "Accélérer M1", emoji: "🔧", cout: 25,
                 secteur: "Production",
-                description: "Augmenter la vitesse de la Machine 1.",
-                effetVisible: "↗️ Capacité +15%",
-                effetGlobal: "⚠️ TR +8%",
-                VA: -1, NVA: 9, LT_effect: 8,
-                impacts: {
-                    global: {"CAP": 0.15, "Tr": 0.08}
-                }
+                description: "Accélérer la machine M1 pour augmenter la cadence",
+                effetVisible: "↑ Capacité",
+                effetGlobal: "↑ BFR, ↓ VAG",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"TR": 0.04, "TC": -0.01} }
             },
             {
-                id: "R1-7", nom: "Accélérer M2", emoji: "⚙️", cout: 20,
+                id: "R1-7", nom: "Accélérer M2", emoji: "🔧", cout: 20,
                 secteur: "Production",
-                description: "Augmenter la vitesse de la Machine 2.",
-                effetVisible: "↗️ Capacité +15%",
-                effetGlobal: "⚠️ TR +10%",
-                VA: -1, NVA: 9, LT_effect: 8,
-                impacts: {
-                    global: {"CAP": 0.15, "Tr": 0.10}
-                }
+                description: "Accélérer la machine M2 pour augmenter la cadence",
+                effetVisible: "↑ Capacité",
+                effetGlobal: "↑ BFR, ↓ VAG",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"TR": 0.04, "TC": -0.01} }
             },
             {
-                id: "R1-8", nom: "Ralentir M4", emoji: "⚙️", cout: 25,
+                id: "R1-8", nom: "Ralentir M4", emoji: "🔧", cout: 25,
                 secteur: "Production",
-                description: "Réduire la vitesse de M4 pour plus de précision.",
-                effetVisible: "↘️ TR -5%",
-                effetGlobal: "⚠️ Capacité -10%",
-                VA: 2, NVA: 14, LT_effect: 16,
-                impacts: {
-                    global: {"Tr": -0.05, "CAP": -0.10}
-                }
+                description: "Ralentir la machine M4 (goulot) pour stabiliser le flux",
+                effetVisible: "↓ Capacité",
+                effetGlobal: "↑ BFR, ↓ VAG",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"TR": 0.04, "TC": 0.03, "LT": 144.0} }
             },
             {
-                id: "R1-9", nom: "Machine Neuve", emoji: "⚙️", cout: 60,
+                id: "R1-9", nom: "Machine Neuve", emoji: "🔧", cout: 60,
                 secteur: "Production",
-                description: "Acheter une nouvelle machine de découpe.",
-                effetVisible: "↗️ Capacité +25%, LT -16h",
-                effetGlobal: "⚠️ CGE +8k€",
-                VA: 2, NVA: -18, LT_effect: -16,
-                impacts: {
-                    global: {"CAP": 0.25, "CGE": 8, "LT": -16}
-                }
+                description: "Investir dans une nouvelle machine pour augmenter la capacité",
+                effetVisible: "↑ Capacité",
+                effetGlobal: "↑ BFR, ↓ VAG, ↑ CR",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"CMP": 0.05, "TR": 0.03, "TC": -0.02} }
             },
             {
-                id: "R1-10", nom: "Gros Lots Prod", emoji: "⚙️", cout: 20,
+                id: "R1-10", nom: "Gros Lots Prod", emoji: "🔧", cout: 20,
                 secteur: "Production",
-                description: "Produire en lots plus importants pour réduire les changements.",
-                effetVisible: "↘️ TC -40%",
-                effetGlobal: "⚠️ BFR +50%, LT +48h",
-                VA: 0, NVA: 48, LT_effect: 48,
-                impacts: {
-                    global: {"TC": -0.40, "LT": 48},
-                    bfr: 0.50
-                }
+                description: "Produire en lots plus importants pour réduire les temps de changement",
+                effetVisible: "↑ Capacité",
+                effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"CMP": -0.04, "LT": 90.0} }
             },
             {
-                id: "R1-26", nom: "Accélérer M3", emoji: "⚙️", cout: 10,
+                id: "R1-26", nom: "Accélérer M3", emoji: "🔧", cout: 10,
                 secteur: "Production",
-                description: "Augmenter la vitesse de la Machine 3 (Démarcation).",
-                effetVisible: "↗️ Capacité +15%",
-                effetGlobal: "⚠️ TR +12%",
-                VA: -1, NVA: 9, LT_effect: 8,
-                impacts: {
-                    global: {"CAP": 0.15, "Tr": 0.12}
-                }
+                description: "Accélérer la machine M3",
+                effetVisible: "↑ Capacité",
+                effetGlobal: "↑ BFR, ↓ VAG",
+                flux: ["MF2"],
+                impacts: { global: {"TR": 0.02, "TC": -0.01} }
             },
             {
-                id: "R1-27", nom: "Machine Neuve M4", emoji: "⚙️", cout: 65,
+                id: "R1-27", nom: "Machine Neuve M4", emoji: "🔧", cout: 65,
                 secteur: "Production",
-                description: "Acheter une nouvelle machine coupe finale.",
-                effetVisible: "↗️ Capacité +30%, LT -24h",
-                effetGlobal: "⚠️ CGE +10k€",
-                VA: 2, NVA: -26, LT_effect: -24,
-                impacts: {
-                    global: {"CAP": 0.30, "CGE": 10, "LT": -24}
-                }
+                description: "Nouvelle machine pour M4",
+                effetVisible: "↑ Capacité",
+                effetGlobal: "↑ BFR, ↓ VAG, ↑ CR",
+                flux: ["MF2"],
+                impacts: { global: {"CMP": 0.05, "TR": 0.03, "TC": -0.05} }
             },
             {
-                id: "R1-28", nom: "Push MF2", emoji: "⚙️", cout: 20,
+                id: "R1-28", nom: "Push MF2", emoji: "🔧", cout: 20,
                 secteur: "Production",
-                description: "Produire le macroflux 2 pour stock (mode poussé).",
-                effetVisible: "↗️ Capacité +20%",
-                effetGlobal: "⚠️ BFR +25%, TR +5%",
-                VA: 0, NVA: 40, LT_effect: 40,
-                impacts: {
-                    global: {"CAP": 0.20, "Tr": 0.05},
-                    bfr: 0.25
-                }
+                description: "Pousser les ventes du MF2 (Premium)",
+                effetVisible: "↑ Capacité",
+                effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
+                flux: ["MF1"],
+                impacts: { global: {"CMP": -0.04, "LT": 24.0} }
             }
         ],
-        5: [ // Qualité (J5) - Indicateur: Conformité (1-TR)
+        5: [ // Qualité (J5)
             {
                 id: "R1-11", nom: "Réduire Inspections", emoji: "✅", cout: 15,
                 secteur: "Qualité",
-                description: "Réduire les inspections pour accélérer la production.",
-                effetVisible: "↘️ LT -8h",
-                effetGlobal: "⚠️ TR +10%, DA +5%",
-                VA: 0, NVA: -8, LT_effect: -8,
-                impacts: {
-                    global: {"LT": -8, "Tr": 0.10, "DA": 0.05}
-                }
+                description: "Réduire les inspections qualité pour accélérer le flux",
+                effetVisible: "↑ TR",
+                effetGlobal: "↑ BFR, ↓ VAG",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"TR": 0.05} }
             },
             {
                 id: "R1-12", nom: "Étude Fournisseurs", emoji: "✅", cout: 20,
                 secteur: "Qualité",
-                description: "Étudier la qualité des fournisseurs de matière première.",
-                effetVisible: "↘️ TR -5%",
-                effetGlobal: "⚠️ LT +40h, DA +2%",
-                VA: 4, NVA: 36, LT_effect: 40,
-                impacts: {
-                    global: {"Tr": -0.05, "LT": 40, "DA": 0.02}
-                }
+                description: "Étudier et qualifier de nouveaux fournisseurs",
+                effetVisible: "↓ TR",
+                effetGlobal: "↑ VAG, ↓ BFR",
+                flux: ["MF1", "MF2"],
+                impacts: { global: {"TC": -0.03, "TR": -0.02, "DF": 0.1} }
             },
             {
                 id: "R1-13", nom: "Accepter Défauts", emoji: "✅", cout: 10,
                 secteur: "Qualité",
-                description: "Accepter les petits défauts esthétiques pour accélérer.",
-                effetVisible: "↘️ LT -8h",
-                effetGlobal: "⚠️ TR +5%, DA +8%",
-                VA: 0, NVA: -8, LT_effect: -8,
-                impacts: {
-                    global: {"LT": -8, "Tr": 0.05, "DA": 0.08}
-                }
+                description: "Accepter un taux de défauts plus élevé pour accélérer",
+                effetVisible: "↑ TR",
+                effetGlobal: "↑ BFR, ↓ VAG",
+                flux: ["MF1"],
+                impacts: { global: {"TR": 0.07} }
             },
             {
-                id: "R1-14", nom: "Contrôle Renforcé", emoji: "✅", cout: 15,
+                id: "R1-14", nom: "Contrôle Trop Renforcé", emoji: "✅", cout: 15,
                 secteur: "Qualité",
-                description: "Renforcer les contrôles qualité à chaque étape.",
-                effetVisible: "↘️ TR -10%",
-                effetGlobal: "⚠️ LT +16h, TC +5%",
-                VA: 4, NVA: 12, LT_effect: 16,
-                impacts: {
-                    global: {"Tr": -0.10, "LT": 16, "TC": 0.05}
-                }
+                description: "Renforcer les contrôles qualité",
+                effetVisible: "↓ TR",
+                effetGlobal: "↑ BFR, ↓ VAG",
+                flux: ["MF1"],
+                impacts: { global: {"TR": -0.2, "LT": 120.0} }
             }
         ]
     };
-    
-    // ==================== CARTES MANCHE 2 - LEAN (Outils Lean et TOC) ====================
-    // Cartes basées sur le tableau Excel - 30 cartes au total
-    
+
+    // ==================== CARTES MANCHE 2 - LEAN (Outils Lean et TOC) v0.7.1 ====================
+
     const CARTES_MANCHE2 = [
         {
-            id: "R2-1", nom: "Organisation 5S du Magasin", emoji: "📦", cout: 15,
-            secteur: "Approvisionnement",
-            description: "Organiser le magasin de matières premières avec la méthode 5S : trier, ranger, nettoyer, standardiser et maintenir.",
-            effetVisible: "Organisation 5S du magasin",
-            VA: 1, NVA: -5, LT_effect: -4,
-            impacts: {
-                global: {"LT": -4.0, "TC": -0.05, "Tr": -0.02}
-            }
+            id: "M2-1", nom: "5S Magasin MP", emoji: "📦", cout: 15,
+            secteur: "Approvisionnement", joueur: 2,
+            description: "Appliquer la méthode 5S au magasin de matières premières",
+            effetVisible: "5S Magasin",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -72.0, "TC": -0.05, "TR": -0.02} }
         },
         {
-            id: "R2-2", nom: "Système Kanban Fournisseur", emoji: "📦", cout: 25,
-            secteur: "Approvisionnement",
-            description: "Mettre en place un système Kanban avec les fournisseurs pour un flux tiré automatique des approvisionnements.",
-            effetVisible: "Système Kanban avec les fournisseurs",
-            VA: 2, NVA: -18, LT_effect: -16,
-            impacts: {
-                global: {"LT": -16.0, "delaiFournisseur": -0.2},
-                bfr: -0.25
-            }
+            id: "M2-2", nom: "Kanban Fournisseur", emoji: "📦", cout: 25,
+            secteur: "Approvisionnement", joueur: 2,
+            description: "Mettre en place un système Kanban avec les fournisseurs",
+            effetVisible: "Kanban Fourn.",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -110.0} }
         },
         {
-            id: "R2-3", nom: "Lissage Heijunka des Achats", emoji: "📦", cout: 20,
-            secteur: "Approvisionnement",
-            description: "Lisser les commandes d\'achats avec la méthode Heijunka pour réduire la variabilité de la production.",
-            effetVisible: "Lissage de la production Heijunka",
-            VA: 0, NVA: -8, LT_effect: -8,
-            impacts: {
-                global: {"delaiFournisseur": -0.15},
-                bfr: -0.1
-            }
+            id: "M2-3", nom: "Heijunka Achats", emoji: "📦", cout: 20,
+            secteur: "Approvisionnement", joueur: 2,
+            description: "Implémenter Heijunka pour lisser les achats",
+            effetVisible: "Heijunka",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -134.0} }
         },
         {
-            id: "R2-4", nom: "Visite Gemba chez les Fournisseurs", emoji: "📦", cout: 30,
-            secteur: "Approvisionnement",
-            description: "Réaliser des visites terrain chez les fournisseurs pour auditer la qualité de manière collaborative.",
-            effetVisible: "Visite terrain Gemba fournisseurs",
-            VA: 2, NVA: -2, LT_effect: 0,
-            impacts: {
-                global: {"Tr": -0.08, "DA": -0.03}
-            }
+            id: "M2-4", nom: "Gemba Fournisseur", emoji: "📦", cout: 30,
+            secteur: "Approvisionnement", joueur: 2,
+            description: "Effectuer des visites Gemba chez les fournisseurs",
+            effetVisible: "Gemba Fourn.",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.08, "DF": 0.25} }
         },
         {
-            id: "R2-5", nom: "Méthode SMED sur la Découpe", emoji: "⚙️", cout: 20,
-            secteur: "Production",
-            description: "Appliquer la méthode SMED sur la machine de découpe pour réduire les temps de changement de série.",
-            effetVisible: "Méthode SMED sur la découpe",
-            VA: -2, NVA: -6, LT_effect: -8,
-            impacts: {
-                global: {"TC": -0.6, "CAP": 0.1},
-                bfr: -0.15
-            }
+            id: "M2-5", nom: "SMED Coupe Initiale", emoji: "🔧", cout: 20,
+            secteur: "Production", joueur: 4,
+            description: "Appliquer SMED sur la coupe initiale pour réduire les temps de changement",
+            effetVisible: "SMED Corte",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TC": -0.15} }
         },
         {
-            id: "R2-6", nom: "Méthode SMED sur le Polissage", emoji: "⚙️", cout: 20,
-            secteur: "Production",
-            description: "Appliquer la méthode SMED sur la machine de polissage pour réduire les temps de changement de série.",
-            effetVisible: "Méthode SMED sur le polissage",
-            VA: -2, NVA: -6, LT_effect: -8,
-            impacts: {
-                global: {"TC": -0.6, "CAP": 0.1},
-                bfr: -0.15
-            }
+            id: "M2-6", nom: "SMED Polissage", emoji: "🔧", cout: 20,
+            secteur: "Production", joueur: 4,
+            description: "Appliquer SMED sur le polissage pour réduire les temps de changement",
+            effetVisible: "SMED Poliss.",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TC": -0.15} }
         },
         {
-            id: "R2-7", nom: "Méthode SMED sur la Coupe Finale", emoji: "⚙️", cout: 25,
-            secteur: "Production",
-            description: "Appliquer la méthode SMED sur la machine de coupe finale, le goulot d\'étranglement de la production.",
-            effetVisible: "Méthode SMED sur le goulot",
-            VA: -3, NVA: -9, LT_effect: -12,
-            impacts: {
-                global: {"TC": -0.6, "CAP": 0.15},
-                bfr: -0.2
-            }
+            id: "M2-7", nom: "SMED Coupe Finale", emoji: "🔧", cout: 25,
+            secteur: "Production", joueur: 4,
+            description: "Appliquer SMED sur la coupe finale pour réduire les temps de changement",
+            effetVisible: "SMED Goulot",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TC": -0.17} }
         },
         {
-            id: "R2-8", nom: "Organisation 5S de l\'Atelier", emoji: "⚙️", cout: 10,
-            secteur: "Production",
-            description: "Organiser l\'atelier de production avec la méthode 5S pour un environnement propre et efficace.",
-            effetVisible: "Organisation 5S de l\'atelier",
-            VA: 1, NVA: -5, LT_effect: -4,
-            impacts: {
-                global: {"TC": -0.1, "Tr": -0.05, "LT": -4.0}
-            }
+            id: "M2-8", nom: "5S Atelier", emoji: "🔧", cout: 10,
+            secteur: "Production", joueur: 4,
+            description: "Appliquer 5S dans l\'atelier de production",
+            effetVisible: "5S Atelier",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TC": -0.02, "TR": -0.05, "LT": -48.0} }
         },
         {
-            id: "R2-9", nom: "Système Kanban Interne", emoji: "⚙️", cout: 20,
-            secteur: "Production",
-            description: "Mettre en place un système Kanban interne entre les postes pour un flux tiré et réduire les en-cours.",
-            effetVisible: "Système Kanban interne",
-            VA: 0, NVA: -16, LT_effect: -16,
-            impacts: {
-                global: {"LT": -16.0, "TC": -0.05},
-                bfr: -0.2
-            }
+            id: "M2-9", nom: "Kanban Interne", emoji: "🔧", cout: 20,
+            secteur: "Production", joueur: 4,
+            description: "Mettre en place un Kanban interne pour le flux tiré",
+            effetVisible: "Kanban Int.",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -16.0, "TC": -0.05} }
         },
         {
-            id: "R2-10", nom: "Gestion du Goulot par la TOC", emoji: "⚙️", cout: 25,
-            secteur: "Production",
-            description: "Appliquer la méthode TOC Drum-Buffer-Rope pour subordonner la production au goulot d\'étranglement.",
-            effetVisible: "Gestion par la contrainte TOC",
-            VA: 0, NVA: -24, LT_effect: -24,
-            impacts: {
-                global: {"CAP": 0.2, "LT": -24.0},
-                bfr: -0.25
-            }
+            id: "M2-10", nom: "TOC Subordination", emoji: "🔧", cout: 25,
+            secteur: "Production", joueur: 4,
+            description: "Appliquer la subordination TOC au goulot (Machine 4)",
+            effetVisible: "TOC DBR",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -24.0} }
         },
         {
-            id: "R2-11", nom: "Maintenance Productive Totale", emoji: "⚙️", cout: 30,
-            secteur: "Production",
-            description: "Mettre en place la maintenance productive totale : préventive et autonome par les opérateurs.",
-            effetVisible: "Maintenance productive totale",
-            VA: 2, NVA: -6, LT_effect: -4,
-            impacts: {
-                global: {"CAP": 0.15, "Tr": -0.08, "CGE": -0.05}
-            }
+            id: "M2-11", nom: "TPM", emoji: "🔧", cout: 30,
+            secteur: "Production", joueur: 4,
+            description: "Implémenter la maintenance productive totale (TPM)",
+            effetVisible: "TPM",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.14} }
         },
         {
-            id: "R2-12", nom: "Automatisation Intelligente Jidoka", emoji: "⚙️", cout: 50,
-            secteur: "Production",
-            description: "Installer des systèmes d\'automatisation intelligente Jidoka : arrêt automatique si défaut détecté.",
-            effetVisible: "Automatisation intelligente Jidoka",
-            VA: 0, NVA: -8, LT_effect: -8,
-            impacts: {
-                global: {"Tr": -0.15, "CAP": 0.05, "LT": -8.0}
-            }
+            id: "M2-12", nom: "Jidoka", emoji: "🔧", cout: 50,
+            secteur: "Production", joueur: 4,
+            description: "Installer des systèmes Jidoka (autonomation)",
+            effetVisible: "Jidoka",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.08, "LT": -360.0} }
         },
         {
-            id: "R2-19", nom: "Organisation 5S de l\'Entrepôt", emoji: "🚚", cout: 15,
-            secteur: "Logistique",
-            description: "Organiser l\'entrepôt avec la méthode 5S : zones définies, flux visuels et rangement optimisé.",
-            effetVisible: "Organisation 5S de l\'entrepôt",
-            VA: 0, NVA: -8, LT_effect: -8,
-            impacts: {
-                global: {"LT": -8.0, "Tr": -0.05, "TC": -0.03}
-            }
+            id: "M2-13", nom: "5 Pourquoi", emoji: "✅", cout: 10,
+            secteur: "Qualité", joueur: 5,
+            description: "Utiliser les 5 Pourquoi pour l\'analyse des causes racines",
+            effetVisible: "5 Pourquoi",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.1, "TC": -0.03} }
         },
         {
-            id: "R2-20", nom: "Système Kanban de Distribution", emoji: "🚚", cout: 20,
-            secteur: "Logistique",
-            description: "Mettre en place un système Kanban de distribution pour un flux tiré vers les clients.",
-            effetVisible: "Système Kanban de distribution",
-            VA: 0, NVA: -16, LT_effect: -16,
-            impacts: {
-                global: {"LT": -16.0, "QV": 0.05},
-                bfr: -0.2
-            }
+            id: "M2-14", nom: "QRQC", emoji: "✅", cout: 15,
+            secteur: "Qualité", joueur: 5,
+            description: "Mettre en place QRQC (Quick Response Quality Control)",
+            effetVisible: "QRQC",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.12, "LT": -100.0, "TC": -0.05} }
         },
         {
-            id: "R2-21", nom: "Lissage Heijunka des Expéditions", emoji: "🚚", cout: 25,
-            secteur: "Logistique",
-            description: "Lisser les expéditions avec Heijunka : régularité des livraisons et optimisation du transport.",
-            effetVisible: "Lissage des expéditions Heijunka",
-            VA: 0, NVA: -8, LT_effect: -8,
-            impacts: {
-                global: {"LT": -8.0, "CGE": -0.1, "PV": 0.03}
-            }
+            id: "M2-15", nom: "SPC Contrôle", emoji: "✅", cout: 30,
+            secteur: "Qualité", joueur: 5,
+            description: "Implémenter le contrôle statistique des procédés (SPC)",
+            effetVisible: "SPC",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.18} }
         },
         {
-            id: "R2-22", nom: "Livraison en Juste-à-Temps", emoji: "🚚", cout: 35,
-            secteur: "Logistique",
-            description: "Mettre en place le Juste-à-Temps : stock client minimum avec livraisons fréquentes.",
-            effetVisible: "Livraison en juste-à-temps",
-            VA: 0, NVA: -24, LT_effect: -24,
-            impacts: {
-                global: {"QV": 0.1, "LT": -24.0},
-                bfr: -0.15
-            }
+            id: "M2-16", nom: "Poka-Yoke", emoji: "✅", cout: 25,
+            secteur: "Qualité", joueur: 5,
+            description: "Cartographier et optimiser le flux de valeur (VSM)",
+            effetVisible: "Poka-Yoke",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TC": -0.08, "LT": -90.0, "TR": -0.2} }
         },
         {
-            id: "R2-23", nom: "Élévation de la Contrainte Logistique", emoji: "🚚", cout: 30,
-            secteur: "Logistique",
-            description: "Élever la contrainte logistique avec la TOC : augmenter la capacité de transport et stockage.",
-            effetVisible: "Gestion par la contrainte logistique",
-            VA: 0, NVA: -16, LT_effect: -16,
-            impacts: {
-                global: {"LT": -16.0, "CAP": 0.1, "QV": 0.08}
-            }
+            id: "M2-17", nom: "Kaizen Qualité", emoji: "✅", cout: 20,
+            secteur: "Qualité", joueur: 5,
+            description: "Former les opérateurs aux principes du Lean Manufacturing",
+            effetVisible: "Kaizen",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.07} }
         },
         {
-            id: "R2-13", nom: "Analyse des 5 Pourquoi", emoji: "✅", cout: 10,
-            secteur: "Qualité",
-            description: "Utiliser la méthode des 5 Pourquoi pour analyser les causes racines des problèmes qualité.",
-            effetVisible: "Analyse des 5 Pourquoi",
-            VA: 2, NVA: -2, LT_effect: 0,
-            impacts: {
-                global: {"Tr": -0.1, "TC": -0.03}
-            }
+            id: "M2-18", nom: "Gemba Qualité", emoji: "✅", cout: 10,
+            secteur: "Qualité", joueur: 5,
+            description: "Créer des cellules de production en U pour réduire les déplacements",
+            effetVisible: "Gemba Qual.",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -30.0} }
         },
         {
-            id: "R2-14", nom: "Contrôle Qualité Rapide QRQC", emoji: "✅", cout: 15,
-            secteur: "Qualité",
-            description: "Mettre en place le QRQC : résolution rapide des problèmes qualité directement sur le terrain.",
-            effetVisible: "Résolution rapide QRQC",
-            VA: 0, NVA: -8, LT_effect: -8,
-            impacts: {
-                global: {"Tr": -0.12, "LT": -8.0, "TC": -0.05}
-            }
+            id: "M2-19", nom: "5S Entrepôt", emoji: "🚛", cout: 15,
+            secteur: "Logistique", joueur: 3,
+            description: "Implémenter le management visuel sur le shop floor",
+            effetVisible: "5S Entrepôt",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.02, "TC": -0.03, "LT": -36.0} }
         },
         {
-            id: "R2-15", nom: "Contrôle Statistique des Processus", emoji: "✅", cout: 30,
-            secteur: "Qualité",
-            description: "Installer un contrôle statistique des processus avec des cartes de contrôle et indicateurs Cpk.",
-            effetVisible: "Contrôle statistique des processus",
-            VA: 1, NVA: -1, LT_effect: 0,
-            impacts: {
-                global: {"Tr": -0.08, "CAP": 0.03}
-            }
+            id: "M2-20", nom: "Kanban Distribution", emoji: "🚛", cout: 20,
+            secteur: "Logistique", joueur: 3,
+            description: "Standardiser les postes de travail",
+            effetVisible: "Kanban Dist.",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -50.0} }
         },
         {
-            id: "R2-16", nom: "Dispositifs Anti-Erreur Poka-Yoke", emoji: "✅", cout: 25,
-            secteur: "Qualité",
-            description: "Installer des dispositifs anti-erreur Poka-Yoke : détrompeurs physiques sur les machines.",
-            effetVisible: "Dispositifs anti-erreur Poka-Yoke",
-            VA: 0, NVA: -4, LT_effect: -4,
-            impacts: {
-                global: {"Tr": -0.2, "TC": -0.08, "LT": -4.0}
-            }
+            id: "M2-21", nom: "Heijunka Expéditions", emoji: "🚛", cout: 25,
+            secteur: "Logistique", joueur: 3,
+            description: "Appliquer Heijunka aux expéditions pour lisser les envois",
+            effetVisible: "Heijunka Exp.",
+            flux: ["MF1"],
+            impacts: { global: {"LT": -64.0} }
         },
         {
-            id: "R2-17", nom: "Chantier d\'Amélioration Kaizen", emoji: "✅", cout: 20,
-            secteur: "Qualité",
-            description: "Organiser des chantiers Kaizen d\'amélioration continue avec une équipe dédiée.",
-            effetVisible: "Amélioration continue Kaizen",
-            VA: 1, NVA: -5, LT_effect: -4,
-            impacts: {
-                global: {"Tr": -0.1, "CAP": 0.05, "CGE": -0.02}
-            }
+            id: "M2-22", nom: "JIT Livraison", emoji: "🚛", cout: 25,
+            secteur: "Logistique", joueur: 3,
+            description: "Réduire les temps de changement généraux (SMED avancé)",
+            effetVisible: "JIT",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -120.0} }
         },
         {
-            id: "R2-18", nom: "Visite Gemba sur le Terrain", emoji: "✅", cout: 10,
-            secteur: "Qualité",
-            description: "Pratiquer le Gemba Walk : aller sur le terrain observer et résoudre les problèmes rapidement.",
-            effetVisible: "Visite terrain Gemba qualité",
-            VA: 0, NVA: -4, LT_effect: -4,
-            impacts: {
-                global: {"Tr": -0.05, "LT": -4.0}
-            }
+            id: "M2-23", nom: "TOC Logistique", emoji: "🚛", cout: 20,
+            secteur: "Logistique", joueur: 3,
+            description: "Implémenter le flux tiré (Pull) dans toute l\'usine",
+            effetVisible: "TOC Logist.",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -100.0} }
         },
         {
-            id: "R2-24", nom: "Lissage Heijunka des Commandes", emoji: "💼", cout: 20,
-            secteur: "Commercial",
-            description: "Lisser la prise de commandes avec Heijunka pour améliorer la prévisibilité de la production.",
-            effetVisible: "Lissage des commandes Heijunka",
-            VA: 0, NVA: -8, LT_effect: -8,
-            impacts: {
-                global: {"CAP": 0.08, "LT": -8.0},
-                bfr: -0.12
-            }
+            id: "M2-24", nom: "Heijunka Commandes", emoji: "💼", cout: 20,
+            secteur: "Commercial", joueur: 1,
+            description: "Appliquer Heijunka aux commandes clients",
+            effetVisible: "Heijunka Cmd",
+            flux: ["MF1"],
+            impacts: { global: {"LT": -64.0, "DC": -0.15} }
         },
         {
-            id: "R2-25", nom: "Écoute de la Voix du Client", emoji: "💼", cout: 15,
-            secteur: "Commercial",
-            description: "Écouter la voix du client pour améliorer le service et augmenter la satisfaction.",
-            effetVisible: "Écoute de la voix du client",
-            VA: 1, NVA: -5, LT_effect: -4,
-            impacts: {
-                global: {"QV": 0.1, "PV": 0.05, "Tr": -0.03}
-            }
+            id: "M2-25", nom: "VOC", emoji: "💼", cout: 15,
+            secteur: "Commercial", joueur: 1,
+            description: "Écouter la voix du client (VOC) pour améliorer le service",
+            effetVisible: "VOC",
+            flux: ["MF2"],
+            impacts: { global: {"TR": -0.04, "DC": -0.25} }
         },
         {
-            id: "R2-26", nom: "Segmentation par Valeur Ajoutée", emoji: "💼", cout: 10,
-            secteur: "Commercial",
-            description: "Segmenter les clients par valeur ajoutée globale pour se concentrer sur les plus rentables.",
-            effetVisible: "Segmentation par valeur ajoutée",
-            VA: 2, NVA: -2, LT_effect: 0,
-            impacts: {
-                global: {"PV": 0.12, "CAP": 0.05}
-            }
+            id: "M2-26", nom: "Segmentation VAG", emoji: "💼", cout: 10,
+            secteur: "Commercial", joueur: 1,
+            description: "Segmenter les produits par VAG (valeur ajoutée globale)",
+            effetVisible: "Segment. VAG",
+            flux: ["MF1"],
+            impacts: { global: {"TR": -0.04, "TC": -0.02} }
         },
         {
-            id: "R2-27", nom: "Contrats Cadres avec les Clients", emoji: "💼", cout: 15,
-            secteur: "Commercial",
-            description: "Négocier des contrats cadres avec les clients réguliers pour améliorer la prévisibilité.",
-            effetVisible: "Contrats cadres avec les clients",
-            VA: 0, NVA: -8, LT_effect: -8,
-            impacts: {
-                global: {"QV": 0.15, "CAP": 0.05},
-                bfr: -0.1
-            }
+            id: "M2-27", nom: "Contrats Cadres", emoji: "💼", cout: 15,
+            secteur: "Commercial", joueur: 1,
+            description: "Améliorer l\'ergonomie des postes de travail",
+            effetVisible: "Contrats",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TC": -0.02, "LT": -24.0, "DC": -0.2} }
         },
         {
-            id: "R2-28", nom: "Priorisation par Valeur Horaire", emoji: "💼", cout: 20,
-            secteur: "Commercial",
-            description: "Prioriser les ventes des produits à haute valeur ajoutée par heure de goulot.",
-            effetVisible: "Priorisation par valeur horaire",
-            VA: 3, NVA: -3, LT_effect: 0,
-            impacts: {
-                global: {"PV": 0.15, "CAP": 0.1}
-            }
+            id: "M2-28", nom: "Prioriser VAG/hora", emoji: "💼", cout: 20,
+            secteur: "Commercial", joueur: 1,
+            description: "Réduire les déplacements inutiles (Muda de transport)",
+            effetVisible: "VAG/hora",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TC": -0.02} }
         },
         {
-            id: "R2-29", nom: "Priorisation par Valorité", emoji: "💼", cout: 20,
-            secteur: "Commercial",
-            description: "Prioriser les ventes par valorité : valeur par ressource rare utilisée.",
-            effetVisible: "Priorisation par valorité",
-            VA: 2, NVA: -2, LT_effect: 0,
-            impacts: {
-                global: {"PV": 0.1, "CGE": -0.05}
-            }
+            id: "M2-29", nom: "Prioriser Valorité", emoji: "💼", cout: 20,
+            secteur: "Commercial", joueur: 1,
+            description: "Prioriser les produits par valorité (valeur/coût)",
+            effetVisible: "Valorité",
+            flux: ["MF2"],
+            impacts: { global: {"TC": -0.06, "TR": -0.02} }
         },
         {
-            id: "R2-30", nom: "Équilibrage du Mix Produits", emoji: "💼", cout: 20,
-            secteur: "Commercial",
-            description: "Équilibrer le mix produits pour optimiser l\'utilisation du goulot d\'étranglement.",
-            effetVisible: "Équilibrage optimal du mix produits",
-            VA: 1, NVA: -9, LT_effect: -8,
-            impacts: {
-                global: {"CAP": 0.12, "PV": 0.05},
-                bfr: -0.08
-            }
+            id: "M2-30", nom: "Équilibre de Produits", emoji: "💼", cout: 20,
+            secteur: "Commercial", joueur: 1,
+            description: "Implémenter le One-Piece-Flow",
+            effetVisible: "Mix Optimal",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TC": -0.03, "TR": -0.03, "LT": -72.0} }
         }
     ];
-    
-    // ==================== CARTES MANCHE 3 - EXCELLENCE (Green et Digital) ====================
-    // Cartes basées sur le tableau Excel - 30 cartes au total
-    
+
+    // ==================== CARTES MANCHE 3 - EXCELLENCE (Lean & PIG) v0.7.1 ====================
+
     const CARTES_MANCHE3 = [
         {
-            id: "R3-1", nom: "Second Fournisseur Qualifié", emoji: "📦", cout: 25,
-            secteur: "Approvisionnement",
-            description: "Qualifier un second fournisseur de marbre pour réduire la dépendance et les risques d\'approvisionnement.",
-            effetVisible: "Qualification d\'un second fournisseur",
-            VA: 0, NVA: -12, LT_effect: -12,
-            impacts: {
-                global: {"delaiFournisseur": -0.15, "Tr": -0.03},
-                bfr: -0.08
-            }
+            id: "M3-1", nom: "2º Fournisseur Qualifié", emoji: "📦", cout: 25,
+            secteur: "Approvisionnement", joueur: 2,
+            description: "Qualifier un 2ème fournisseur pour sécuriser la qualité",
+            effetVisible: "2º Fournisseur",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"DF": 0.1, "TR": -0.03} }
         },
         {
-            id: "R3-2", nom: "Stock en Consignation Fournisseur", emoji: "📦", cout: 15,
-            secteur: "Approvisionnement",
-            description: "Négocier un stock en consignation chez le fournisseur : payer uniquement à la consommation effective.",
-            effetVisible: "Stock en consignation",
-            VA: 0, NVA: -24, LT_effect: -24,
-            impacts: {
-                global: {"DA": 0.03, "LT": -24.0},
-                bfr: -0.2
-            }
+            id: "M3-2", nom: "Consignation MP", emoji: "📦", cout: 15,
+            secteur: "Approvisionnement", joueur: 2,
+            description: "Mettre en place la consignation de MP chez le fournisseur",
+            effetVisible: "Consignation",
+            flux: ["MF1"],
+            impacts: { global: {"LT": -48.0, "DF": 0.15} }
         },
         {
-            id: "R3-3", nom: "Centralisation des Achats", emoji: "📦", cout: 10,
-            secteur: "Approvisionnement",
-            description: "Centraliser les achats avec d\'autres marbreries pour augmenter le volume et le pouvoir de négociation.",
-            effetVisible: "Centralisation des achats",
-            VA: 0, NVA: 8, LT_effect: 8,
-            impacts: {
-                global: {"DA": -0.08, "delaiFournisseur": 0.1}
-            }
+            id: "M3-3", nom: "Centraliser Achats", emoji: "📦", cout: 10,
+            secteur: "Approvisionnement", joueur: 2,
+            description: "Centraliser les achats pour obtenir de meilleurs prix",
+            effetVisible: "Centralisation",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"DF": 0.07} }
         },
         {
-            id: "R3-4", nom: "Cahier des Charges Qualité", emoji: "📦", cout: 8,
-            secteur: "Approvisionnement",
-            description: "Définir un cahier des charges qualité strict avec des critères d\'acceptation des matières premières.",
-            effetVisible: "Cahier des charges qualité",
-            VA: 2, NVA: -10, LT_effect: -8,
-            impacts: {
-                global: {"Tr": -0.1, "DA": 0.02, "LT": -8.0}
-            }
+            id: "M3-4", nom: "Cahier Charges Qualité", emoji: "📦", cout: 8,
+            secteur: "Approvisionnement", joueur: 2,
+            description: "Établir un cahier des charges qualité strict",
+            effetVisible: "Cahier charges",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -36.0, "TR": -0.01} }
         },
         {
-            id: "R3-5", nom: "Audit RSE des Fournisseurs", emoji: "📦", cout: 28,
-            secteur: "Approvisionnement",
-            description: "Réaliser des audits RSE réguliers chez les fournisseurs : conditions de travail, environnement et éthique.",
-            effetVisible: "Audits RSE annuels",
-            VA: 0, NVA: 0, LT_effect: 0,
-            impacts: {
-                global: {"Image": 0.25, "Tr": -0.03}
-            }
+            id: "M3-5", nom: "Audit RSE Fournisseurs", emoji: "📦", cout: 28,
+            secteur: "Approvisionnement", joueur: 2,
+            description: "Auditer les fournisseurs sur la RSE (Responsabilité Sociale)",
+            effetVisible: "Audits annuels",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.03, "DF": 0.05, "LT": -24.0} }
         },
         {
-            id: "R3-6", nom: "Développement Fournisseur Régional", emoji: "📦", cout: 20,
-            secteur: "Approvisionnement",
-            description: "Développer un fournisseur régional pour plus de proximité, réactivité et moins de transport.",
-            effetVisible: "Développement fournisseur régional",
-            VA: 0, NVA: -40, LT_effect: -40,
-            impacts: {
-                global: {"LT": -40.0, "DA": 0.05, "CO2": -0.15}
-            }
+            id: "M3-6", nom: "Fournisseur Régional", emoji: "📦", cout: 20,
+            secteur: "Approvisionnement", joueur: 2,
+            description: "Privilégier les fournisseurs régionaux pour réduire les délais",
+            effetVisible: "Régional",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -360.0} }
         },
         {
-            id: "R3-7", nom: "Certification ISO 14001", emoji: "📦", cout: 55,
-            secteur: "Approvisionnement",
-            description: "Obtenir la certification ISO 14001 pour le système de management environnemental.",
-            effetVisible: "Certification ISO 14001",
-            VA: 0, NVA: 0, LT_effect: 0,
-            impacts: {
-                global: {"Image": 0.3, "QV": 0.1, "Tr": -0.05}
-            }
+            id: "M3-7", nom: "Certification ISO 14001", emoji: "📦", cout: 55,
+            secteur: "Approvisionnement", joueur: 2,
+            description: "Obtenir la certification ISO 14001 (environnement)",
+            effetVisible: "Label ISO 14001",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.15} }
         },
         {
-            id: "R3-8", nom: "Formation Opérateurs Polyvalents", emoji: "⚙️", cout: 30,
-            secteur: "Production",
-            description: "Former les opérateurs à trois postes minimum pour plus de flexibilité et couverture des absences.",
-            effetVisible: "Formation polyvalence opérateurs",
-            VA: 0, NVA: -8, LT_effect: -8,
-            impacts: {
-                global: {"CAP": 0.12, "Tr": -0.05, "LT": -8.0}
-            }
+            id: "M3-8", nom: "Opérateurs Polyvalents", emoji: "🔧", cout: 30,
+            secteur: "Production", joueur: 4,
+            description: "Former des opérateurs polyvalents pour plus de flexibilité",
+            effetVisible: "Polyvalence",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.05, "LT": -48.0, "TC": -0.03} }
         },
         {
-            id: "R3-9", nom: "Plan de Maintenance Préventive", emoji: "⚙️", cout: 25,
-            secteur: "Production",
-            description: "Mettre en place un plan de maintenance préventive systématique avec révisions programmées.",
-            effetVisible: "Maintenance préventive",
-            VA: 2, NVA: -10, LT_effect: -8,
-            impacts: {
-                global: {"CAP": 0.1, "Tr": -0.08, "CGE": -0.05}
-            }
+            id: "M3-9", nom: "Maintenance Préventive", emoji: "🔧", cout: 25,
+            secteur: "Production", joueur: 4,
+            description: "Implémenter la maintenance préventive planifiée",
+            effetVisible: "Préventive",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TC": -0.12} }
         },
         {
-            id: "R3-10", nom: "Rénovation de l\'Outillage", emoji: "⚙️", cout: 35,
-            secteur: "Production",
-            description: "Rénover et standardiser l\'outillage : disques, lames et abrasifs de qualité professionnelle.",
-            effetVisible: "Rénovation de l\'outillage",
-            VA: -1, NVA: -7, LT_effect: -8,
-            impacts: {
-                global: {"Tr": -0.12, "TC": -0.1, "CAP": 0.08}
-            }
+            id: "M3-10", nom: "Outillage Rénové", emoji: "🔧", cout: 35,
+            secteur: "Production", joueur: 4,
+            description: "Rénover l\'outillage pour améliorer la qualité",
+            effetVisible: "Outillage",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TC": -0.02, "TR": -0.03} }
         },
         {
-            id: "R3-11", nom: "Éclairage LED Haute Efficacité", emoji: "⚙️", cout: 35,
-            secteur: "Production",
-            description: "Remplacer tout l\'éclairage industriel par des LED haute efficacité pour réduire la consommation.",
-            effetVisible: "Éclairage LED haute efficacité",
-            VA: 0, NVA: 0, LT_effect: 0,
-            impacts: {
-                global: {"CGE": -0.03, "Tr": -0.02}
-            }
+            id: "M3-11", nom: "LED Haute Efficacité", emoji: "🔧", cout: 35,
+            secteur: "Production", joueur: 4,
+            description: "Installer un éclairage LED haute efficacité",
+            effetVisible: "-60% conso éclairage",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"CGE": -0.1} }
         },
         {
-            id: "R3-12", nom: "Installation Panneaux Solaires", emoji: "⚙️", cout: 120,
-            secteur: "Production",
-            description: "Installer des panneaux solaires de 60 kilowatts sur le toit de l\'usine pour l\'autonomie énergétique.",
-            effetVisible: "Installation panneaux solaires",
-            VA: 0, NVA: 0, LT_effect: 0,
-            impacts: {
-                global: {"CGE": -0.08, "CO2": -0.3, "Image": 0.2}
-            }
+            id: "M3-12", nom: "Panneaux Solaires 60kW", emoji: "🔧", cout: 120,
+            secteur: "Production", joueur: 4,
+            description: "Installer des panneaux solaires sur le toit",
+            effetVisible: "60kW capacité",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"CGE": -0.3} }
         },
         {
-            id: "R3-13", nom: "Système de Récupération d\'Eau", emoji: "⚙️", cout: 15,
-            secteur: "Production",
-            description: "Installer un système simple de récupération et filtration de l\'eau de coupe.",
-            effetVisible: "Récupération de l\'eau",
-            VA: 0, NVA: 0, LT_effect: 0,
-            impacts: {
-                global: {"Eau": -0.5, "CGE": -0.03}
-            }
+            id: "M3-13", nom: "Récupération Eau", emoji: "🔧", cout: 15,
+            secteur: "Production", joueur: 4,
+            description: "Récupérer l\'eau de pluie pour les usages industriels",
+            effetVisible: "Récupération",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"CGE": -0.05} }
         },
         {
-            id: "R3-21", nom: "Organisation des Tournées par Zone", emoji: "🚚", cout: 8,
-            secteur: "Logistique",
-            description: "Organiser les livraisons par zones géographiques pour optimiser les trajets et réduire les émissions.",
-            effetVisible: "Organisation des tournées par zone",
-            VA: 0, NVA: 8, LT_effect: 8,
-            impacts: {
-                global: {"CGE": -0.12, "CO2": -0.15, "LT": 8.0}
-            }
+            id: "M3-14", nom: "Contrôle Réception MP", emoji: "✅", cout: 15,
+            secteur: "Qualité", joueur: 5,
+            description: "Contrôler systématiquement la réception des MP",
+            effetVisible: "Contrôle MP",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.04} }
         },
         {
-            id: "R3-22", nom: "Emballage de Protection Renforcé", emoji: "🚚", cout: 15,
-            secteur: "Logistique",
-            description: "Investir dans un emballage de protection renforcé pour réduire la casse pendant le transport.",
-            effetVisible: "Emballage de protection renforcé",
-            VA: 1, NVA: -1, LT_effect: 0,
-            impacts: {
-                global: {"Tr": -0.08, "PV": 0.05, "CGE": 0.02}
-            }
+            id: "M3-15", nom: "IA Maintenance Prédictive", emoji: "✅", cout: 80,
+            secteur: "Qualité", joueur: 5,
+            description: "IA pour maintenance prédictive des machines",
+            effetVisible: "Pannes -65%",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.08} }
         },
         {
-            id: "R3-23", nom: "Contrat Transporteur Spécialisé", emoji: "🚚", cout: 20,
-            secteur: "Logistique",
-            description: "Signer un contrat avec un transporteur spécialisé dans la pierre : savoir-faire en manutention.",
-            effetVisible: "Transporteur spécialisé dédié",
-            VA: 0, NVA: -16, LT_effect: -16,
-            impacts: {
-                global: {"Tr": -0.1, "LT": -16.0, "CGE": 0.05}
-            }
+            id: "M3-16", nom: "Audit ACV Produits", emoji: "✅", cout: 32,
+            secteur: "Qualité", joueur: 5,
+            description: "Digitaliser le suivi de production en temps réel",
+            effetVisible: "ACV tous produits",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -72.0} }
         },
         {
-            id: "R3-24", nom: "Vente des Chutes de Pierre", emoji: "🚚", cout: 5,
-            secteur: "Logistique",
-            description: "Vendre les chutes et rebuts de pierre aux artisans locaux, cimentiers et paysagistes.",
-            effetVisible: "Vente des chutes de pierre",
-            VA: 0, NVA: 0, LT_effect: 0,
-            impacts: {
-                global: {"Dechets": -0.6, "PV": 0.05, "Image": 0.1}
-            }
+            id: "M3-17", nom: "Fiches Instruction", emoji: "✅", cout: 8,
+            secteur: "Qualité", joueur: 5,
+            description: "Implémenter l\'IoT sur les machines critiques",
+            effetVisible: "Instructions",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.01, "TC": -0.01} }
         },
         {
-            id: "R3-25", nom: "Stock Tampon chez les Clients", emoji: "🚚", cout: 25,
-            secteur: "Logistique",
-            description: "Créer un petit stock tampon chez les clients réguliers pour des livraisons express depuis leur dépôt.",
-            effetVisible: "Stock tampon chez les clients",
-            VA: 0, NVA: -48, LT_effect: -48,
-            impacts: {
-                global: {"QV": 0.15, "LT": -48.0},
-                bfr: 0.1
-            }
+            id: "M3-18", nom: "Cercles Qualité", emoji: "✅", cout: 5,
+            secteur: "Qualité", joueur: 5,
+            description: "Automatiser la palettisation en fin de ligne",
+            effetVisible: "Cercles Qual.",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.01} }
         },
         {
-            id: "R3-14", nom: "Contrôle Qualité à la Réception", emoji: "✅", cout: 15,
-            secteur: "Qualité",
-            description: "Mettre en place un contrôle systématique de la qualité à la réception des matières premières.",
-            effetVisible: "Contrôle qualité à la réception",
-            VA: 2, NVA: 6, LT_effect: 8,
-            impacts: {
-                global: {"Tr": -0.15, "LT": 8.0, "DA": -0.02}
-            }
+            id: "M3-19", nom: "Certificat Qualité", emoji: "✅", cout: 5,
+            secteur: "Qualité", joueur: 5,
+            description: "Installer un robot collaboratif (cobot)",
+            effetVisible: "Certificat",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.01} }
         },
         {
-            id: "R3-15", nom: "Maintenance Prédictive par Intelligence Artificielle", emoji: "✅", cout: 80,
-            secteur: "Qualité",
-            description: "Installer un système d\'intelligence artificielle pour la maintenance prédictive des machines.",
-            effetVisible: "Maintenance prédictive par IA",
-            VA: 0, NVA: -16, LT_effect: -16,
-            impacts: {
-                global: {"CAP": 0.15, "Tr": -0.12, "LT": -16.0}
-            }
+            id: "M3-20", nom: "Retour Expérience", emoji: "✅", cout: 5,
+            secteur: "Qualité", joueur: 5,
+            description: "Déployer des AGV pour la logistique interne",
+            effetVisible: "Retour Exp.",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.03} }
         },
         {
-            id: "R3-16", nom: "Analyse du Cycle de Vie des Produits", emoji: "✅", cout: 32,
-            secteur: "Qualité",
-            description: "Réaliser une analyse complète du cycle de vie des produits pour identifier les impacts environnementaux.",
-            effetVisible: "Analyse du cycle de vie",
-            VA: 0, NVA: 0, LT_effect: 0,
-            impacts: {
-                global: {"Image": 0.2, "CO2": -0.1}
-            }
+            id: "M3-21", nom: "Tournées Groupées", emoji: "🚛", cout: 8,
+            secteur: "Logistique", joueur: 3,
+            description: "Implémenter un système MES",
+            effetVisible: "Tournées",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -24.0} }
         },
         {
-            id: "R3-17", nom: "Fiches d\'Instruction Illustrées", emoji: "✅", cout: 8,
-            secteur: "Qualité",
-            description: "Rédiger des fiches d\'instruction illustrées pour chaque opération critique de production.",
-            effetVisible: "Fiches d\'instruction illustrées",
-            VA: 0, NVA: -4, LT_effect: -4,
-            impacts: {
-                global: {"Tr": -0.08, "TC": -0.05}
-            }
+            id: "M3-22", nom: "Emballage Renforcé", emoji: "🚛", cout: 15,
+            secteur: "Logistique", joueur: 3,
+            description: "Créer un jumeau numérique de l\'usine",
+            effetVisible: "Emballage",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.02} }
         },
         {
-            id: "R3-18", nom: "Cercles Qualité Mensuels", emoji: "✅", cout: 5,
-            secteur: "Qualité",
-            description: "Créer des cercles qualité mensuels où les opérateurs proposent des améliorations.",
-            effetVisible: "Cercles qualité mensuels",
-            VA: 1, NVA: -5, LT_effect: -4,
-            impacts: {
-                global: {"Tr": -0.05, "CAP": 0.05, "Image": 0.1}
-            }
+            id: "M3-23", nom: "Transporteur Dédié", emoji: "🚛", cout: 20,
+            secteur: "Logistique", joueur: 3,
+            description: "Utiliser la réalité augmentée pour la maintenance",
+            effetVisible: "Dédié",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -36.0, "DC": -0.1} }
         },
         {
-            id: "R3-19", nom: "Certificat Qualité avec Photos", emoji: "✅", cout: 5,
-            secteur: "Qualité",
-            description: "Émettre un certificat qualité avec photos pour chaque commande premium livrée.",
-            effetVisible: "Certificat qualité avec photos",
-            VA: 1, NVA: 3, LT_effect: 4,
-            impacts: {
-                global: {"PV": 0.08, "Tr": -0.03, "LT": 4.0}
-            }
+            id: "M3-24", nom: "Vendre Chutes", emoji: "🚛", cout: 5,
+            secteur: "Logistique", joueur: 3,
+            description: "Blockchain pour la traçabilité des produits",
+            effetVisible: "Chutes",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TR": -0.01} }
         },
         {
-            id: "R3-20", nom: "Analyse des Réclamations Clients", emoji: "✅", cout: 5,
-            secteur: "Qualité",
-            description: "Analyser systématiquement les réclamations clients et mettre en place des actions correctives.",
-            effetVisible: "Analyse des retours d\'expérience",
-            VA: 1, NVA: -5, LT_effect: -4,
-            impacts: {
-                global: {"Tr": -0.1, "QV": 0.05}
-            }
+            id: "M3-25", nom: "Stock Tampon Client", emoji: "🚛", cout: 25,
+            secteur: "Logistique", joueur: 3,
+            description: "Impression 3D pour les pièces de rechange",
+            effetVisible: "Stock Client",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -100.0} }
         },
         {
-            id: "R3-26", nom: "Rénovation du Showroom", emoji: "💼", cout: 30,
-            secteur: "Commercial",
-            description: "Rénover le showroom avec échantillons, éclairage professionnel et espace d\'accueil client.",
-            effetVisible: "Rénovation du showroom",
-            VA: 0, NVA: 0, LT_effect: 0,
-            impacts: {
-                global: {"QV": 0.12, "PV": 0.08, "Image": 0.2}
-            }
+            id: "M3-26", nom: "Showroom Rénové", emoji: "💼", cout: 30,
+            secteur: "Commercial", joueur: 1,
+            description: "Économie circulaire - recyclage des déchets",
+            effetVisible: "Showroom",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -48.0, "DC": -0.15} }
         },
         {
-            id: "R3-27", nom: "Programme Qualité de Vie au Travail", emoji: "💼", cout: 35,
-            secteur: "Commercial",
-            description: "Mettre en place un programme de qualité de vie au travail : ergonomie, pauses et espaces détente.",
-            effetVisible: "Programme qualité de vie au travail",
-            VA: 0, NVA: 0, LT_effect: 0,
-            impacts: {
-                global: {"CAP": 0.08, "Tr": -0.05, "Image": 0.15}
-            }
+            id: "M3-27", nom: "QVT Bien-Être Travail", emoji: "💼", cout: 35,
+            secteur: "Commercial", joueur: 1,
+            description: "Bilan carbone et compensation CO2",
+            effetVisible: "Absentéisme",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"TC": -0.06} }
         },
         {
-            id: "R3-28", nom: "Système de Devis Rapide", emoji: "💼", cout: 8,
-            secteur: "Commercial",
-            description: "Proposer un système de devis rapide en 24 heures avec photos et prix ferme garanti.",
-            effetVisible: "Système de devis rapide",
-            VA: 0, NVA: -16, LT_effect: -16,
-            impacts: {
-                global: {"QV": 0.1, "LT": -16.0}
-            }
+            id: "M3-28", nom: "Devis Express", emoji: "💼", cout: 8,
+            secteur: "Commercial", joueur: 1,
+            description: "Certification B Corp pour l\'entreprise",
+            effetVisible: "Devis Express",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -36.0} }
         },
         {
-            id: "R3-29", nom: "Programme de Fidélisation Clients", emoji: "💼", cout: 10,
-            secteur: "Commercial",
-            description: "Créer un programme de fidélisation clients : remises progressives, priorité livraison et service après-vente dédié.",
-            effetVisible: "Programme de fidélisation",
-            VA: 0, NVA: -4, LT_effect: -4,
-            impacts: {
-                global: {"QV": 0.15, "PV": -0.03},
-                bfr: -0.05
-            }
+            id: "M3-29", nom: "Fidélisation Clients", emoji: "💼", cout: 10,
+            secteur: "Commercial", joueur: 1,
+            description: "Véhicules électriques pour la livraison",
+            effetVisible: "Fidélisation",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -48.0} }
         },
         {
-            id: "R3-30", nom: "Lancement d\'une Gamme Économique", emoji: "💼", cout: 12,
-            secteur: "Commercial",
-            description: "Lancer une gamme économique avec les chutes récupérées pour un nouveau segment de marché.",
-            effetVisible: "Lancement gamme économique",
-            VA: 2, NVA: -2, LT_effect: 0,
-            impacts: {
-                global: {"QV": 0.18, "Dechets": -0.3, "PV": -0.05}
-            }
+            id: "M3-30", nom: "Gamme Éco", emoji: "💼", cout: 12,
+            secteur: "Commercial", joueur: 1,
+            description: "Emballages éco-responsables",
+            effetVisible: "Gamme Éco",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {"LT": -50.0} }
         }
     ];
     
@@ -5444,7 +5331,7 @@
         
         let html = `
             <div style="margin-bottom: 8px;"><strong>Round:</strong> ${roundActuel} | <strong>Joueur:</strong> J${gameState.joueurActuel}</div>
-            <div style="margin-bottom: 8px;"><strong>Budget commun:</strong> ${budgetRestant}/${budgetTotal} pts</div>
+            <div style="margin-bottom: 8px;"><strong>Points restants:</strong> ${budgetRestant}/${budgetTotal} pts</div>
             <div style="height: 8px; background: var(--bg-card); border-radius: 4px; overflow: hidden;">
                 <div style="height: 100%; width: ${pct}%; background: ${barColor}; transition: width 0.3s;"></div>
             </div>
@@ -5505,7 +5392,7 @@
         for (let i = 1; i <= 5; i++) {
             gameState.cartesAchetees[i] = [];
         }
-        showToast('Budget et rounds réinitialisés !', 'success');
+        showToast('Points et rounds réinitialisés !', 'success');
         render();
         renderDevPanel();
     }
@@ -5515,7 +5402,7 @@
         // Mettre J5 au dernier tour
         gameState.joueurActuel = 5;
         gameState.tourActuel = 5;
-        gameState.budgetManche1 = 0; // Plus de budget
+        gameState.budgetManche1 = 0; // Plus de points
         document.getElementById('selectJoueur').value = 5;
         gameState.phaseDebriefing = true;
         showToast('Fin de Manche 1 (J5, Tour 5)', 'warning');
@@ -6119,10 +6006,10 @@
     function renderDevBudgets() {
         let html = '';
         
-        // Budget partagé pour Manche 1
+        // Points partagés pour Manche 1
         html += `
             <div class="dev-budget-row" style="background: rgba(16, 185, 129, 0.1); padding: 8px; border-radius: 6px; margin-bottom: 8px;">
-                <span style="font-weight: 600;">💰 Budget M1 (partagé)</span>
+                <span style="font-weight: 600;">🎯 Points M1 (partagés)</span>
                 <input type="number" value="${gameState.budgetManche1}" onchange="setBudgetManche1(this.value)">
             </div>
             <div style="font-size: 0.75em; color: var(--text-muted); margin-bottom: 8px;">Dépenses par joueur :</div>
@@ -6138,7 +6025,7 @@
         }
         html += `
             <div class="dev-budget-row" style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px; margin-top: 5px;">
-                <span>💰 Budget Commun (M2/M3)</span>
+                <span>🎯 Points Communs (M2/M3)</span>
                 <input type="number" value="${gameState.budgetCommun}" onchange="setBudgetCommun(this.value)">
             </div>
         `;
@@ -6389,9 +6276,9 @@
     function toggleInfiniteBudget() {
         devMode.infiniteBudget = document.getElementById('infiniteBudgetToggle').checked;
         if (devMode.infiniteBudget) {
-            gameState.budgetManche1 = 999999; // Budget partagé infini
+            gameState.budgetManche1 = 999999; // Points infinis
             gameState.budgetCommun = 999999;
-            showToast('Budget infini activé !', 'success');
+            showToast('Points infinis activés !', 'success');
         }
         render();
         renderDevPanel();
@@ -6400,6 +6287,12 @@
     function toggleCardHelp() {
         devMode.showCardHelp = document.getElementById('cardHelpToggle').checked;
         showToast(devMode.showCardHelp ? '🏷️ Aide sur cartes activée (badges + scores)' : '🏷️ Aide sur cartes désactivée', 'info');
+        render();
+    }
+    
+    function toggleAssistant() {
+        uxState.showAssistant = document.getElementById('assistantToggle').checked;
+        showToast(uxState.showAssistant ? '🧠 Assistant de décision activé' : '🧠 Assistant de décision masqué', 'info');
         render();
     }
     
@@ -6427,7 +6320,7 @@
         gameState.budgetManche1 = 300;
         gameState.budgets = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
         gameState.budgetCommun = 300;
-        showToast('Budgets réinitialisés', 'success');
+        showToast('Points réinitialisés', 'success');
         render();
         renderDevPanel();
     }
@@ -6523,9 +6416,9 @@
             carte = CARTES_MANCHE1[joueur].find(c => c.id === carteId);
             cartesListe = gameState.cartesAchetees[joueur];
             
-            // Vérifier le budget PARTAGÉ (sauf mode dev budget infini)
+            // Vérifier les points PARTAGÉS (sauf mode dev points infinis)
             if (!devMode.infiniteBudget && gameState.budgetManche1 < carte.cout) {
-                showToast('Budget commun insuffisant !', 'error');
+                showToast('Points insuffisants !', 'error');
                 return;
             }
         } else if (manche === 2) {
@@ -6534,7 +6427,7 @@
             cartesListe = gameState.cartesAchetees.commun;
             
             if (gameState.budgetCommun < carte.cout) {
-                showToast('Budget insuffisant !', 'error');
+                showToast('Points insuffisants !', 'error');
                 return;
             }
         } else {
@@ -6543,7 +6436,7 @@
             cartesListe = gameState.cartesAchetees.manche3;
             
             if (gameState.budgetCommun < carte.cout) {
-                showToast('Budget insuffisant !', 'error');
+                showToast('Points insuffisants !', 'error');
                 return;
             }
         }
@@ -6715,11 +6608,20 @@
                 }
             }
             
-            // Effets globaux sur tous les micro-flux (fournisseurs)
+            // Effets globaux sur les micro-flux (avec gestion du flux ciblé)
             if (carte.impacts.global) {
-                for (const mfId in gameState.microFlux) {
+                // Déterminer les flux ciblés (par défaut: tous)
+                const fluxCibles = carte.flux || ['MF1', 'MF2'];
+                
+                for (const mfId of fluxCibles) {
                     const mf = gameState.microFlux[mfId];
-                    // DA en % (positif = augmentation, négatif = réduction)
+                    if (!mf) continue;
+                    
+                    // CMP - Coût Matière Première en % (affecte DA)
+                    if (carte.impacts.global.CMP !== undefined) {
+                        mf.DA = Math.round(mf.DA * (1 + carte.impacts.global.CMP));
+                    }
+                    // DA en % (ancien format, gardé pour compatibilité)
                     if (carte.impacts.global.DA !== undefined) {
                         mf.DA = Math.round(mf.DA * (1 + carte.impacts.global.DA));
                     }
@@ -6730,47 +6632,56 @@
                     // QV en % (positif = augmentation, négatif = réduction)
                     if (carte.impacts.global.QV !== undefined) {
                         mf.QV = Math.round(mf.QV * (1 + carte.impacts.global.QV));
-                        // Respecter les bornes min/max
                         mf.QV = Math.max(mf.venteMin, Math.min(mf.venteMax, mf.QV));
                     }
-                    // LT en valeur absolue (jours)
+                    // LT en heures (v0.7.1) - converti en jours
                     if (carte.impacts.global.LT !== undefined) {
-                        mf.LT = Math.max(10, mf.LT + carte.impacts.global.LT);
+                        const ltHeures = carte.impacts.global.LT;
+                        const ltJours = ltHeures / 24;
+                        mf.LT = Math.max(1, mf.LT + ltJours);
                     }
-                    // Tr en valeur absolue
+                    // TR - Taux de Rebut en valeur absolue (v0.7.1)
+                    if (carte.impacts.global.TR !== undefined) {
+                        mf.Tr = Math.max(0.01, Math.min(0.50, mf.Tr + carte.impacts.global.TR));
+                    }
+                    // Tr (ancien format, gardé pour compatibilité)
                     if (carte.impacts.global.Tr !== undefined) {
                         mf.Tr = Math.max(0.01, Math.min(0.50, mf.Tr + carte.impacts.global.Tr));
                     }
-                    // tM1 en % (temps machine 1)
-                    if (carte.impacts.global.tM1 !== undefined) {
-                        mf.tM1 = Math.max(0.05, mf.tM1 * (1 + carte.impacts.global.tM1));
+                    // DF - Délai Fournisseur en % (positif = délai plus long = bon pour BFR)
+                    if (carte.impacts.global.DF !== undefined) {
+                        mf.delaiFournisseur = Math.max(0, mf.delaiFournisseur * (1 + carte.impacts.global.DF));
                     }
-                    // tM2 en % (temps machine 2)
-                    if (carte.impacts.global.tM2 !== undefined) {
-                        mf.tM2 = Math.max(0.05, mf.tM2 * (1 + carte.impacts.global.tM2));
+                    // DC - Délai Client en % (positif = délai plus long = mauvais pour BFR)
+                    if (carte.impacts.global.DC !== undefined) {
+                        mf.delaiClient = Math.max(0, mf.delaiClient * (1 + carte.impacts.global.DC));
                     }
-                    // tM3 en % (temps machine 3)
-                    if (carte.impacts.global.tM3 !== undefined) {
-                        mf.tM3 = Math.max(0.05, mf.tM3 * (1 + carte.impacts.global.tM3));
-                    }
-                    // Délai client en valeur absolue (jours)
+                    // Délai client en valeur absolue (ancien format)
                     if (carte.impacts.global.delaiClient !== undefined) {
                         mf.delaiClient = Math.max(0, mf.delaiClient + carte.impacts.global.delaiClient);
                     }
-                    // Délai fournisseur en valeur absolue (jours)
+                    // Délai fournisseur en valeur absolue (ancien format)
                     if (carte.impacts.global.delaiFournisseur !== undefined) {
                         mf.delaiFournisseur = Math.max(0, mf.delaiFournisseur + carte.impacts.global.delaiFournisseur);
                     }
-                    // TC - Temps de cycle en % (affecte tous les temps de production)
+                    // TC - Temps de cycle en % (affecte tous les temps machines)
                     if (carte.impacts.global.TC !== undefined) {
                         const tcFactor = 1 + carte.impacts.global.TC;
-                        mf.tReception = Math.max(0.1, mf.tReception * tcFactor);
-                        mf.tDecoupeInit = Math.max(0.1, mf.tDecoupeInit * tcFactor);
-                        mf.tPolissage = Math.max(0.1, mf.tPolissage * tcFactor);
-                        mf.tDecoupeFinal = Math.max(0.1, mf.tDecoupeFinal * tcFactor);
-                        mf.tFinition = Math.max(0.1, mf.tFinition * tcFactor);
-                        mf.tInspection = Math.max(0.1, mf.tInspection * tcFactor);
-                        mf.tExpedition = Math.max(0.1, mf.tExpedition * tcFactor);
+                        mf.tM1 = Math.max(0.1, mf.tM1 * tcFactor);
+                        mf.tM2 = Math.max(0.1, mf.tM2 * tcFactor);
+                        mf.tM3 = Math.max(0.1, mf.tM3 * tcFactor);
+                        mf.tM4 = Math.max(0.1, mf.tM4 * tcFactor);
+                        mf.tM5 = Math.max(0.1, mf.tM5 * tcFactor);
+                    }
+                    // tM1, tM2, tM3 en % (ancien format)
+                    if (carte.impacts.global.tM1 !== undefined) {
+                        mf.tM1 = Math.max(0.05, mf.tM1 * (1 + carte.impacts.global.tM1));
+                    }
+                    if (carte.impacts.global.tM2 !== undefined) {
+                        mf.tM2 = Math.max(0.05, mf.tM2 * (1 + carte.impacts.global.tM2));
+                    }
+                    if (carte.impacts.global.tM3 !== undefined) {
+                        mf.tM3 = Math.max(0.05, mf.tM3 * (1 + carte.impacts.global.tM3));
                     }
                 }
                 
@@ -6782,16 +6693,9 @@
                     }
                 }
                 
-                // CGE - Charges générales en valeur absolue (k€)
+                // CGE - Charges générales en % (v0.7.1)
                 if (carte.impacts.global.CGE !== undefined) {
-                    // Afficher alerte si réduction CGE
-                    if (carte.impacts.global.CGE < 0) {
-                        setTimeout(() => {
-                            // CGE réduit - pas de notification
-                        }, 1000);
-                    }
-                    
-                    // Si CGE est un % (entre -1 et 1), appliquer sur le total
+                    // CGE est un % (entre -1 et 1), appliquer sur le total
                     if (carte.impacts.global.CGE > -1 && carte.impacts.global.CGE < 1) {
                         for (const key in gameState.cge) {
                             gameState.cge[key] = Math.max(0, gameState.cge[key] * (1 + carte.impacts.global.CGE));
@@ -6942,6 +6846,7 @@
         const config = JOUEURS_CONFIG[joueur];
         const budgetRestant = gameState.budgetManche1;
         const roundActuel = gameState.roundManche1 || 1;
+        const assignedName = playerNames[joueur] || `Joueur ${joueur}`;
         
         // Si c'est le tour du J1 (Commercial), remettre le mix au minimum
         // Le J1 doit définir lui-même les quantités optimales
@@ -6964,7 +6869,7 @@
                     <li><strong>Choisissez vos cartes.</strong> Améliorez VOS indicateurs, c'est votre responsabilité.</li>`,
                 2: `<li><strong>Réduisez le coût de revient !</strong> Négociez avec les fournisseurs, optimisez les DA.</li>
                     <li><strong>Surveillez les délais d'approvisionnement.</strong> Pas de rupture de stock !</li>
-                    <li><strong>Gérez le Budget.</strong> Chaque euro immobilisé coûte cher.</li>`,
+                    <li><strong>Gérez le BFR.</strong> Chaque euro immobilisé coûte cher.</li>`,
                 3: `<li><strong>Optimisez les flux logistiques !</strong> Réduisez les coûts de transport et de stockage.</li>
                     <li><strong>Maîtrisez les CGE !</strong> Les Charges Globales d'Exploitation doivent être optimisées.</li>
                     <li><strong>Améliorez les délais de livraison.</strong> Les clients n'attendent pas !</li>`,
@@ -6994,10 +6899,11 @@
             <div class="modal-content" style="max-width: 500px; text-align: center;">
                 <div style="font-size: 4em; margin-bottom: 16px;">${config.emoji}</div>
                 <h2 style="color: var(--accent-tertiary); margin-bottom: 8px;">Round ${roundActuel}</h2>
-                <h3 style="color: var(--text-primary); margin-bottom: 16px;">Au tour de J${joueur} – ${config.nom}</h3>
+                <h3 style="color: var(--text-primary); margin-bottom: 4px;">Au tour de J${joueur} – ${config.nom}</h3>
+                <p style="color: var(--accent-primary); font-size: 1.1em; margin-bottom: 16px;">👤 ${assignedName}</p>
                 ${consignes}
                 <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-secondary); border-radius: 12px; padding: 16px; margin-bottom: 20px;">
-                    <p style="color: var(--accent-secondary); font-weight: 700; margin-bottom: 8px;">💰 Budget commun de l'équipe</p>
+                    <p style="color: var(--accent-secondary); font-weight: 700; margin-bottom: 8px;">🎯 Points d'investissement</p>
                     <p style="color: var(--text-primary); font-size: 1.8em; font-weight: 700; margin: 0;">${budgetRestant} points</p>
                     <p style="color: var(--text-muted); font-size: 0.85em; margin-top: 8px;">Choisissez une carte ou passez votre tour.</p>
                 </div>
@@ -7177,27 +7083,32 @@
         return Math.max(0, Math.min(minCapacite, mf.venteMax));
     }
     
-    // Identifier la machine la plus chargée (GOULET uniquement si >= 100%)
+    // Identifier la machine la plus chargée - fonction unifiée
+    // Retourne : goulet, chargePercent, isGoulet, label, machine, charge, surcharge
     function identifierGoulet() {
-        let machineMax = null;
         let maxCharge = 0;
+        let gouletMachine = null;
         
-        for (const [mId, machine] of Object.entries(gameState.machines)) {
+        for (const [machineId, machine] of Object.entries(gameState.machines)) {
             const chargePercent = machine.capacite > 0 ? (machine.charge / machine.capacite * 100) : 0;
             if (chargePercent > maxCharge) {
                 maxCharge = chargePercent;
-                machineMax = mId;
+                gouletMachine = machineId;
             }
         }
         
-        // Un GOULET est une machine à 100% ou plus (contrainte bloquante)
-        const isGoulet = maxCharge >= 100;
+        const isGouletFlag = maxCharge >= 100;
         
-        return { 
-            goulet: machineMax, 
+        return {
+            // Propriétés principales
+            goulet: gouletMachine,
             chargePercent: maxCharge,
-            isGoulet: isGoulet,
-            label: isGoulet ? '🔴 GOULET' : '⚙️ Machine max'
+            isGoulet: isGouletFlag,
+            label: isGouletFlag ? '🔴 GOULET' : '⚙️ Machine max',
+            // Propriétés additionnelles pour compatibilité
+            machine: gouletMachine,
+            charge: Math.round(maxCharge),
+            surcharge: isGouletFlag
         };
     }
     
@@ -8127,7 +8038,7 @@
                         <div class="poste-stat-value" style="font-size: 1.3em; color: var(--success);">€${formatNumber(Math.round(margeTotal))}</div>
                     </div>
                     <div class="poste-stat">
-                        <div class="poste-stat-label"><span class="tooltip-term" data-tooltip="Capital disponible pour financer les achats et la production.">💳 Budget</span></div>
+                        <div class="poste-stat-label"><span class="tooltip-term" data-tooltip="BFR Disponible = capacité de financement restante pour les opérations.">💳 BFR Dispo</span></div>
                         <div class="poste-stat-value" style="color: ${budgetDisponible > 0 ? 'var(--success)' : 'var(--danger)'};">€${formatNumber(Math.round(budgetDisponible))}</div>
                     </div>
                 `;
@@ -8183,7 +8094,7 @@
                         <div class="poste-stat-value" style="font-size: 1.3em; color: var(--danger);">€${crMoyen.toFixed(0)}</div>
                     </div>
                     <div class="poste-stat">
-                        <div class="poste-stat-label"><span class="tooltip-term" data-tooltip="Montant disponible pour vos investissements en approvisionnement.">💳 Budget</span></div>
+                        <div class="poste-stat-label"><span class="tooltip-term" data-tooltip="BFR Disponible = capacité de financement restante pour les opérations.">💳 BFR Dispo</span></div>
                         <div class="poste-stat-value" style="color: ${budgetDisponible > 0 ? 'var(--success)' : 'var(--danger)'};">€${formatNumber(Math.round(budgetDisponible))}</div>
                     </div>
                 `;
@@ -8945,11 +8856,11 @@
         let statsHTML = '';
         
         if (manche >= 2) {
-            // Manche 2-3 : afficher budget commun
+            // Manche 2-3 : afficher points communs
             statsHTML = `
                 <div class="stat-card">
                     <div class="stat-icon">🎯</div>
-                    <div class="stat-label">Budget Commun</div>
+                    <div class="stat-label">Points Communs</div>
                     <div class="stat-value">${budget} pts</div>
                     <div class="stat-subtext">${cartes} cartes achetées</div>
                 </div>
@@ -8985,7 +8896,7 @@
                         <p style="margin-bottom: 12px; font-weight: 600; color: var(--danger);">🎯 Objectif : Minimiser le Coût de Revient (CR)</p>
                         <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.9em;">
                             <li>📦 Négociez avec les fournisseurs pour réduire les DA</li>
-                            <li>💰 Surveillez votre Budget disponible</li>
+                            <li>💳 Surveillez l'impact sur le BFR</li>
                             <li>📉 Chaque euro économisé compte !</li>
                         </ul>
                     </div>
@@ -9021,7 +8932,7 @@
                         <p style="margin-bottom: 12px; font-weight: 600; color: var(--warning);">🎯 Objectif : Maximiser le TRG Moyen</p>
                         <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.9em;">
                             <li>⚙️ Optimisez l'utilisation des machines</li>
-                            <li>⚠️ Attention au goulet d'étranglement (M4)</li>
+                            <li>🎯 Identifiez le goulet (contrainte à améliorer)</li>
                             <li>📈 Chaque % de TRG compte !</li>
                         </ul>
                     </div>
@@ -9452,7 +9363,7 @@
             
             const priceDisplay = `<div class="card-price" style="background: var(--accent-primary); color: white; padding: 4px 10px; border-radius: 8px; font-weight: 700;">${c.cout} pts</div>`;
             const buyText = c.purchased ? '✓ Jouée' : 
-                            (c.canAfford ? '🎴 Acheter cette carte' : '💸 Budget insuffisant');
+                            (c.canAfford ? '🎴 Acheter cette carte' : '💸 Points insuffisants');
             
             // V0.6.38: Ajouter class pour sélection de comparaison
             const compareClass = isSelectedForCompare ? 'selected-for-compare' : '';
@@ -9526,7 +9437,7 @@
                 
                 readySection.innerHTML = `
                     <div style="text-align: center; padding: 16px; background: var(--bg-elevated); border-radius: 12px;">
-                        <div style="font-size: 0.9em; color: var(--text-muted); margin-bottom: 8px;">💰 Budget Commun de l'Équipe</div>
+                        <div style="font-size: 0.9em; color: var(--text-muted); margin-bottom: 8px;">🎯 Points d'Investissement</div>
                         <div style="display: flex; align-items: center; gap: 12px; justify-content: center;">
                             <div style="flex: 1; max-width: 300px; height: 8px; background: var(--bg-card); border-radius: 4px; overflow: hidden;">
                                 <div style="height: 100%; width: ${(budgetRestant / budgetTotal) * 100}%; background: linear-gradient(90deg, var(--accent-secondary), var(--success)); transition: width 0.3s;"></div>
@@ -9538,7 +9449,7 @@
                         </div>
                         <div style="margin-top: 16px;">
                             <button onclick="passerTour()" class="btn-modal" style="background: ${peutAcheter ? 'var(--bg-card)' : 'var(--warning)'}; color: ${peutAcheter ? 'var(--text-secondary)' : '#000'}; border: 1px solid ${peutAcheter ? 'var(--border-default)' : 'var(--warning)'};">
-                                ⏭️ Passer mon tour ${!peutAcheter ? '(budget insuffisant)' : ''}
+                                ⏭️ Passer mon tour ${!peutAcheter ? '(pas assez de points)' : ''}
                             </button>
                         </div>
                         ${nbPasses > 0 ? `<div style="font-size: 0.75em; color: var(--text-muted); margin-top: 8px;">${nbPasses} joueur(s) ont passé ce tour</div>` : ''}
@@ -9738,33 +9649,71 @@
         // Calculer les charges machines
         calculerChargesMachines();
         
-        let totalVA = 0, totalNVA = 0, totalWIP = 0;
-        const proc = gameState.processus;
-        
-        const vsmHTML = proc.map((p, idx) => {
-            const va = p.tc * 0.3;
-            const nva = p.tc * 0.7;
-            totalVA += va;
-            totalNVA += nva;
-            totalWIP += p.wip;
+        // Générer VSM pour chaque produit
+        function generateVSMForProduct(mfId, productName, emoji, bgColor) {
+            const mf = gameState.microFlux[mfId];
+            if (!mf) return '';
+            
+            const proc = [
+                { nom: 'Réception', emoji: '📦', tc: mf.tReception || 2, wip: 5 },
+                { nom: 'Découpe Init.', emoji: '🔪', tc: mf.tDecoupeInit || 3, wip: 3 },
+                { nom: 'Polissage', emoji: '✨', tc: mf.tPolissage || 4, wip: 4 },
+                { nom: 'Démarcation', emoji: '📐', tc: mf.tM3 || 2, wip: 2 },
+                { nom: 'Coupe Finale', emoji: '⚙️', tc: mf.tDecoupeFinal || 5, wip: 3 },
+                { nom: 'Finition', emoji: '💎', tc: mf.tFinition || 3, wip: 2 },
+                { nom: 'Inspection', emoji: '🔍', tc: mf.tInspection || 1, wip: 1 },
+                { nom: 'Expédition', emoji: '🚚', tc: mf.tExpedition || 2, wip: 2 }
+            ];
+            
+            let totalVA = 0, totalNVA = 0, totalWIP = 0;
+            
+            const vsmHTML = proc.map((p, idx) => {
+                const va = p.tc * 0.3;
+                const nva = p.tc * 0.7;
+                totalVA += va;
+                totalNVA += nva;
+                totalWIP += p.wip;
+                
+                return `
+                    <div class="vsm-box" style="min-width: 100px;">
+                        <div class="vsm-icon">${p.emoji}</div>
+                        <div class="vsm-name" style="font-size: 0.75em;">${p.nom}</div>
+                        <div class="vsm-metrics" style="font-size: 0.7em;">
+                            <div class="vsm-metric"><span>TC</span><span>${p.tc.toFixed(1)}h</span></div>
+                            <div class="vsm-metric"><span style="color:var(--green)">VA</span><span style="color:var(--green)">${va.toFixed(1)}h</span></div>
+                        </div>
+                    </div>
+                    ${idx < proc.length - 1 ? '<div class="vsm-arrow" style="font-size: 0.8em;">➜</div>' : ''}
+                `;
+            }).join('');
+            
+            const lt = totalVA + totalNVA;
+            const taux = (totalVA / lt * 100).toFixed(1);
             
             return `
-                <div class="vsm-box">
-                    <div class="vsm-icon">${p.emoji}</div>
-                    <div class="vsm-name">${p.nom}</div>
-                    <div class="vsm-metrics">
-                        <div class="vsm-metric"><span>TC</span><span>${p.tc.toFixed(1)}h</span></div>
-                        <div class="vsm-metric"><span style="color:var(--green)">VA</span><span style="color:var(--green)">${va.toFixed(1)}h</span></div>
-                        <div class="vsm-metric"><span style="color:var(--red)">NVA</span><span style="color:var(--red)">${nva.toFixed(1)}h</span></div>
-                        <div class="vsm-metric"><span>WIP</span><span>${Math.round(p.wip)}</span></div>
+                <div class="vsm-product-section" style="background: ${bgColor}; border-radius: 16px; padding: 20px; margin-bottom: 24px;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <span style="font-size: 2em;">${emoji}</span>
+                        <div>
+                            <h3 style="margin: 0; color: var(--text-primary);">${productName}</h3>
+                            <div style="font-size: 0.85em; color: var(--text-muted);">QV: ${mf.QV} unités | PV: €${mf.PV} | DA: €${mf.DA}</div>
+                        </div>
+                    </div>
+                    <div class="vsm-container" style="overflow-x: auto;">
+                        <div class="vsm-flow" style="display: flex; align-items: center; gap: 8px; min-width: max-content;">
+                            ${vsmHTML}
+                        </div>
+                    </div>
+                    <div class="vsm-summary" style="margin-top: 16px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;">
+                        <div class="vsm-summary-card" style="padding: 10px;"><div class="vsm-summary-label" style="font-size: 0.7em;">Lead Time</div><div class="vsm-summary-value" style="font-size: 1em;">${mf.LT}j</div></div>
+                        <div class="vsm-summary-card" style="padding: 10px;"><div class="vsm-summary-label" style="font-size: 0.7em;">Temps VA</div><div class="vsm-summary-value good" style="font-size: 1em;">${totalVA.toFixed(1)}h</div></div>
+                        <div class="vsm-summary-card" style="padding: 10px;"><div class="vsm-summary-label" style="font-size: 0.7em;">Temps NVA</div><div class="vsm-summary-value bad" style="font-size: 1em;">${totalNVA.toFixed(1)}h</div></div>
+                        <div class="vsm-summary-card" style="padding: 10px;"><div class="vsm-summary-label" style="font-size: 0.7em;">Taux Rebut</div><div class="vsm-summary-value ${mf.Tr > 0.1 ? 'bad' : 'good'}" style="font-size: 1em;">${(mf.Tr * 100).toFixed(1)}%</div></div>
+                        <div class="vsm-summary-card" style="padding: 10px;"><div class="vsm-summary-label" style="font-size: 0.7em;">VAG Unitaire</div><div class="vsm-summary-value good" style="font-size: 1em;">€${Math.round(calculerVAG(mf))}</div></div>
                     </div>
                 </div>
-                ${idx < proc.length - 1 ? '<div class="vsm-arrow">➜</div>' : ''}
             `;
-        }).join('');
-        
-        const lt = totalVA + totalNVA;
-        const taux = (totalVA / lt * 100).toFixed(1);
+        }
         
         // Générer HTML des machines avec indicateur de goulet/machine max
         const gouletInfo = identifierGoulet();
@@ -9788,64 +9737,19 @@
             `;
         }).join('');
         
-        // Générer HTML des micro-flux
-        const microfluxHTML = Object.entries(gameState.microFlux).map(([mfId, mf]) => {
-            const capaciteMax = calculerCapaciteVenteMax(mfId);
-            
-            return `
-                <div class="vsm-microflux-card">
-                    <div class="vsm-microflux-header">
-                        <div class="vsm-microflux-name"><span>${mf.emoji}</span> ${mf.nom}</div>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--success);">QV: ${mf.QV}</span>
-                    </div>
-                    <div class="vsm-microflux-metrics">
-                        <div class="vsm-microflux-metric">
-                            <div class="vsm-microflux-metric-label">Lead Time</div>
-                            <div class="vsm-microflux-metric-value">${mf.LT}j</div>
-                        </div>
-                        <div class="vsm-microflux-metric">
-                            <div class="vsm-microflux-metric-label">TR (Taux Rebut)</div>
-                            <div class="vsm-microflux-metric-value">${(mf.Tr * 100).toFixed(1)}%</div>
-                        </div>
-                        <div class="vsm-microflux-metric">
-                            <div class="vsm-microflux-metric-label">VAG Unitaire</div>
-                            <div class="vsm-microflux-metric-value">${Math.round(calculerVAG(mf))}€</div>
-                        </div>
-                        <div class="vsm-microflux-metric">
-                            <div class="vsm-microflux-metric-label">Vente Max</div>
-                            <div class="vsm-microflux-metric-value">${capaciteMax}</div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 10px; font-size: 0.75em; color: var(--text-muted);">
-                        Temps/unité: M1=${mf.tM1}h | M2=${mf.tM2}h | M3=${mf.tM3}h
-                    </div>
-                </div>
-            `;
-        }).join('');
-        
         content.innerHTML = `
             <div class="section-header">
                 <div class="section-title"><div class="title-icon">🗺️</div><span>Value Stream Mapping</span></div>
             </div>
-            <div class="vsm-container"><div class="vsm-flow">${vsmHTML}</div></div>
-            <div class="vsm-summary">
-                <div class="vsm-summary-card"><div class="vsm-summary-label">Lead Time Total</div><div class="vsm-summary-value">${lt.toFixed(1)}h</div></div>
-                <div class="vsm-summary-card"><div class="vsm-summary-label">Temps VA</div><div class="vsm-summary-value good">${totalVA.toFixed(1)}h</div></div>
-                <div class="vsm-summary-card"><div class="vsm-summary-label">Temps NVA</div><div class="vsm-summary-value bad">${totalNVA.toFixed(1)}h</div></div>
-                <div class="vsm-summary-card"><div class="vsm-summary-label">Taux VA</div><div class="vsm-summary-value ${parseFloat(taux) > 20 ? 'good' : 'bad'}">${taux}%</div></div>
-                <div class="vsm-summary-card"><div class="vsm-summary-label">WIP Total</div><div class="vsm-summary-value">${Math.round(totalWIP)}</div></div>
-            </div>
+            
+            <!-- VSM par produit -->
+            ${generateVSMForProduct('MF1', 'Marbre Standard (P1)', '⬜', 'rgba(75, 85, 99, 0.15)')}
+            ${generateVSMForProduct('MF2', 'Marbre Premium (P2)', '💎', 'rgba(99, 102, 241, 0.15)')}
             
             <!-- Section Machines (Contraintes) -->
             <div class="vsm-microflux-section">
                 <h3>⚙️ Charge des Machines (Contraintes de Capacité)</h3>
                 <div class="vsm-constraints">${machinesHTML}</div>
-            </div>
-            
-            <!-- Section Micro-flux -->
-            <div class="vsm-microflux-section">
-                <h3>📦 Micro-flux (Produits)</h3>
-                <div class="vsm-microflux-grid">${microfluxHTML}</div>
             </div>
         `;
     }
@@ -10088,7 +9992,7 @@
         
         document.getElementById('historyTimeline').innerHTML = sorted.map(entry => {
             const joueurInfo = entry.joueur === 'commun' 
-                ? { nom: 'Budget Commun', emoji: '🤝' }
+                ? { nom: 'Équipe', emoji: '🤝' }
                 : JOUEURS_CONFIG[entry.joueur];
             
             const time = new Date(entry.timestamp).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
@@ -10686,12 +10590,12 @@
         const joueur = gameState.joueurActuel;
         const budget = manche === 1 ? gameState.budgetManche1 : gameState.budgetCommun;
         
-        // Conseil sur le budget
+        // Conseil sur les points restants
         if (manche === 1 && budget < SEUILS.budgetBas) {
             tips.push({
                 type: 'warning',
-                icon: '💰',
-                title: 'Budget limité',
+                icon: '🎯',
+                title: 'Points limités',
                 text: `Il ne reste que ${budget} points. Priorisez les cartes à fort impact ou passez votre tour.`
             });
         }
@@ -10708,10 +10612,10 @@
             });
         } else if (goulet && goulet.charge >= 90) {
             tips.push({
-                type: 'warning',
-                icon: '⚠️',
+                type: 'info',
+                icon: '🎯',
                 title: `Machine ${goulet.machine} proche de la limite`,
-                text: `La charge (${goulet.charge}%) approche 100%. Attention à ne pas créer de goulet !`
+                text: `La charge (${goulet.charge}%) approche 100%. C'est votre contrainte actuelle à surveiller.`
             });
         }
         
@@ -10967,32 +10871,6 @@
         return marge;
     }
     
-    // Identifier le goulet d'étranglement (version améliorée compatible)
-    function identifierGoulet() {
-        let maxCharge = 0;
-        let gouletMachine = null;
-        
-        for (const [machineId, machine] of Object.entries(gameState.machines)) {
-            const chargePercent = machine.capacite > 0 ? (machine.charge / machine.capacite * 100) : 0;
-            if (chargePercent > maxCharge) {
-                maxCharge = chargePercent;
-                gouletMachine = machineId;
-            }
-        }
-        
-        return {
-            // Propriétés compatibles avec l'ancienne version
-            goulet: gouletMachine,
-            chargePercent: maxCharge,
-            // Nouvelles propriétés pour v0.6.38
-            machine: gouletMachine,
-            charge: Math.round(maxCharge),
-            surcharge: maxCharge >= 100,
-            isGoulet: maxCharge >= 100,
-            label: maxCharge >= 100 ? '🔴 GOULET' : '⚙️ Machine max'
-        };
-    }
-    
     // Trier les cartes par prix
     function filterCards(cartes) {
         let filtered = [...cartes];
@@ -11107,7 +10985,7 @@
                     </div>
                 `;
             } else if (joueur === 4) {
-                // J4 Production: TRG/Capacité
+                // J4 Production: TRG/Capacité et Lead Time par produit
                 let trgSum = 0, machineCount = 0;
                 for (const [machineId, machine] of Object.entries(gameState.machines)) {
                     const chargePercent = machine.capacite > 0 ? Math.min(100, (machine.charge / machine.capacite * 100)) : 0;
@@ -11118,6 +10996,11 @@
                 // TRG après dépend de la capacité ajoutée
                 const trgAfter = capImpact > 0 ? trgBefore * (100 / (100 + capImpact)) : trgBefore;
                 
+                // Lead Time par produit
+                const ltP1 = gameState.microFlux['MF1'] ? gameState.microFlux['MF1'].LT : 0;
+                const ltP2 = gameState.microFlux['MF2'] ? gameState.microFlux['MF2'].LT : 0;
+                const ltImpactVal = impacts.ltImpact || 0;
+                
                 metricsHTML = `
                     <div class="simulation-metric-row">
                         <span>🏭 TRG Moyen</span>
@@ -11126,6 +11009,24 @@
                         <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${trgAfter.toFixed(0)}%</span>
                         <span class="simulation-change ${trgAfter <= trgBefore ? 'positive' : 'negative'}">
                             ${capImpact > 0 ? '↗️ Cap +' + capImpact.toFixed(0) + '%' : '—'}
+                        </span>
+                    </div>
+                    <div class="simulation-metric-row">
+                        <span>⬜ Lead Time P1 (Standard)</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltP1.toFixed(0)}h</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(ltP1 + ltImpactVal).toFixed(0)}h</span>
+                        <span class="simulation-change ${ltImpactVal <= 0 ? 'positive' : 'negative'}">
+                            ${ltImpactVal > 0 ? '+' : ''}${ltImpactVal.toFixed(0)}h
+                        </span>
+                    </div>
+                    <div class="simulation-metric-row">
+                        <span>💎 Lead Time P2 (Premium)</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltP2.toFixed(0)}h</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(ltP2 + ltImpactVal).toFixed(0)}h</span>
+                        <span class="simulation-change ${ltImpactVal <= 0 ? 'positive' : 'negative'}">
+                            ${ltImpactVal > 0 ? '+' : ''}${ltImpactVal.toFixed(0)}h
                         </span>
                     </div>
                 `;
@@ -11146,10 +11047,28 @@
                     </div>
                 `;
             } else {
-                // J3 Logistique: Budget/Délais
+                // J3 Logistique: Coût de transport par unité
+                const cgeLogistique = gameState.cge.logistique || 0;
+                let qvTotal = 0;
+                for (const mfId in gameState.microFlux) {
+                    qvTotal += gameState.microFlux[mfId].QV;
+                }
+                const coutTransportUnit = qvTotal > 0 ? cgeLogistique / qvTotal : 0;
+                const cgeImpact = carte.impacts?.global?.CGE ? (carte.impacts.global.CGE * 100) : 0;
+                const coutTransportAfter = coutTransportUnit * (1 + cgeImpact / 100);
+                
                 metricsHTML = `
                     <div class="simulation-metric-row">
-                        <span>🚚 Lead Time Moy.</span>
+                        <span>🚛 Coût Transport/unité</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${coutTransportUnit.toFixed(0)}</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${coutTransportAfter.toFixed(0)}</span>
+                        <span class="simulation-change ${coutTransportAfter <= coutTransportUnit ? 'positive' : 'negative'}">
+                            ${cgeImpact > 0 ? '+' : ''}${cgeImpact.toFixed(1)}%
+                        </span>
+                    </div>
+                    <div class="simulation-metric-row">
+                        <span>⏱️ Lead Time Moy.</span>
                         <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltBefore.toFixed(0)}j</span>
                         <span>→</span>
                         <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltAfter.toFixed(0)}j</span>
@@ -11160,9 +11079,9 @@
                 `;
             }
             
-            // Ajouter métriques communes pour tous (sauf Lead Time pour J2)
+            // Ajouter métriques communes pour tous (sauf J3 qui l'a déjà, J4 qui a LT par produit)
             // J2 (Approvisionnement) ne voit pas le Lead Time en Manche 1
-            if (joueur !== 2) {
+            if (joueur !== 2 && joueur !== 3 && joueur !== 4) {
                 metricsHTML += `
                     <div class="simulation-metric-row">
                         <span>⏱️ Lead Time</span>
@@ -11186,7 +11105,7 @@
                     </span>
                 </div>
                 <div class="simulation-metric-row">
-                    <span>💰 Budget Équipe</span>
+                    <span>🎯 Points Équipe</span>
                     <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${budgetBefore} pts</span>
                     <span>→</span>
                     <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${budgetAfter} pts</span>
@@ -11207,16 +11126,21 @@
             }
             
         } else {
-            // Manche 2/3: afficher VAG, CGE, RBE (indicateurs révélés)
+            // Manche 2/3: afficher VAG, CGE, RBE, BFR (indicateurs révélés)
             const vagBefore = calculerVAGTotal();
             const cgeBefore = calculerCGETotal();
             const rbeBefore = calculerRBE();
             const ltBefore = calculerLTMoyen();
+            const bfrBefore = calculerBFRTotal();
             
             const vagAfter = vagBefore * (1 + impacts.vagImpact / 100);
             const cgeAfter = cgeBefore + impacts.cgeImpact;
             const ltAfter = ltBefore + impacts.ltImpact;
             const rbeAfter = vagAfter - cgeAfter;
+            
+            // Calculer l'impact BFR
+            const bfrImpact = carte.impacts?.bfr || 0;
+            const bfrAfter = bfrBefore * (1 + bfrImpact);
             
             metricsHTML = `
                 <div class="simulation-comparison">
@@ -11233,6 +11157,10 @@
                         <div class="simulation-metric-row">
                             <span>RBE</span>
                             <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: ${rbeBefore >= 0 ? 'var(--success)' : 'var(--danger)'};">€${formatNumber(Math.round(rbeBefore))}</span>
+                        </div>
+                        <div class="simulation-metric-row">
+                            <span>💳 BFR</span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(bfrBefore))}</span>
                         </div>
                         <div class="simulation-metric-row">
                             <span>Lead Time</span>
@@ -11263,6 +11191,13 @@
                             <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: ${rbeAfter >= 0 ? 'var(--success)' : 'var(--danger)'};">€${formatNumber(Math.round(rbeAfter))}</span>
                             <span class="simulation-change ${rbeAfter >= rbeBefore ? 'positive' : 'negative'}">
                                 ${rbeAfter >= rbeBefore ? '+' : ''}${formatNumber(Math.round(rbeAfter - rbeBefore))}
+                            </span>
+                        </div>
+                        <div class="simulation-metric-row">
+                            <span>💳 BFR</span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(bfrAfter))}</span>
+                            <span class="simulation-change ${bfrAfter <= bfrBefore ? 'positive' : 'negative'}">
+                                ${bfrImpact !== 0 ? (bfrImpact > 0 ? '+' : '') + (bfrImpact * 100).toFixed(0) + '%' : '—'}
                             </span>
                         </div>
                         <div class="simulation-metric-row">
@@ -11358,15 +11293,31 @@
         const container = document.getElementById('decisionAssistant');
         if (!container || gameState.phaseDebriefing || gameState.phaseDebriefing2) {
             if (container) container.style.display = 'none';
+            // Cacher le bouton de restauration aussi
+            const restoreBtn = document.getElementById('restoreAssistantBtn');
+            if (restoreBtn) restoreBtn.style.display = 'none';
             return;
+        }
+        
+        // Gérer le bouton de restauration
+        let restoreBtn = document.getElementById('restoreAssistantBtn');
+        if (!restoreBtn) {
+            restoreBtn = document.createElement('button');
+            restoreBtn.id = 'restoreAssistantBtn';
+            restoreBtn.innerHTML = '🧠 Assistant';
+            restoreBtn.style.cssText = 'position: fixed; bottom: 90px; right: 24px; background: var(--accent-primary); border: none; color: white; padding: 10px 16px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.85em; z-index: 998; box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4); transition: all 0.2s;';
+            restoreBtn.onclick = function() { uxState.showAssistant = true; render(); };
+            document.body.appendChild(restoreBtn);
         }
         
         if (!uxState.showAssistant) {
             container.style.display = 'none';
+            restoreBtn.style.display = 'block';
             return;
         }
         
         container.style.display = 'block';
+        restoreBtn.style.display = 'none';
         const tips = generateContextualTips();
         
         document.getElementById('assistantTips').innerHTML = tips.map(tip => `
@@ -11392,9 +11343,9 @@
         
         let html = `
             <div class="quick-stat">
-                <span class="quick-stat-icon">💰</span>
+                <span class="quick-stat-icon">🎯</span>
                 <div>
-                    <div class="quick-stat-label">Budget</div>
+                    <div class="quick-stat-label">Points</div>
                     <div class="quick-stat-value ${budget < SEUILS.budgetBas ? 'warning' : 'neutral'}">${budget} pts</div>
                 </div>
             </div>
@@ -11586,6 +11537,155 @@
         renderQuickStats();
         renderDecisionAssistant();
         renderCardFilters();
+    };
+    
+    // ==================== V0.7.0 - NOUVELLES FONCTIONNALITÉS ====================
+    
+    // État des joueurs avec leurs noms
+    let playerNames = { 1: 'Joueur 1', 2: 'Joueur 2', 3: 'Joueur 3', 4: 'Joueur 4', 5: 'Joueur 5' };
+    let playerRoleAssignments = {}; // { nomJoueur: [roles] }
+    
+    // Afficher le modal d'information sur l'entreprise
+    function showCompanyInfo() {
+        document.getElementById('companyInfoModal').classList.add('active');
+    }
+    
+    // Annuler la dernière carte jouée
+    function undoLastCard() {
+        if (gameState.historique.length === 0) {
+            showToast('Aucune carte à annuler !', 'warning');
+            return;
+        }
+        
+        const lastEntry = gameState.historique.pop();
+        const carte = lastEntry.carte;
+        const joueur = lastEntry.joueur;
+        
+        // Remettre le budget
+        if (gameState.manche === 1) {
+            gameState.budgetManche1 += carte.cout;
+            gameState.budgets[joueur] -= carte.cout;
+        } else {
+            gameState.budgetCommun += carte.cout;
+        }
+        
+        // Retirer la carte des cartes achetées
+        if (gameState.manche === 1) {
+            const idx = gameState.cartesAchetees[joueur].indexOf(carte.id);
+            if (idx > -1) gameState.cartesAchetees[joueur].splice(idx, 1);
+        } else if (gameState.manche === 2) {
+            const idx = gameState.cartesAchetees.commun.indexOf(carte.id);
+            if (idx > -1) gameState.cartesAchetees.commun.splice(idx, 1);
+        } else {
+            const idx = gameState.cartesAchetees.manche3.indexOf(carte.id);
+            if (idx > -1) gameState.cartesAchetees.manche3.splice(idx, 1);
+        }
+        
+        // Revenir au joueur précédent (en Manche 1)
+        if (gameState.manche === 1 && typeof joueur === 'number') {
+            gameState.joueurActuel = joueur;
+        }
+        
+        showToast(`↩️ Carte "${carte.nom}" annulée - Points restaurés !`, 'success');
+        
+        // NOTE: Les effets de la carte ne sont PAS annulés automatiquement
+        // car cela nécessiterait de recalculer tout l'état du jeu
+        showToast('⚠️ Recalculer manuellement les effets ou redémarrer', 'warning');
+        
+        render();
+        renderDevPanel();
+    }
+    
+    // Restaurer l'assistant de décision
+    function restoreAssistant() {
+        uxState.showAssistant = true;
+        render();
+        showToast('🧠 Assistant de décision restauré !', 'success');
+    }
+    
+    // Attribution aléatoire des rôles
+    function assignRandomRoles() {
+        const names = [];
+        for (let i = 1; i <= 5; i++) {
+            const input = document.getElementById(`playerName${i}`);
+            if (input && input.value.trim()) {
+                names.push(input.value.trim());
+            }
+        }
+        
+        if (names.length === 0) {
+            names.push('Joueur Solo');
+        }
+        
+        const roles = [1, 2, 3, 4, 5];
+        
+        // Mélanger les rôles
+        for (let i = roles.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [roles[i], roles[j]] = [roles[j], roles[i]];
+        }
+        
+        playerRoleAssignments = {};
+        
+        if (names.length >= 5) {
+            // Chaque joueur a un rôle (mélangé aléatoirement)
+            names.forEach((name, idx) => {
+                playerRoleAssignments[name] = [roles[idx]];
+                playerNames[roles[idx]] = name;
+            });
+        } else {
+            // Moins de 5 joueurs : distribuer les rôles aléatoirement
+            // Mélanger aussi les noms pour que le Commercial ne soit pas toujours le premier
+            const shuffledNames = [...names];
+            for (let i = shuffledNames.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledNames[i], shuffledNames[j]] = [shuffledNames[j], shuffledNames[i]];
+            }
+            
+            // Le premier nom mélangé aura le rôle Commercial (J1) seul
+            const commercialPlayer = shuffledNames[0];
+            playerRoleAssignments[commercialPlayer] = [1];
+            playerNames[1] = commercialPlayer;
+            
+            // Distribuer les autres rôles aux autres joueurs
+            const otherRoles = [2, 3, 4, 5];
+            const otherPlayers = shuffledNames.slice(1);
+            
+            if (otherPlayers.length === 0) {
+                // Un seul joueur a tous les rôles
+                playerRoleAssignments[commercialPlayer].push(...otherRoles);
+                otherRoles.forEach(r => playerNames[r] = commercialPlayer);
+            } else {
+                // Distribuer équitablement
+                otherPlayers.forEach((name, idx) => {
+                    playerRoleAssignments[name] = [];
+                });
+                
+                otherRoles.forEach((role, idx) => {
+                    const playerIdx = idx % otherPlayers.length;
+                    const playerName = otherPlayers[playerIdx];
+                    playerRoleAssignments[playerName].push(role);
+                    playerNames[role] = playerName;
+                });
+            }
+        }
+        
+        return playerRoleAssignments;
+    }
+    
+    // Modifier startGame pour passer directement au jeu sans modal de sélection
+    const originalStartGame = startGame;
+    startGame = function() {
+        // Assigner les rôles aléatoirement
+        const assignments = assignRandomRoles();
+        
+        // Cacher l'intro
+        document.getElementById('introOverlay').classList.add('hidden');
+        
+        // Démarrer directement avec J1 (Commercial)
+        gameState.joueurActuel = 1;
+        render();
+        showPlayerTurnModal(1);
     };
     
     // Init
