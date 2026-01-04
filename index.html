@@ -4348,10 +4348,10 @@
     
     const INDICATEURS_EXPLICATIONS = {
         // Indicateurs de coût
-        CMP: {
+        DA: {
             nom: "Coût Matière Première",
-            augmentation: "⚠️ Augmenter le CMP réduit vos marges directement. Chaque euro de plus en matière première est un euro de moins de profit.",
-            diminution: "✅ Réduire le CMP améliore vos marges. Attention cependant aux contreparties cachées : qualité, délais, dépendance fournisseur."
+            augmentation: "⚠️ Augmenter le DA réduit vos marges directement. Chaque euro de plus en matière première est un euro de moins de profit.",
+            diminution: "✅ Réduire le DA améliore vos marges. Attention cependant aux contreparties cachées : qualité, délais, dépendance fournisseur."
         },
         CGE: {
             nom: "Charges Globales d'Exploitation",
@@ -4463,19 +4463,19 @@
                 id: "M1-20", nom: "Remise Volume", emoji: "💼", cout: 20,
                 secteur: "Commercial", joueur: 1,
                 description: "Offrir des remises sur volume aux clients",
-                effetVisible: "↑ CMP +3%, ↑ +10% DC",
+                effetVisible: "↑ DA +3%, ↑ +10% DC",
                 effetGlobal: "↑ VAG, ↓ BFR, ↑ CR",
                 flux: ["MF1", "MF2"],
-                impacts: { global: {"CMP": 0.03, "DC": 0.1} }
+                impacts: { global: {"DA": 0.03, "DC": 0.1} }
             },
             {
                 id: "M1-21", nom: "Push Rentable", emoji: "💼", cout: 25,
                 secteur: "Commercial", joueur: 1,
                 description: "Pousser les produits les plus rentables",
-                effetVisible: "↓ -7% CMP, ↑ LT + 72h, ↑ TC + 2%",
+                effetVisible: "↓ -7% DA, ↑ LT + 72h, ↑ TC + 2%",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
                 flux: ["MF1", "MF2"],
-                impacts: { global: {"CMP": -0.07, "LT": 72.0, "TC": 0.02} }
+                impacts: { global: {"DA": -0.07, "LT": 72.0, "TC": 0.02} }
             },
             {
                 id: "M1-22", nom: "Délai Agressif", emoji: "💼", cout: 15,
@@ -4490,10 +4490,10 @@
                 id: "M1-23", nom: "Augmenter Stock du MF1", emoji: "💼", cout: 20,
                 secteur: "Commercial", joueur: 1,
                 description: "Augmenter le stock du MF1 (Standard)",
-                effetVisible: "↓ -3% CMP",
+                effetVisible: "↓ -3% DA",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
                 flux: ["MF1"],
-                impacts: { global: {"CMP": -0.03} }
+                impacts: { global: {"DA": -0.03} }
             },
             {
                 id: "M1-24", nom: "Paiement Long", emoji: "💼", cout: 15,
@@ -4519,28 +4519,28 @@
                 id: "M1-1", nom: "Fournisseur Lots+", emoji: "📦", cout: 15,
                 secteur: "Approvisionnement", joueur: 2,
                 description: "Négocier des lots plus importants avec le fournisseur pour réduire le coût unitaire",
-                effetVisible: "↓ -2% CMP, ↑ +72h LT",
+                effetVisible: "↓ -2% DA, ↑ +72h LT",
                 effetGlobal: "↑ BFR, ↓ CR, ↓ VAG",
                 flux: ["MF1", "MF2"],
-                impacts: { global: {"CMP": -0.02, "LT": 72.0} }
+                impacts: { global: {"DA": -0.02, "LT": 72.0} }
             },
             {
                 id: "M1-2", nom: "Fournisseur Cheap", emoji: "📦", cout: 20,
                 secteur: "Approvisionnement", joueur: 2,
                 description: "Choisir un fournisseur moins cher mais avec des délais plus longs",
-                effetVisible: "↑ LT +120h, ↑TR +2%, ↓ -4% CMP",
+                effetVisible: "↑ LT +120h, ↑TR +2%, ↓ -4% DA",
                 effetGlobal: "↑ BFR, ↓ VAG",
                 flux: ["MF1", "MF2"],
-                impacts: { global: {"LT": 120.0, "TR": 0.02, "CMP": -0.04} }
+                impacts: { global: {"LT": 120.0, "TR": 0.02, "DA": -0.04} }
             },
             {
                 id: "M1-3", nom: "Fournisseur Intl", emoji: "📦", cout: 30,
                 secteur: "Approvisionnement", joueur: 2,
                 description: "Sourcer auprès d\'un fournisseur international à bas coût",
-                effetVisible: "↑ LT +320h, ↓ -7% CMP",
+                effetVisible: "↑ LT +320h, ↓ -7% DA",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
                 flux: ["MF1", "MF2"],
-                impacts: { global: {"LT": 320.0, "CMP": -0.07} }
+                impacts: { global: {"LT": 320.0, "DA": -0.07} }
             },
             {
                 id: "M1-4", nom: "Délai Paiement+", emoji: "📦", cout: 10,
@@ -4555,19 +4555,19 @@
                 id: "M1-5", nom: "Petits Lots", emoji: "📦", cout: 20,
                 secteur: "Approvisionnement", joueur: 2,
                 description: "Commander des lots plus petits pour réduire le stock",
-                effetVisible: "↑ 5% CMP, ↓ -24h LT",
+                effetVisible: "↑ 5% DA, ↓ -24h LT",
                 effetGlobal: "↑ VAG, ↓ BFR, ↑ CR",
                 flux: ["MF1", "MF2"],
-                impacts: { global: {"CMP": 0.05, "LT": -24.0} }
+                impacts: { global: {"DA": 0.05, "LT": -24.0} }
             },
             {
                 id: "M1-25", nom: "Fournisseur cheap Q-", emoji: "📦", cout: 20,
                 secteur: "Approvisionnement", joueur: 2,
                 description: "Fournisseur bon marché mais qualité moindre",
-                effetVisible: "↑ TR +3%, ↓ -3% CMP",
+                effetVisible: "↑ TR +3%, ↓ -3% DA",
                 effetGlobal: "↑ BFR, ↓ CR, ↓ VAG",
                 flux: ["MF1"],
-                impacts: { global: {"TR": 0.03, "CMP": -0.03} }
+                impacts: { global: {"TR": 0.03, "DA": -0.03} }
             }
         ],
         3: [
@@ -4593,19 +4593,19 @@
                 id: "M1-17", nom: "Transport Cheap", emoji: "🚚", cout: 20,
                 secteur: "Logistique", joueur: 3,
                 description: "Choisir un transporteur moins cher",
-                effetVisible: "↓ -3% CMP, ↑ LT +90h",
+                effetVisible: "↓ -3% DA, ↑ LT +90h",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
                 flux: ["MF2"],
-                impacts: { global: {"CMP": -0.03, "LT": 90.0} }
+                impacts: { global: {"DA": -0.03, "LT": 90.0} }
             },
             {
                 id: "M1-18", nom: "Stock Sécurité+", emoji: "🚚", cout: 15,
                 secteur: "Logistique", joueur: 3,
                 description: "Augmenter le stock de sécurité pour éviter les ruptures",
-                effetVisible: "↓ -3% CMP, ↑ LT +72h, ↓ -2% TR",
+                effetVisible: "↓ -3% DA, ↑ LT +72h, ↓ -2% TR",
                 effetGlobal: "↑ BFR, ↓ VAG, ↑ CR",
                 flux: ["MF1", "MF2"],
-                impacts: { global: {"CMP": -0.03, "LT": 72.0, "TR": -0.02} }
+                impacts: { global: {"DA": -0.03, "LT": 72.0, "TR": -0.02} }
             },
             {
                 id: "M1-19", nom: "Stock Sécurité-", emoji: "🚚", cout: 15,
@@ -4658,19 +4658,19 @@
                 id: "M1-9", nom: "Machine Neuve", emoji: "⚙️", cout: 60,
                 secteur: "Production", joueur: 4,
                 description: "Investir dans une nouvelle machine pour augmenter la capacité",
-                effetVisible: "↑ CMP +5%, ↑ TR +3%, ↓ TC -2%",
+                effetVisible: "↑ DA +5%, ↑ TR +3%, ↓ TC -2%",
                 effetGlobal: "↑ BFR, ↓ VAG, ↑ CR",
                 flux: ["MF1", "MF2"],
-                impacts: { global: {"CMP": 0.05, "TR": 0.03, "TC": -0.02} }
+                impacts: { global: {"DA": 0.05, "TR": 0.03, "TC": -0.02} }
             },
             {
                 id: "M1-10", nom: "Gros Lots Prod", emoji: "⚙️", cout: 20,
                 secteur: "Production", joueur: 4,
                 description: "Produire en lots plus importants pour réduire les temps de changement",
-                effetVisible: "↓ CMP -4%, ↑ 90h LT",
+                effetVisible: "↓ DA -4%, ↑ 90h LT",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
                 flux: ["MF1", "MF2"],
-                impacts: { global: {"CMP": -0.04, "LT": 90} }
+                impacts: { global: {"DA": -0.04, "LT": 90} }
             },
             {
                 id: "M1-26", nom: "Accélérer M3", emoji: "⚙️", cout: 10,
@@ -4685,19 +4685,19 @@
                 id: "M1-27", nom: "Machine Neuve M4", emoji: "⚙️", cout: 65,
                 secteur: "Production", joueur: 4,
                 description: "Nouvelle machine pour M4",
-                effetVisible: "↑ CMP +5%, ↑ TR +3%, ↓ TC -5%",
+                effetVisible: "↑ DA +5%, ↑ TR +3%, ↓ TC -5%",
                 effetGlobal: "↑ BFR, ↓ VAG, ↑ CR",
                 flux: ["MF2"],
-                impacts: { global: {"CMP": 0.05, "TR": 0.03, "TC": -0.05} }
+                impacts: { global: {"DA": 0.05, "TR": 0.03, "TC": -0.05} }
             },
             {
                 id: "M1-28", nom: "Push MF2", emoji: "⚙️", cout: 20,
                 secteur: "Production", joueur: 4,
                 description: "Pousser les ventes du MF2 (Premium)",
-                effetVisible: "↓ -4% CMP, ↑ LT + 24h",
+                effetVisible: "↓ -4% DA, ↑ LT + 24h",
                 effetGlobal: "↑ BFR, ↓ VAG, ↓ CR",
                 flux: ["MF1"],
-                impacts: { global: {"CMP": -0.04, "LT": 24} }
+                impacts: { global: {"DA": -0.04, "LT": 24} }
             }
         ],
         5: [
@@ -4747,7 +4747,7 @@
             id: "M2-1", nom: "5S Magasin MP", emoji: "📦", cout: 15,
             secteur: "Approvisionnement", joueur: 2,
             description: "Appliquer la méthode 5S au magasin de matières premières",
-            effetVisible: "5S Magasin",
+            effetVisible: "↓ TC -5%, ↓ TR -2%, ↓ LT -72h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -72.0, "TC": -0.05, "TR": -0.02} }
         },
@@ -4755,15 +4755,15 @@
             id: "M2-2", nom: "Kanban Fournisseur", emoji: "📦", cout: 25,
             secteur: "Approvisionnement", joueur: 2,
             description: "Mettre en place un système Kanban avec les fournisseurs",
-            effetVisible: "Kanban Fourn.",
+            effetVisible: "↓ LT -110h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -110.0} }
         },
         {
             id: "M2-3", nom: "Heijunka Achats", emoji: "📦", cout: 20,
             secteur: "Approvisionnement", joueur: 2,
-            description: "Implémenter Heijunka pour lisser les achats",
-            effetVisible: "Heijunka",
+            description: "Lisser les approvisionnements avec Heijunka",
+            effetVisible: "↓ LT -134h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -134.0} }
         },
@@ -4771,39 +4771,39 @@
             id: "M2-4", nom: "Gemba Fournisseur", emoji: "📦", cout: 30,
             secteur: "Approvisionnement", joueur: 2,
             description: "Effectuer des visites Gemba chez les fournisseurs",
-            effetVisible: "Gemba Fourn.",
+            effetVisible: "↓ TR -8%, ↑ DF +25%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.08, "DF": 0.25} }
         },
         {
             id: "M2-5", nom: "SMED Coupe Initiale", emoji: "⚙️", cout: 20,
             secteur: "Production", joueur: 4,
-            description: "Appliquer SMED sur la coupe initiale pour réduire les temps de changement",
-            effetVisible: "SMED Corte",
+            description: "Appliquer SMED sur la coupe initiale",
+            effetVisible: "↓ TC -15%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TC": -0.15} }
         },
         {
             id: "M2-6", nom: "SMED Polissage", emoji: "⚙️", cout: 20,
             secteur: "Production", joueur: 4,
-            description: "Appliquer SMED sur le polissage pour réduire les temps de changement",
-            effetVisible: "SMED Poliss.",
+            description: "Appliquer SMED sur le polissage",
+            effetVisible: "↓ TC -15%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TC": -0.15} }
         },
         {
             id: "M2-7", nom: "SMED Coupe Finale", emoji: "⚙️", cout: 25,
             secteur: "Production", joueur: 4,
-            description: "Appliquer SMED sur la coupe finale pour réduire les temps de changement",
-            effetVisible: "SMED Goulot",
+            description: "Appliquer SMED sur la coupe finale (goulot)",
+            effetVisible: "↓ TC -17%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TC": -0.17} }
         },
         {
             id: "M2-8", nom: "5S Atelier", emoji: "⚙️", cout: 10,
             secteur: "Production", joueur: 4,
-            description: "Appliquer 5S dans l\'atelier de production",
-            effetVisible: "5S Atelier",
+            description: "Appliquer 5S dans l'atelier de production",
+            effetVisible: "↓ TC -2%, ↓ TR -5%, ↓ LT -48h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TC": -0.02, "TR": -0.05, "LT": -48.0} }
         },
@@ -4811,23 +4811,23 @@
             id: "M2-9", nom: "Kanban Interne", emoji: "⚙️", cout: 20,
             secteur: "Production", joueur: 4,
             description: "Mettre en place un Kanban interne pour le flux tiré",
-            effetVisible: "Kanban Int.",
+            effetVisible: "↓ LT -16h, ↓ TC -5%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -16.0, "TC": -0.05} }
         },
         {
             id: "M2-10", nom: "TOC Subordination", emoji: "⚙️", cout: 25,
             secteur: "Production", joueur: 4,
-            description: "Appliquer la subordination TOC au goulot (Machine 4)",
-            effetVisible: "TOC DBR",
+            description: "Appliquer la subordination TOC au goulot",
+            effetVisible: "↓ LT -24h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -24.0} }
         },
         {
             id: "M2-11", nom: "TPM", emoji: "⚙️", cout: 30,
             secteur: "Production", joueur: 4,
-            description: "Implémenter la maintenance productive totale (TPM)",
-            effetVisible: "TPM",
+            description: "Implémenter la maintenance productive totale",
+            effetVisible: "↓ TR -14%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.14} }
         },
@@ -4835,153 +4835,169 @@
             id: "M2-12", nom: "Jidoka", emoji: "⚙️", cout: 50,
             secteur: "Production", joueur: 4,
             description: "Installer des systèmes Jidoka (autonomation)",
-            effetVisible: "Jidoka",
+            effetVisible: "↓ TR -8%, ↓ LT -360h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.08, "LT": -360.0} }
         },
         {
             id: "M2-13", nom: "5 Pourquoi", emoji: "✅", cout: 10,
             secteur: "Qualité", joueur: 5,
-            description: "Utiliser les 5 Pourquoi pour l\'analyse des causes racines",
-            effetVisible: "5 Pourquoi",
+            description: "Utiliser les 5 Pourquoi pour l'analyse des causes racines",
+            effetVisible: "↓ TR -10%, ↓ TC -3%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.1, "TC": -0.03} }
         },
         {
             id: "M2-14", nom: "QRQC", emoji: "✅", cout: 15,
             secteur: "Qualité", joueur: 5,
-            description: "Mettre en place QRQC (Quick Response Quality Control)",
-            effetVisible: "QRQC",
+            description: "Mettre en place QRQC (Réponse Rapide Contrôle Qualité)",
+            effetVisible: "↓ TR -12%, ↓ LT -100h, ↓ TC -5%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.12, "LT": -100.0, "TC": -0.05} }
         },
         {
             id: "M2-15", nom: "SPC Contrôle", emoji: "✅", cout: 30,
             secteur: "Qualité", joueur: 5,
-            description: "Implémenter le contrôle statistique des procédés (SPC)",
-            effetVisible: "SPC",
+            description: "Implémenter le contrôle statistique des procédés",
+            effetVisible: "↓ TR -18%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.18} }
         },
         {
             id: "M2-16", nom: "Poka-Yoke", emoji: "✅", cout: 25,
             secteur: "Qualité", joueur: 5,
-            description: "Cartographier et optimiser le flux de valeur (VSM)",
-            effetVisible: "Poka-Yoke",
+            description: "Installer des systèmes anti-erreur Poka-Yoke",
+            effetVisible: "↓ TC -8%, ↓ LT -90h, ↓ TR -20%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TC": -0.08, "LT": -90.0, "TR": -0.2} }
         },
         {
             id: "M2-17", nom: "Kaizen Qualité", emoji: "✅", cout: 20,
             secteur: "Qualité", joueur: 5,
-            description: "Former les opérateurs aux principes du Lean Manufacturing",
-            effetVisible: "Kaizen",
+            description: "Organiser des ateliers Kaizen pour la qualité",
+            effetVisible: "↓ TR -7%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.07} }
         },
         {
             id: "M2-18", nom: "Gemba Qualité", emoji: "✅", cout: 10,
             secteur: "Qualité", joueur: 5,
-            description: "Créer des cellules de production en U pour réduire les déplacements",
-            effetVisible: "Gemba Qual.",
+            description: "Effectuer des marches Gemba pour la qualité",
+            effetVisible: "↓ LT -30h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -30.0} }
         },
         {
             id: "M2-19", nom: "5S Entrepôt", emoji: "🚚", cout: 15,
             secteur: "Logistique", joueur: 3,
-            description: "Implémenter le management visuel sur le shop floor",
-            effetVisible: "5S Entrepôt",
+            description: "Appliquer 5S dans l'entrepôt",
+            effetVisible: "↓ TR -2%, ↓ TC -3%, ↓ LT -36h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.02, "TC": -0.03, "LT": -36.0} }
         },
         {
             id: "M2-20", nom: "Kanban Distribution", emoji: "🚚", cout: 20,
             secteur: "Logistique", joueur: 3,
-            description: "Standardiser les postes de travail",
-            effetVisible: "Kanban Dist.",
+            description: "Mettre en place un Kanban pour la distribution",
+            effetVisible: "↓ LT -50h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -50.0} }
         },
         {
             id: "M2-21", nom: "Heijunka Expéditions", emoji: "🚚", cout: 25,
             secteur: "Logistique", joueur: 3,
-            description: "Appliquer Heijunka aux expéditions pour lisser les envois",
-            effetVisible: "Heijunka Exp.",
+            description: "Lisser les expéditions avec Heijunka",
+            effetVisible: "↓ LT -64h",
             flux: ["MF1"],
             impacts: { global: {"LT": -64.0} }
         },
         {
             id: "M2-22", nom: "JIT Livraison", emoji: "🚚", cout: 25,
             secteur: "Logistique", joueur: 3,
-            description: "Réduire les temps de changement généraux (SMED avancé)",
-            effetVisible: "JIT",
+            description: "Livraison Juste-à-Temps aux clients",
+            effetVisible: "↓ LT -120h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -120.0} }
         },
         {
             id: "M2-23", nom: "TOC Logistique", emoji: "🚚", cout: 20,
             secteur: "Logistique", joueur: 3,
-            description: "Implémenter le flux tiré (Pull) dans toute l\'usine",
-            effetVisible: "TOC Logist.",
+            description: "Appliquer la TOC à la logistique",
+            effetVisible: "↓ LT -100h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -100.0} }
         },
         {
             id: "M2-24", nom: "Heijunka Commandes", emoji: "💼", cout: 20,
             secteur: "Commercial", joueur: 1,
-            description: "Appliquer Heijunka aux commandes clients",
-            effetVisible: "Heijunka Cmd",
+            description: "Lisser les commandes clients avec Heijunka",
+            effetVisible: "↓ LT -64h, ↓ DC -15%",
             flux: ["MF1"],
             impacts: { global: {"LT": -64.0, "DC": -0.15} }
         },
         {
             id: "M2-25", nom: "VOC", emoji: "💼", cout: 15,
             secteur: "Commercial", joueur: 1,
-            description: "Écouter la voix du client (VOC) pour améliorer le service",
-            effetVisible: "VOC",
+            description: "Écouter la Voix du Client pour améliorer le service",
+            effetVisible: "↓ TR -4%, ↓ DC -25%",
             flux: ["MF2"],
             impacts: { global: {"TR": -0.04, "DC": -0.25} }
         },
         {
             id: "M2-26", nom: "Segmentation VAG", emoji: "💼", cout: 10,
             secteur: "Commercial", joueur: 1,
-            description: "Segmenter les produits par VAG (valeur ajoutée globale)",
-            effetVisible: "Segment. VAG",
+            description: "Segmenter les produits par valeur ajoutée",
+            effetVisible: "↓ TR -4%, ↓ TC -2%",
             flux: ["MF1"],
             impacts: { global: {"TR": -0.04, "TC": -0.02} }
         },
         {
             id: "M2-27", nom: "Contrats Cadres", emoji: "💼", cout: 15,
             secteur: "Commercial", joueur: 1,
-            description: "Améliorer l\'ergonomie des postes de travail",
-            effetVisible: "Contrats",
+            description: "Négocier des contrats cadres avec les clients",
+            effetVisible: "↓ TC -2%, ↓ LT -24h, ↓ DC -20%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TC": -0.02, "LT": -24.0, "DC": -0.2} }
         },
         {
-            id: "M2-28", nom: "Prioriser VAG/hora", emoji: "💼", cout: 20,
+            id: "M2-28", nom: "Prioriser VAG/heure", emoji: "💼", cout: 20,
             secteur: "Commercial", joueur: 1,
-            description: "Réduire les déplacements inutiles (Muda de transport)",
-            effetVisible: "VAG/hora",
+            description: "Prioriser les produits par VAG/heure",
+            effetVisible: "↓ TC -2%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TC": -0.02} }
         },
         {
             id: "M2-29", nom: "Prioriser Valorité", emoji: "💼", cout: 20,
             secteur: "Commercial", joueur: 1,
-            description: "Prioriser les produits par valorité (valeur/coût)",
-            effetVisible: "Valorité",
+            description: "Prioriser les produits par valorité",
+            effetVisible: "↓ TC -6%, ↓ TR -2%",
             flux: ["MF2"],
             impacts: { global: {"TC": -0.06, "TR": -0.02} }
         },
         {
-            id: "M2-30", nom: "Équilibre de Produits", emoji: "💼", cout: 20,
+            id: "M2-30", nom: "Équilibre Produits", emoji: "💼", cout: 20,
             secteur: "Commercial", joueur: 1,
-            description: "Implémenter le One-Piece-Flow",
-            effetVisible: "Mix Optimal",
+            description: "Optimiser le mix produit",
+            effetVisible: "↓ TC -3%, ↓ TR -3%, ↓ LT -72h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TC": -0.03, "TR": -0.03, "LT": -72.0} }
+        },
+        {
+            id: "M2-31", nom: "Campagne Marketing", emoji: "📢", cout: 40,
+            secteur: "Commercial", joueur: 1,
+            description: "Lancer une campagne marketing pour augmenter la demande clients",
+            effetVisible: "↑ Force de Vente +200 unités",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {}, special: "forceVente", forceVenteBonus: 200 }
+        },
+        {
+            id: "M2-32", nom: "Investisseurs Capital", emoji: "🏦", cout: 50,
+            secteur: "Commercial", joueur: 1,
+            description: "Faire entrer des investisseurs pour augmenter le capital disponible",
+            effetVisible: "↑ BFR +100 000€",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {}, special: "bfrBonus", bfrBonus: 100000 }
         }
     ];
 
@@ -4989,10 +5005,10 @@
 
     const CARTES_MANCHE3 = [
         {
-            id: "M3-1", nom: "2º Fournisseur Qualifié", emoji: "📦", cout: 25,
+            id: "M3-1", nom: "2ème Fournisseur Qualifié", emoji: "📦", cout: 25,
             secteur: "Approvisionnement", joueur: 2,
-            description: "Qualifier un 2ème fournisseur pour sécuriser la qualité",
-            effetVisible: "2º Fournisseur",
+            description: "Qualifier un 2ème fournisseur pour sécuriser les approvisionnements",
+            effetVisible: "↑ DF +10%, ↓ TR -3%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"DF": 0.1, "TR": -0.03} }
         },
@@ -5000,7 +5016,7 @@
             id: "M3-2", nom: "Consignation MP", emoji: "📦", cout: 15,
             secteur: "Approvisionnement", joueur: 2,
             description: "Mettre en place la consignation de MP chez le fournisseur",
-            effetVisible: "Consignation",
+            effetVisible: "↓ LT -48h, ↑ DF +15%",
             flux: ["MF1"],
             impacts: { global: {"LT": -48.0, "DF": 0.15} }
         },
@@ -5008,7 +5024,7 @@
             id: "M3-3", nom: "Centraliser Achats", emoji: "📦", cout: 10,
             secteur: "Approvisionnement", joueur: 2,
             description: "Centraliser les achats pour obtenir de meilleurs prix",
-            effetVisible: "Centralisation",
+            effetVisible: "↑ DF +7%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"DF": 0.07} }
         },
@@ -5016,39 +5032,39 @@
             id: "M3-4", nom: "Cahier Charges Qualité", emoji: "📦", cout: 8,
             secteur: "Approvisionnement", joueur: 2,
             description: "Établir un cahier des charges qualité strict",
-            effetVisible: "Cahier charges",
+            effetVisible: "↓ LT -36h, ↓ TR -1%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -36.0, "TR": -0.01} }
         },
         {
             id: "M3-5", nom: "Audit RSE Fournisseurs", emoji: "📦", cout: 28,
             secteur: "Approvisionnement", joueur: 2,
-            description: "Auditer les fournisseurs sur la RSE (Responsabilité Sociale)",
-            effetVisible: "Audits annuels",
+            description: "Auditer les fournisseurs sur la RSE",
+            effetVisible: "↓ TR -3%, ↑ DF +5%, ↓ LT -24h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.03, "DF": 0.05, "LT": -24.0} }
         },
         {
             id: "M3-6", nom: "Fournisseur Régional", emoji: "📦", cout: 20,
             secteur: "Approvisionnement", joueur: 2,
-            description: "Privilégier les fournisseurs régionaux pour réduire les délais",
-            effetVisible: "Régional",
+            description: "Privilégier les fournisseurs régionaux",
+            effetVisible: "↓ LT -360h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -360.0} }
         },
         {
             id: "M3-7", nom: "Certification ISO 14001", emoji: "📦", cout: 55,
             secteur: "Approvisionnement", joueur: 2,
-            description: "Obtenir la certification ISO 14001 (environnement)",
-            effetVisible: "Label ISO 14001",
+            description: "Obtenir la certification ISO 14001 environnement",
+            effetVisible: "↓ TR -15%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.15} }
         },
         {
             id: "M3-8", nom: "Opérateurs Polyvalents", emoji: "⚙️", cout: 30,
             secteur: "Production", joueur: 4,
-            description: "Former des opérateurs polyvalents pour plus de flexibilité",
-            effetVisible: "Polyvalence",
+            description: "Former des opérateurs polyvalents",
+            effetVisible: "↓ TR -5%, ↓ LT -48h, ↓ TC -3%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.05, "LT": -48.0, "TC": -0.03} }
         },
@@ -5056,15 +5072,15 @@
             id: "M3-9", nom: "Maintenance Préventive", emoji: "⚙️", cout: 25,
             secteur: "Production", joueur: 4,
             description: "Implémenter la maintenance préventive planifiée",
-            effetVisible: "Préventive",
+            effetVisible: "↓ TC -12%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TC": -0.12} }
         },
         {
             id: "M3-10", nom: "Outillage Rénové", emoji: "⚙️", cout: 35,
             secteur: "Production", joueur: 4,
-            description: "Rénover l\'outillage pour améliorer la qualité",
-            effetVisible: "Outillage",
+            description: "Rénover l'outillage pour améliorer la qualité",
+            effetVisible: "↓ TC -2%, ↓ TR -3%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TC": -0.02, "TR": -0.03} }
         },
@@ -5072,7 +5088,7 @@
             id: "M3-11", nom: "LED Haute Efficacité", emoji: "⚙️", cout: 35,
             secteur: "Production", joueur: 4,
             description: "Installer un éclairage LED haute efficacité",
-            effetVisible: "-60% conso éclairage",
+            effetVisible: "↓ CGE -10%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"CGE": -0.1} }
         },
@@ -5080,15 +5096,15 @@
             id: "M3-12", nom: "Panneaux Solaires 60kW", emoji: "⚙️", cout: 120,
             secteur: "Production", joueur: 4,
             description: "Installer des panneaux solaires sur le toit",
-            effetVisible: "60kW capacité",
+            effetVisible: "↓ CGE -30%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"CGE": -0.3} }
         },
         {
             id: "M3-13", nom: "Récupération Eau", emoji: "⚙️", cout: 15,
             secteur: "Production", joueur: 4,
-            description: "Récupérer l\'eau de pluie pour les usages industriels",
-            effetVisible: "Récupération",
+            description: "Récupérer l'eau de pluie pour les usages industriels",
+            effetVisible: "↓ CGE -5%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"CGE": -0.05} }
         },
@@ -5096,7 +5112,7 @@
             id: "M3-14", nom: "Contrôle Réception MP", emoji: "✅", cout: 15,
             secteur: "Qualité", joueur: 5,
             description: "Contrôler systématiquement la réception des MP",
-            effetVisible: "Contrôle MP",
+            effetVisible: "↓ TR -4%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.04} }
         },
@@ -5104,129 +5120,145 @@
             id: "M3-15", nom: "IA Maintenance Prédictive", emoji: "✅", cout: 80,
             secteur: "Qualité", joueur: 5,
             description: "IA pour maintenance prédictive des machines",
-            effetVisible: "Pannes -65%",
+            effetVisible: "↓ TR -8%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.08} }
         },
         {
             id: "M3-16", nom: "Audit ACV Produits", emoji: "✅", cout: 32,
             secteur: "Qualité", joueur: 5,
-            description: "Digitaliser le suivi de production en temps réel",
-            effetVisible: "ACV tous produits",
+            description: "Réaliser l'Analyse du Cycle de Vie des produits",
+            effetVisible: "↓ LT -72h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -72.0} }
         },
         {
             id: "M3-17", nom: "Fiches Instruction", emoji: "✅", cout: 8,
             secteur: "Qualité", joueur: 5,
-            description: "Implémenter l\'IoT sur les machines critiques",
-            effetVisible: "Instructions",
+            description: "Créer des fiches d'instruction standardisées",
+            effetVisible: "↓ TR -1%, ↓ TC -1%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.01, "TC": -0.01} }
         },
         {
             id: "M3-18", nom: "Cercles Qualité", emoji: "✅", cout: 5,
             secteur: "Qualité", joueur: 5,
-            description: "Automatiser la palettisation en fin de ligne",
-            effetVisible: "Cercles Qual.",
+            description: "Mettre en place des cercles qualité",
+            effetVisible: "↓ TR -1%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.01} }
         },
         {
             id: "M3-19", nom: "Certificat Qualité", emoji: "✅", cout: 5,
             secteur: "Qualité", joueur: 5,
-            description: "Installer un robot collaboratif (cobot)",
-            effetVisible: "Certificat",
+            description: "Obtenir un certificat qualité externe",
+            effetVisible: "↓ TR -1%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.01} }
         },
         {
             id: "M3-20", nom: "Retour Expérience", emoji: "✅", cout: 5,
             secteur: "Qualité", joueur: 5,
-            description: "Déployer des AGV pour la logistique interne",
-            effetVisible: "Retour Exp.",
+            description: "Formaliser le retour d'expérience (REX)",
+            effetVisible: "↓ TR -3%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.03} }
         },
         {
             id: "M3-21", nom: "Tournées Groupées", emoji: "🚚", cout: 8,
             secteur: "Logistique", joueur: 3,
-            description: "Implémenter un système MES",
-            effetVisible: "Tournées",
+            description: "Optimiser les tournées de livraison",
+            effetVisible: "↓ LT -24h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -24.0} }
         },
         {
             id: "M3-22", nom: "Emballage Renforcé", emoji: "🚚", cout: 15,
             secteur: "Logistique", joueur: 3,
-            description: "Créer un jumeau numérique de l\'usine",
-            effetVisible: "Emballage",
+            description: "Renforcer les emballages pour réduire la casse",
+            effetVisible: "↓ TR -2%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.02} }
         },
         {
             id: "M3-23", nom: "Transporteur Dédié", emoji: "🚚", cout: 20,
             secteur: "Logistique", joueur: 3,
-            description: "Utiliser la réalité augmentée pour la maintenance",
-            effetVisible: "Dédié",
+            description: "Utiliser un transporteur dédié",
+            effetVisible: "↓ LT -36h, ↓ DC -10%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -36.0, "DC": -0.1} }
         },
         {
             id: "M3-24", nom: "Vendre Chutes", emoji: "🚚", cout: 5,
             secteur: "Logistique", joueur: 3,
-            description: "Blockchain pour la traçabilité des produits",
-            effetVisible: "Chutes",
+            description: "Valoriser et vendre les chutes de production",
+            effetVisible: "↓ TR -1%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TR": -0.01} }
         },
         {
             id: "M3-25", nom: "Stock Tampon Client", emoji: "🚚", cout: 25,
             secteur: "Logistique", joueur: 3,
-            description: "Impression 3D pour les pièces de rechange",
-            effetVisible: "Stock Client",
+            description: "Créer un stock tampon chez les clients",
+            effetVisible: "↓ LT -100h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -100.0} }
         },
         {
             id: "M3-26", nom: "Showroom Rénové", emoji: "💼", cout: 30,
             secteur: "Commercial", joueur: 1,
-            description: "Économie circulaire - recyclage des déchets",
-            effetVisible: "Showroom",
+            description: "Rénover le showroom pour attirer les clients",
+            effetVisible: "↓ LT -48h, ↓ DC -15%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -48.0, "DC": -0.15} }
         },
         {
             id: "M3-27", nom: "QVT Bien-Être Travail", emoji: "💼", cout: 35,
             secteur: "Commercial", joueur: 1,
-            description: "Bilan carbone et compensation CO2",
-            effetVisible: "Absentéisme",
+            description: "Améliorer la Qualité de Vie au Travail",
+            effetVisible: "↓ TC -6%",
             flux: ["MF1", "MF2"],
             impacts: { global: {"TC": -0.06} }
         },
         {
             id: "M3-28", nom: "Devis Express", emoji: "💼", cout: 8,
             secteur: "Commercial", joueur: 1,
-            description: "Certification B Corp pour l\'entreprise",
-            effetVisible: "Devis Express",
+            description: "Proposer des devis express en 24h",
+            effetVisible: "↓ LT -36h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -36.0} }
         },
         {
             id: "M3-29", nom: "Fidélisation Clients", emoji: "💼", cout: 10,
             secteur: "Commercial", joueur: 1,
-            description: "Véhicules électriques pour la livraison",
-            effetVisible: "Fidélisation",
+            description: "Programme de fidélisation clients",
+            effetVisible: "↓ LT -48h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -48.0} }
         },
         {
             id: "M3-30", nom: "Gamme Éco", emoji: "💼", cout: 12,
             secteur: "Commercial", joueur: 1,
-            description: "Emballages éco-responsables",
-            effetVisible: "Gamme Éco",
+            description: "Lancer une gamme éco-responsable",
+            effetVisible: "↓ LT -50h",
             flux: ["MF1", "MF2"],
             impacts: { global: {"LT": -50.0} }
+        },
+        {
+            id: "M3-31", nom: "Salon Professionnel", emoji: "🎪", cout: 45,
+            secteur: "Commercial", joueur: 1,
+            description: "Participer à un salon professionnel pour développer le portefeuille clients",
+            effetVisible: "↑ Force de Vente +150 unités",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {}, special: "forceVente", forceVenteBonus: 150 }
+        },
+        {
+            id: "M3-32", nom: "Levée de Fonds", emoji: "💰", cout: 60,
+            secteur: "Commercial", joueur: 1,
+            description: "Lever des fonds auprès d'investisseurs pour financer la croissance",
+            effetVisible: "↑ BFR +150 000€",
+            flux: ["MF1", "MF2"],
+            impacts: { global: {}, special: "bfrBonus", bfrBonus: 150000 }
         }
     ];
     
@@ -6048,6 +6080,9 @@
     }
     
     function renderDevHiddenIndicators() {
+        const container = document.getElementById('devHiddenIndicators');
+        if (!container) return; // Élément non présent dans le DOM
+        
         const h = gameState.hidden;
         const vagActuel = calculerVAGTotal();
         const cgeActuel = calculerCGETotal();
@@ -6090,7 +6125,7 @@
         const cge = gameState.cge;
         const cgeBase = cge.achats + cge.vente + cge.production + cge.logistique + cge.conception;
         
-        document.getElementById('devHiddenIndicators').innerHTML = `
+        container.innerHTML = `
             <div style="font-weight: 600; color: var(--accent-tertiary); margin-bottom: 8px; grid-column: span 3;">📊 Indicateurs Cachés (s, r, q)</div>
             <div class="dev-indicator">
                 <div class="dev-indicator-label">Vitesse (s)</div>
@@ -6220,8 +6255,11 @@
     }
     
     function renderDevSliders() {
+        const sliderS = document.getElementById('sliderS');
+        if (!sliderS) return;
+        
         const h = gameState.hidden;
-        document.getElementById('sliderS').value = Math.min(95, h.s * 100);
+        sliderS.value = Math.min(95, h.s * 100);
         document.getElementById('valueS').textContent = (h.s * 100).toFixed(0) + '%';
         document.getElementById('sliderR').value = Math.min(95, h.r * 100);
         document.getElementById('valueR').textContent = (h.r * 100).toFixed(0) + '%';
@@ -6230,6 +6268,9 @@
     }
     
     function renderDevBudgets() {
+        const container = document.getElementById('devBudgets');
+        if (!container) return;
+        
         let html = '';
         
         // Points partagés pour Manche 1
@@ -6255,7 +6296,7 @@
                 <input type="number" value="${gameState.budgetCommun}" onchange="setBudgetCommun(this.value)">
             </div>
         `;
-        document.getElementById('devBudgets').innerHTML = html;
+        container.innerHTML = html;
     }
     
     // Setter pour le budget partagé de Manche 1
@@ -6266,6 +6307,9 @@
     }
     
     function renderDevCGE() {
+        const container = document.getElementById('devCGE');
+        if (!container) return;
+        
         const cge = gameState.cge;
         const total = calculerCGETotal();
         const labels = { achats: '📦 Achats', vente: '💼 Vente', production: '🏭 Production', logistique: '🚛 Logistique', conception: '💡 Conception' };
@@ -6307,7 +6351,7 @@
             </div>
         `;
         
-        document.getElementById('devCGE').innerHTML = html;
+        container.innerHTML = html;
     }
     
     function setCGE(key, value) {
@@ -6318,7 +6362,9 @@
     }
     
     function renderDevVSM() {
-        document.getElementById('devVSM').innerHTML = gameState.processus.map(p => `
+        const container = document.getElementById('devVSM');
+        if (!container) return;
+        container.innerHTML = gameState.processus.map(p => `
             <div class="dev-vsm-box">
                 <div class="emoji">${p.emoji}</div>
                 <div class="name">${p.nom}</div>
@@ -6329,6 +6375,9 @@
     }
     
     function renderDevCards() {
+        const container = document.getElementById('devCards');
+        if (!container) return;
+        
         let allCards = [];
         for (let i = 1; i <= 5; i++) {
             gameState.cartesAchetees[i].forEach(cardId => {
@@ -6346,11 +6395,11 @@
         });
         
         if (allCards.length === 0) {
-            document.getElementById('devCards').innerHTML = '<div style="opacity: 0.5; font-size: 0.85em;">Aucune carte jouée</div>';
+            container.innerHTML = '<div style="opacity: 0.5; font-size: 0.85em;">Aucune carte jouée</div>';
             return;
         }
         
-        document.getElementById('devCards').innerHTML = allCards.map(c => `
+        container.innerHTML = allCards.map(c => `
             <div class="dev-card-row">
                 <span>${c.emoji} ${c.nom}</span>
                 <span style="opacity: 0.7;">${typeof c.joueur === 'number' ? 'J' + c.joueur : c.joueur}</span>
@@ -6844,9 +6893,9 @@
                     const mf = gameState.microFlux[mfId];
                     if (!mf) continue;
                     
-                    // CMP - Coût Matière Première en % (affecte DA)
-                    if (carte.impacts.global.CMP !== undefined) {
-                        mf.DA = Math.round(mf.DA * (1 + carte.impacts.global.CMP));
+                    // DA - Coût Matière Première en % (affecte DA)
+                    if (carte.impacts.global.DA !== undefined) {
+                        mf.DA = Math.round(mf.DA * (1 + carte.impacts.global.DA));
                     }
                     // DA en % (ancien format, gardé pour compatibilité)
                     if (carte.impacts.global.DA !== undefined) {
@@ -7008,6 +7057,29 @@
                         mf[key] = Math.max(0, Math.min(0.95, mf[key] + value));
                     }
                 }
+            }
+            
+            // === CARTES SPÉCIALES v0.7.2 ===
+            
+            // Force de Vente Bonus (augmente les ventes max possibles)
+            if (carte.impacts.special === 'forceVente' && carte.impacts.forceVenteBonus) {
+                const bonus = carte.impacts.forceVenteBonus;
+                // Augmenter les ventes max pour les deux produits
+                gameState.microFlux.MF1.venteMaxM2 = (gameState.microFlux.MF1.venteMaxM2 || 800) + Math.round(bonus * 0.6);
+                gameState.microFlux.MF2.venteMaxM2 = (gameState.microFlux.MF2.venteMaxM2 || 400) + Math.round(bonus * 0.4);
+                // Aussi pour les ventes actuelles si en Manche 2+
+                if (gameState.manche >= 2) {
+                    gameState.microFlux.MF1.venteMax = gameState.microFlux.MF1.venteMaxM2;
+                    gameState.microFlux.MF2.venteMax = gameState.microFlux.MF2.venteMaxM2;
+                }
+                showToast(`📢 Force de vente augmentée de ${bonus} unités !`, 'success');
+            }
+            
+            // BFR Bonus (investisseurs apportent du capital)
+            if (carte.impacts.special === 'bfrBonus' && carte.impacts.bfrBonus) {
+                const bonus = carte.impacts.bfrBonus;
+                gameState.contraintes.BFR_max = (gameState.contraintes.BFR_max || 500000) + bonus;
+                showToast(`🏦 Capital augmenté de ${formatNumber(bonus)}€ !`, 'success');
             }
         }
         
@@ -10722,12 +10794,12 @@
                     `;
                 }
                 
-                // Coût MP
-                if (impacts.CMP && Math.abs(impacts.CMP) > 0) {
-                    const cmpDelta = (impacts.CMP * 100).toFixed(0);
+                // DA
+                if (impacts.DA && Math.abs(impacts.DA) > 0) {
+                    const cmpDelta = (impacts.DA * 100).toFixed(0);
                     metricsHTML += `
                         <div class="comparison-metric">
-                            <span class="comparison-metric-label">📦 Coût MP</span>
+                            <span class="comparison-metric-label">📦 DA</span>
                             <span class="comparison-metric-value" style="color: ${parseFloat(cmpDelta) <= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 1.1em;">
                                 ${parseFloat(cmpDelta) > 0 ? '+' : ''}${cmpDelta}%
                             </span>
@@ -10838,8 +10910,7 @@
         if (carte.impacts) {
             if (carte.impacts.global) {
                 vagImpact += (carte.impacts.global.PV || 0) * 100;
-                vagImpact -= (carte.impacts.global.DA || 0) * 100;
-                vagImpact -= (carte.impacts.global.CMP || 0) * 100;  // CMP aussi affecte DA
+                vagImpact -= (carte.impacts.global.DA || 0) * 100;  // DA affecte la marge
                 qualityImpact -= (carte.impacts.global.Tr || 0) * 100;
                 qualityImpact -= (carte.impacts.global.TR || 0) * 100;  // TR v0.7.1
                 cgeImpact += (carte.impacts.global.CGE || 0);
@@ -10895,9 +10966,9 @@
             if (!mfSimule[mfId]) continue;
             const mf = mfSimule[mfId];
             
-            // CMP: affecte DA (Dépenses d'Achat)
-            if (impacts.CMP) {
-                mf.DA = mf.DA * (1 + impacts.CMP);
+            // DA: affecte DA (Dépenses d'Achat)
+            if (impacts.DA) {
+                mf.DA = mf.DA * (1 + impacts.DA);
             }
             
             // LT: ajout en heures, converti en jours
@@ -11367,7 +11438,7 @@
         // En Manche 1: afficher UNIQUEMENT les indicateurs VISIBLES qui changent
         if (manche === 1) {
             // Extraire les impacts de la carte
-            const cmpImpact = (carte.impacts?.global?.CMP || 0) * 100;  // Coût MP en %
+            const cmpImpact = (carte.impacts?.global?.DA || 0) * 100;  // DA en %
             const ltImpact = (carte.impacts?.global?.LT || 0) / 24;     // Lead Time en jours
             const trImpact = (carte.impacts?.global?.TR || 0) * 100;    // Taux Rebut en %
             const tcImpact = (carte.impacts?.global?.TC || 0) * 100;    // Temps Cycle en %
@@ -11392,13 +11463,13 @@
             // Construire les lignes dynamiquement - SEULEMENT si l'impact existe
             let rows = '';
             
-            // Coût MP (CMP)
+            // Dépenses d'Achat (DA)
             if (Math.abs(cmpImpact) > 0.01) {
                 const direction = cmpImpact < 0 ? '↓' : '↑';
                 const color = cmpImpact < 0 ? 'positive' : 'negative';
                 rows += `
                     <div class="simulation-metric-row">
-                        <span>📦 Coût MP</span>
+                        <span>📦 DA</span>
                         <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">Base</span>
                         <span>→</span>
                         <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${direction} ${Math.abs(cmpImpact).toFixed(0)}%</span>
