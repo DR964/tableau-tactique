@@ -3780,8 +3780,11 @@
             Tr: 0.15,           // Taux de rebus global (15%)
             delaiClient: 100,   // Délai client (jours)
             delaiFournisseur: 90, // Délai fournisseur (jours)
-            venteMin: 100,
-            venteMax: 800,
+            // Contraintes de vente (Manche 2-3 uniquement)
+            venteMin: 0,        // Manche 1: libre | Manche 2-3: 50
+            venteMax: 9999,     // Manche 1: libre | Manche 2-3: calculé dynamiquement
+            venteMinM2: 50,     // Minimum réel pour Manche 2-3
+            venteMaxM2: 800,    // Maximum demande marché pour Manche 2-3
             QV: 200,            // Quantité vendue initiale
             // Indicateurs SQR par micro-flux (Manche 3)
             s: 0.114,           // Vitesse/réactivité (LTI/LT)
@@ -3802,14 +3805,75 @@
             Tr: 0.10,           // Taux de rebus global (10%)
             delaiClient: 100,   // Délai client (jours)
             delaiFournisseur: 90, // Délai fournisseur (jours)
-            venteMin: 100,
-            venteMax: 400,
+            // Contraintes de vente (Manche 2-3 uniquement)
+            venteMin: 0,        // Manche 1: libre | Manche 2-3: 50
+            venteMax: 9999,     // Manche 1: libre | Manche 2-3: calculé dynamiquement
+            venteMinM2: 50,     // Minimum réel pour Manche 2-3
+            venteMaxM2: 400,    // Maximum demande marché pour Manche 2-3
             QV: 200,            // Quantité vendue initiale
             s: 0.130,           // Plus lent (produit complexe)
             q: 0.85,
             r: 0.30             // RSE
         }
     };
+    
+    // ==================== CONTRAINTES DE VENTE PAR MANCHE ====================
+    
+    function getContraintesVente(manche) {
+        if (manche === 1) {
+            // Manche 1: Contraintes PHYSIQUES actives (BFR, machines) mais PAS de limite commerciale
+            return {
+                actives: false,              // Pas de force de vente / min-max commerciaux
+                contraintesBFR: true,        // BFR actif
+                contraintesMachines: true,   // Capacités machines actives (goulet)
+                forceVenteMax: 99999,
+                getMin: (mf) => 0,
+                getMax: (mf) => 9999,
+                message: "📊 Contraintes physiques actives (BFR, machines) - Mix libre"
+            };
+        } else {
+            // Manche 2-3: TOUTES les contraintes activées - vision système
+            return {
+                actives: true,
+                contraintesBFR: true,
+                contraintesMachines: true,
+                forceVenteMax: 600, // Force de vente limitée
+                getMin: (mf) => mf.venteMinM2 || 50,
+                getMax: (mf) => mf.venteMaxM2 || 400,
+                message: "⚠️ Toutes les contraintes actives (BFR, machines, force de vente)"
+            };
+        }
+    }
+    
+    // Fonction helper pour obtenir les limites réelles selon la manche
+    function getVenteMin(mfId) {
+        const mf = gameState.microFlux[mfId];
+        const contraintes = getContraintesVente(gameState.manche);
+        return contraintes.getMin(mf);
+    }
+    
+    function getVenteMax(mfId) {
+        const mf = gameState.microFlux[mfId];
+        const contraintes = getContraintesVente(gameState.manche);
+        return contraintes.getMax(mf);
+    }
+    
+    function getForceVenteMax() {
+        const contraintes = getContraintesVente(gameState.manche);
+        return contraintes.forceVenteMax;
+    }
+    
+    function isContraintesVenteActives() {
+        return getContraintesVente(gameState.manche).actives;
+    }
+    
+    function isContraintesBFRActives() {
+        return getContraintesVente(gameState.manche).contraintesBFR;
+    }
+    
+    function isContraintesMachinesActives() {
+        return getContraintesVente(gameState.manche).contraintesMachines;
+    }
     
     // ==================== COÛTS DE MAINTENANCE PAR MACHINE (€/h) ====================
     
@@ -3837,7 +3901,7 @@
     
     // ==================== FORCE DE VENTE MAX ====================
     
-    const FORCE_VENTE_MAX = 1500;  // Max = MF1 max (800) + MF2 max (400) + marge
+    // FORCE_VENTE_MAX supprimé - utiliser getForceVenteMax() selon la manche
     
     // ==================== MACHINES (5 machines - VSM) ====================
     // Utilise CAPACITES_MACHINES pour éviter les doublons
@@ -3855,7 +3919,7 @@
     const CONTRAINTES = {
         BFR_max: 1100000,           // BFR maximum en € (v0.7.1)
         BFR_actuel: 0,
-        force_vente_max: FORCE_VENTE_MAX,
+        // force_vente_max est maintenant dynamique selon la manche (getForceVenteMax())
         force_vente_utilisee: 0,
         taux_argent: TAG             // Taux d'intérêt pour le BFR
     };
@@ -5227,23 +5291,23 @@
             </div>
             
             <div style="margin-top: 16px; padding: 12px; background: var(--bg-elevated); border-radius: 8px; border: 1px solid var(--border-default);">
-                <h5 style="margin: 0 0 8px 0; font-size: 0.9em; color: var(--text-secondary);">📊 Indicateurs Moyens</h5>
+                <h5 style="margin: 0 0 8px 0; font-size: 0.9em; color: var(--text-secondary);">📊 Indicateurs</h5>
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; font-size: 0.8em;">
                     <div><span style="color: var(--text-muted);">DA moyen:</span> <strong>€${formatNumber(Math.round(daMoyen))}</strong></div>
                     <div><span style="color: var(--text-muted);">PV moyen:</span> <strong>€${formatNumber(Math.round(pvMoyen))}</strong></div>
                     <div><span style="color: var(--text-muted);">CR moyen:</span> <strong>€${formatNumber(Math.round(crMoyen))}</strong></div>
-                    <div><span style="color: var(--text-muted);">LT moyen:</span> <strong>${ltMoyen.toFixed(0)}j</strong></div>
+                    <div><span style="color: var(--text-muted);">⬜ LT Standard:</span> <strong>${gameState.microFlux.MF1.LT.toFixed(0)}j</strong></div>
+                    <div><span style="color: var(--text-muted);">💎 LT Premium:</span> <strong>${gameState.microFlux.MF2.LT.toFixed(0)}j</strong></div>
                     <div><span style="color: var(--text-muted);">TR moyen:</span> <strong>${trMoyen.toFixed(1)}%</strong></div>
-                    <div><span style="color: var(--text-muted);">Transport/u:</span> <strong>€${coutTransportMoyen.toFixed(0)}</strong></div>
                 </div>
             </div>
             
             <div style="margin-top: 16px; padding: 12px; background: var(--bg-elevated); border-radius: 8px; border: 1px solid var(--border-default);">
-                <h5 style="margin: 0 0 8px 0; font-size: 0.9em; color: var(--text-secondary);">🏭 Contraintes</h5>
+                <h5 style="margin: 0 0 8px 0; font-size: 0.9em; color: var(--text-secondary);">🏭 Contraintes ${gameState.manche === 1 ? '(BFR + Machines)' : '(Toutes actives)'}</h5>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 0.8em;">
                     <div><span style="color: var(--text-muted);">QV Total:</span> <strong>${formatNumber(qvTotal)} u</strong></div>
-                    <div><span style="color: var(--text-muted);">Force Vente:</span> <strong>${formatNumber(qvTotal)}/${formatNumber(gameState.contraintes.force_vente_max)}</strong></div>
-                    <div><span style="color: var(--text-muted);">BFR utilisé:</span> <strong>€${formatNumber(Math.round(bfrTotal))}</strong></div>
+                    ${isContraintesVenteActives() ? `<div><span style="color: var(--text-muted);">Force Vente:</span> <strong>${formatNumber(qvTotal)}/${formatNumber(getForceVenteMax())}</strong></div>` : `<div><span style="color: var(--text-muted);">Force Vente:</span> <span style="color: var(--success);">∞ (libre)</span></div>`}
+                    <div><span style="color: var(--text-muted);">BFR utilisé:</span> <strong style="color: ${bfrTotal > gameState.contraintes.BFR_max * 0.9 ? 'var(--warning)' : 'var(--text-primary)'};">€${formatNumber(Math.round(bfrTotal))}</strong></div>
                     <div><span style="color: var(--text-muted);">BFR max:</span> <strong>€${formatNumber(gameState.contraintes.BFR_max)}</strong></div>
                     <div style="grid-column: span 2; margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--border-subtle);">
                         <span style="color: ${gouletInfo.isGoulet ? 'var(--danger)' : 'var(--text-muted)'};">
@@ -5514,7 +5578,9 @@
             forceVenteTotal += mf.QV;
         }
         const bfrPct = (bfrTotal / gameState.contraintes.BFR_max) * 100;
-        const fvPct = (forceVenteTotal / gameState.contraintes.force_vente_max) * 100;
+        const contraintesActives = isContraintesVenteActives();
+        const forceVenteMax = getForceVenteMax();
+        const fvPct = contraintesActives ? (forceVenteTotal / forceVenteMax) * 100 : 0;
         
         // En manche 1, seul le joueur 1 peut modifier le mix des ventes
         const canEdit = (manche >= 2) || (manche === 1 && joueur === 1) || gameState.phaseDebriefing;
@@ -5561,11 +5627,18 @@
                         </div>
                     </div>
                     <div>
-                        <div style="color: var(--text-muted); margin-bottom: 4px;"><span class="tooltip-term" data-tooltip="Force de Vente = Σ QV. Capacité commerciale maximale de l'entreprise (nombre total d'unités vendables).">📦 Force de Vente</span></div>
-                        <div style="color: ${fvColor}; font-weight: 600;">${formatNumber(forceVenteTotal)} / ${formatNumber(gameState.contraintes.force_vente_max)} u</div>
-                        <div style="height: 4px; background: var(--bg-card); border-radius: 2px; margin-top: 4px;">
-                            <div style="height: 100%; width: ${Math.min(100, fvPct)}%; background: ${fvColor}; border-radius: 2px;"></div>
-                        </div>
+                        <div style="color: var(--text-muted); margin-bottom: 4px;"><span class="tooltip-term" data-tooltip="Force de Vente = Σ QV. ${contraintesActives ? 'Capacité commerciale maximale de l\'entreprise.' : 'Libre en Manche 1 - contrainte activée en Manche 2-3.'}">📦 Force de Vente</span></div>
+                        ${contraintesActives ? `
+                            <div style="color: ${fvColor}; font-weight: 600;">${formatNumber(forceVenteTotal)} / ${formatNumber(forceVenteMax)} u</div>
+                            <div style="height: 4px; background: var(--bg-card); border-radius: 2px; margin-top: 4px;">
+                                <div style="height: 100%; width: ${Math.min(100, fvPct)}%; background: ${fvColor}; border-radius: 2px;"></div>
+                            </div>
+                        ` : `
+                            <div style="color: var(--success); font-weight: 600;">${formatNumber(forceVenteTotal)} u <span style="font-weight: 400; opacity: 0.7;">(libre)</span></div>
+                            <div style="height: 4px; background: var(--bg-card); border-radius: 2px; margin-top: 4px;">
+                                <div style="height: 100%; width: 100%; background: var(--success); opacity: 0.3; border-radius: 2px;"></div>
+                            </div>
+                        `}
                     </div>
                     <div>
                         <div style="color: var(--text-muted); margin-bottom: 4px;"><span class="tooltip-term" data-tooltip="Machine la plus chargée. GOULET uniquement si ≥100% (contrainte bloquante). Charge = Σ QV × temps_machine.">${gouletInfo.isGoulet ? '🔴 GOULET' : '⚙️ Machine max'} (${gameState.machines[gouletInfo.goulet]?.nom || 'N/A'})</span></div>
@@ -5580,8 +5653,13 @@
         
         for (const [mfId, mf] of Object.entries(gameState.microFlux)) {
             const limiteGoulet = calculerCapaciteVenteMax(mfId);
-            const demandeMax = mf.venteMax; // Demande marché fixe
-            const isGouletLimitant = limiteGoulet < demandeMax;
+            // Contraintes dynamiques selon la manche
+            // M1: contraintes physiques (machines, BFR) actives, mais pas min/max commerciaux
+            // M2-3: toutes les contraintes actives
+            const venteMin = contraintesActives ? (mf.venteMinM2 || 50) : 0;
+            const demandeMax = contraintesActives ? (mf.venteMaxM2 || 400) : 9999;
+            // Le goulet est TOUJOURS limitant (contrainte physique) - même en M1
+            const isGouletLimitant = limiteGoulet < (contraintesActives ? demandeMax : mf.QV + 500);
             
             // Manche 1 : afficher marge brute (PV - DA), Manche 2+ : afficher VAG
             let valuePerUnit, totalValue, labelPerUnit;
@@ -5625,12 +5703,14 @@
                     'Marge Brute Totale = (PV - DA) × QV. Indicateur simplifié.' : 
                     'VAG Totale = VAG × QV. Contribution réelle de ce produit à la richesse créée.';
                 
-                // Limite réelle = min entre demande et goulet (INFRANCHISSABLE)
-                const limiteReelle = Math.min(demandeMax, limiteGoulet);
+                // Limite réelle = limiteGoulet (contrainte physique TOUJOURS active)
+                // En M1: pas de limite commerciale, mais contrainte machine/BFR
+                // En M2-3: min(demande, goulet)
+                const limiteReelle = contraintesActives ? Math.min(demandeMax, limiteGoulet) : limiteGoulet;
                 
                 // Calcul des pourcentages pour la barre visuelle
-                const pctQV = ((mf.QV - mf.venteMin) / (demandeMax - mf.venteMin)) * 100;
-                const pctGoulet = isGouletLimitant ? ((limiteGoulet - mf.venteMin) / (demandeMax - mf.venteMin)) * 100 : 100;
+                const pctQV = contraintesActives ? ((mf.QV - venteMin) / (demandeMax - venteMin)) * 100 : (mf.QV / limiteGoulet) * 100;
+                const pctGoulet = isGouletLimitant ? (contraintesActives ? ((limiteGoulet - venteMin) / (demandeMax - venteMin)) * 100 : 100) : 100;
                 const isAtLimit = mf.QV >= limiteReelle * 0.95;
                 
                 html += `
@@ -5642,15 +5722,16 @@
                         <div class="sales-card-controls">
                             <button onclick="ajusterVentes('${mfId}', -100)">−100</button>
                             <button onclick="ajusterVentes('${mfId}', -10)">−10</button>
-                            <input type="number" value="${mf.QV}" min="${mf.venteMin}" max="${limiteReelle}" step="100"
+                            <input type="number" value="${mf.QV}" min="${venteMin}" max="${limiteReelle}" step="100"
                                    onchange="setVentes('${mfId}', this.value)"
                                    style="${isGouletLimitant && isAtLimit ? 'border-color: var(--warning); background: rgba(245, 158, 11, 0.1);' : ''}">
                             <button onclick="ajusterVentes('${mfId}', 10)">+10</button>
                             <button onclick="ajusterVentes('${mfId}', 100)">+100</button>
                         </div>
+                        ${contraintesActives ? `
                         <div class="sales-minmax-bar">
                             <div class="sales-minmax-labels">
-                                <span class="tooltip-term" data-tooltip="Demande minimum du marché">Min: ${mf.venteMin}</span>
+                                <span class="tooltip-term" data-tooltip="Demande minimum du marché">Min: ${venteMin}</span>
                                 <span style="color: var(--accent-primary); font-weight: 600;">QV: ${mf.QV}</span>
                                 <span class="tooltip-term" data-tooltip="Demande maximum du marché (objectif commercial)${isGouletLimitant ? ' - ⚠️ Limité par goulet à ' + limiteGoulet : ''}">Max: ${demandeMax}</span>
                             </div>
@@ -5665,6 +5746,15 @@
                                 ` : ''}
                             </div>
                         </div>
+                        ` : `
+                        <div style="font-size: 0.75em; margin-top: 6px; padding: 6px 8px; background: var(--bg-card); border-radius: 6px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: var(--text-muted);">📊 Limite capacité:</span>
+                                <span style="color: ${isAtLimit ? 'var(--warning)' : 'var(--success)'}; font-weight: 600;">${formatNumber(limiteGoulet)} unités max</span>
+                            </div>
+                            ${isAtLimit ? `<div style="color: var(--warning); margin-top: 4px; font-size: 0.9em;">⚠️ Proche de la limite de production !</div>` : ''}
+                        </div>
+                        `}
                         ${isGouletLimitant ? `
                         <div class="sales-goulet-info" style="font-size: 0.75em; color: var(--danger); margin-top: 6px; padding: 6px 8px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; display: flex; align-items: center; gap: 6px;">
                             <span>🚫</span>
@@ -5756,16 +5846,22 @@
     
     function ajusterVentes(mfId, delta) {
         const mf = gameState.microFlux[mfId];
-        const demandeMax = mf.venteMax; // Demande marché fixe (affichage)
-        const limiteGoulet = calculerCapaciteVenteMax(mfId); // Limite de production (BLOQUANTE)
+        const contraintesActives = isContraintesVenteActives();
         
-        // La limite du goulet est INFRANCHISSABLE
-        const limiteReelle = Math.min(demandeMax, limiteGoulet);
-        const nouvelleValeur = Math.max(mf.venteMin, Math.min(limiteReelle, mf.QV + delta));
+        // Contraintes dynamiques selon la manche
+        const venteMin = contraintesActives ? (mf.venteMinM2 || 50) : 0;
+        const demandeMax = contraintesActives ? (mf.venteMaxM2 || 400) : 9999;
+        const limiteGoulet = calculerCapaciteVenteMax(mfId);
         
-        // Si on essaie de dépasser et qu'on est bloqué par le goulet
-        if (mf.QV + delta > limiteGoulet && limiteGoulet < demandeMax) {
-            showToast(`🚫 Bloqué par le goulet ! Max productible: ${limiteGoulet} unités`, 'warning');
+        // Le goulet est TOUJOURS une contrainte (même en M1)
+        // En M1: pas de limite commerciale mais goulet actif
+        // En M2-3: limite = min(demande, goulet)
+        const limiteReelle = contraintesActives ? Math.min(demandeMax, limiteGoulet) : limiteGoulet;
+        const nouvelleValeur = Math.max(venteMin, Math.min(limiteReelle, mf.QV + delta));
+        
+        // Si on essaie de dépasser le goulet
+        if (mf.QV + delta > limiteGoulet) {
+            showToast(`🚫 Bloqué par la capacité ! Max productible: ${limiteGoulet} unités`, 'warning');
         }
         
         mf.QV = nouvelleValeur;
@@ -5776,17 +5872,21 @@
     
     function setVentes(mfId, valeur) {
         const mf = gameState.microFlux[mfId];
-        const demandeMax = mf.venteMax; // Demande marché fixe (affichage)
-        const limiteGoulet = calculerCapaciteVenteMax(mfId); // Limite de production (BLOQUANTE)
+        const contraintesActives = isContraintesVenteActives();
         
-        // La limite du goulet est INFRANCHISSABLE
-        const limiteReelle = Math.min(demandeMax, limiteGoulet);
+        // Contraintes dynamiques selon la manche
+        const venteMin = contraintesActives ? (mf.venteMinM2 || 50) : 0;
+        const demandeMax = contraintesActives ? (mf.venteMaxM2 || 400) : 9999;
+        const limiteGoulet = calculerCapaciteVenteMax(mfId);
+        
+        // Le goulet est TOUJOURS une contrainte (même en M1)
+        const limiteReelle = contraintesActives ? Math.min(demandeMax, limiteGoulet) : limiteGoulet;
         const valeurDemandee = parseInt(valeur) || 0;
-        const nouvelleValeur = Math.max(mf.venteMin, Math.min(limiteReelle, valeurDemandee));
+        const nouvelleValeur = Math.max(venteMin, Math.min(limiteReelle, valeurDemandee));
         
-        // Si on essaie de dépasser et qu'on est bloqué par le goulet
-        if (valeurDemandee > limiteGoulet && limiteGoulet < demandeMax) {
-            showToast(`🚫 Bloqué par le goulet ! Max productible: ${limiteGoulet} unités`, 'warning');
+        // Si on essaie de dépasser le goulet
+        if (valeurDemandee > limiteGoulet) {
+            showToast(`🚫 Bloqué par la capacité ! Max productible: ${limiteGoulet} unités`, 'warning');
         }
         
         mf.QV = nouvelleValeur;
@@ -5953,8 +6053,12 @@
                 <div class="dev-indicator-value" style="color: ${trMoyen < 0.05 ? 'var(--success)' : 'var(--danger)'};">${(trMoyen*100).toFixed(1)}%</div>
             </div>
             <div class="dev-indicator">
-                <div class="dev-indicator-label">LT Moyen</div>
-                <div class="dev-indicator-value" style="color: ${ltMoyen < 100 ? 'var(--success)' : 'var(--warning)'};">${ltMoyen.toFixed(0)}j</div>
+                <div class="dev-indicator-label">⬜ LT Standard</div>
+                <div class="dev-indicator-value" style="color: ${gameState.microFlux.MF1.LT < 100 ? 'var(--success)' : 'var(--warning)'};">${gameState.microFlux.MF1.LT.toFixed(0)}j</div>
+            </div>
+            <div class="dev-indicator">
+                <div class="dev-indicator-label">💎 LT Premium</div>
+                <div class="dev-indicator-value" style="color: ${gameState.microFlux.MF2.LT < 100 ? 'var(--success)' : 'var(--warning)'};">${gameState.microFlux.MF2.LT.toFixed(0)}j</div>
             </div>
             
             <div class="dev-indicator" style="grid-column: span 3; background: rgba(124, 58, 237, 0.3); margin-top: 12px;">
@@ -6728,10 +6832,8 @@
                 gameState.contraintes.BFR_max += carte.impacts.bfr_max;
             }
             
-            // Effets sur force de vente
-            if (carte.impacts.force_vente !== undefined) {
-                gameState.contraintes.force_vente_max += carte.impacts.force_vente;
-            }
+            // Note: force_vente_max est maintenant dynamique selon la manche (getForceVenteMax())
+            // Les anciennes cartes avec impacts.force_vente ne sont plus utilisées
             
             // Effets sur machine (si cible sélectionnée)
             if (carte.impacts.machine && cibleId && gameState.machines[cibleId]) {
@@ -6759,16 +6861,18 @@
                         mf.tM2 = Math.max(0.05, mf.tM2 * (1 + value));
                     } else if (key === 'tM3') {
                         mf.tM3 = Math.max(0.05, mf.tM3 * (1 + value));
+                    } else if (key === 'tM4') {
+                        mf.tM4 = Math.max(0.05, mf.tM4 * (1 + value));
+                    } else if (key === 'tM5') {
+                        mf.tM5 = Math.max(0.05, mf.tM5 * (1 + value));
                     } else if (key === 'tempsReduction') {
-                        // Réduction de tous les temps machines
+                        // Réduction de tous les temps machines (v0.7.1)
                         const factor = 1 - value;
-                        mf.tReception = Math.max(0.1, mf.tReception * factor);
-                        mf.tDecoupeInit = Math.max(0.1, mf.tDecoupeInit * factor);
-                        mf.tPolissage = Math.max(0.1, mf.tPolissage * factor);
-                        mf.tDecoupeFinal = Math.max(0.1, mf.tDecoupeFinal * factor);
-                        mf.tFinition = Math.max(0.1, mf.tFinition * factor);
-                        mf.tInspection = Math.max(0.1, mf.tInspection * factor);
-                        mf.tExpedition = Math.max(0.1, mf.tExpedition * factor);
+                        mf.tM1 = Math.max(0.1, mf.tM1 * factor);
+                        mf.tM2 = Math.max(0.1, mf.tM2 * factor);
+                        mf.tM3 = Math.max(0.1, mf.tM3 * factor);
+                        mf.tM4 = Math.max(0.1, mf.tM4 * factor);
+                        mf.tM5 = Math.max(0.1, mf.tM5 * factor);
                     }
                 }
             }
@@ -7070,17 +7174,22 @@
             minCapacite = Math.min(minCapacite, unitesBFR);
         }
         
-        // 3. Contrainte force de vente
-        let qvAutres = 0;
-        for (const otherId in gameState.microFlux) {
-            if (otherId !== mfId) {
-                qvAutres += gameState.microFlux[otherId].QV;
+        // 3. Contrainte force de vente (seulement en Manche 2-3)
+        const contraintesActives = isContraintesVenteActives();
+        if (contraintesActives) {
+            let qvAutres = 0;
+            for (const otherId in gameState.microFlux) {
+                if (otherId !== mfId) {
+                    qvAutres += gameState.microFlux[otherId].QV;
+                }
             }
+            const forceVenteDisponible = getForceVenteMax() - qvAutres;
+            minCapacite = Math.min(minCapacite, forceVenteDisponible);
         }
-        const forceVenteDisponible = gameState.contraintes.force_vente_max - qvAutres;
-        minCapacite = Math.min(minCapacite, forceVenteDisponible);
         
-        return Math.max(0, Math.min(minCapacite, mf.venteMax));
+        // En Manche 1: pas de limite max, en M2-3: limite selon demande marché
+        const venteMax = contraintesActives ? (mf.venteMaxM2 || 400) : 9999;
+        return Math.max(0, Math.min(minCapacite, venteMax));
     }
     
     // Identifier la machine la plus chargée - fonction unifiée
@@ -8539,7 +8648,9 @@
         
         // Deuxième tableau: Ventes et Charges
         // Calcul des pourcentages de contraintes
-        const pctForceVente = (forceVente / FORCE_VENTE_MAX) * 100;
+        const forceVenteMax = getForceVenteMax();
+        const contraintesActives = isContraintesVenteActives();
+        const pctForceVente = contraintesActives ? (forceVente / forceVenteMax) * 100 : 0;
         const pctBFR = (bfrTotalSum / CONTRAINTES.BFR_max) * 100;
         
         // Fonction helper pour déterminer la classe de contrainte
@@ -8671,11 +8782,13 @@
                         <tr>
                             <td><strong>Force Vente</strong></td>
                             <td></td>
-                            <td class="${getConstraintClass(pctForceVente)}">
-                                <strong>${forceVente} / ${FORCE_VENTE_MAX}</strong>
+                            <td class="${contraintesActives ? getConstraintClass(pctForceVente) : ''}">
+                                ${contraintesActives ? `
+                                <strong>${forceVente} / ${forceVenteMax}</strong>
                                 <div class="constraint-bar-container">
                                     <div class="constraint-bar-fill ${getBarClass(pctForceVente)}" style="width: ${Math.min(pctForceVente, 100)}%"></div>
                                 </div>
+                                ` : `<strong>${forceVente}</strong> <span style="opacity:0.6;">(libre)</span>`}
                             </td>
                             <td></td>
                             <td><strong>${MAINTENANCE_MACHINES.M1} €/h</strong></td>
@@ -9654,15 +9767,13 @@
             const mf = gameState.microFlux[mfId];
             if (!mf) return '';
             
+            // 5 machines du modèle v0.7.1
             const proc = [
-                { nom: 'Réception', emoji: '📦', tc: mf.tReception || 2, wip: 5 },
-                { nom: 'Découpe Init.', emoji: '🔪', tc: mf.tDecoupeInit || 3, wip: 3 },
-                { nom: 'Polissage', emoji: '✨', tc: mf.tPolissage || 4, wip: 4 },
-                { nom: 'Démarcation', emoji: '📐', tc: mf.tM3 || 2, wip: 2 },
-                { nom: 'Coupe Finale', emoji: '⚙️', tc: mf.tDecoupeFinal || 5, wip: 3 },
-                { nom: 'Finition', emoji: '💎', tc: mf.tFinition || 3, wip: 2 },
-                { nom: 'Inspection', emoji: '🔍', tc: mf.tInspection || 1, wip: 1 },
-                { nom: 'Expédition', emoji: '🚚', tc: mf.tExpedition || 2, wip: 2 }
+                { nom: 'M1 Découpe Init.', emoji: '🔪', tc: mf.tM1 || 1, wip: 3, machine: 'M1' },
+                { nom: 'M2 Polissage', emoji: '✨', tc: mf.tM2 || 2, wip: 4, machine: 'M2' },
+                { nom: 'M3 Démarcation', emoji: '📐', tc: mf.tM3 || 0.5, wip: 2, machine: 'M3' },
+                { nom: 'M4 Coupe Finale', emoji: '⚙️', tc: mf.tM4 || 1, wip: 3, machine: 'M4', isGoulet: true },
+                { nom: 'M5 Finition', emoji: '💎', tc: mf.tM5 || 1.5, wip: 2, machine: 'M5' }
             ];
             
             let totalVA = 0, totalNVA = 0, totalWIP = 0;
@@ -10522,7 +10633,7 @@
     // Analyser les impacts d'une carte
     function analyzeCardImpacts(carte) {
         let vagImpact = 0;
-        let ltImpact = carte.LT_effect || 0;
+        let ltImpact = carte.LT_effect || 0;  // Ancien format en jours
         let qualityImpact = 0;
         let cgeImpact = 0;
         
@@ -10530,9 +10641,13 @@
             if (carte.impacts.global) {
                 vagImpact += (carte.impacts.global.PV || 0) * 100;
                 vagImpact -= (carte.impacts.global.DA || 0) * 100;
+                vagImpact -= (carte.impacts.global.CMP || 0) * 100;  // CMP aussi affecte DA
                 qualityImpact -= (carte.impacts.global.Tr || 0) * 100;
+                qualityImpact -= (carte.impacts.global.TR || 0) * 100;  // TR v0.7.1
                 cgeImpact += (carte.impacts.global.CGE || 0);
-                ltImpact += carte.impacts.global.LT || 0;
+                // LT en heures dans les cartes v0.7.1, convertir en jours
+                const ltHeures = carte.impacts.global.LT || 0;
+                ltImpact += ltHeures / 24;  // Conversion heures -> jours
             }
             if (carte.impacts.hidden || carte.impacts.cache) {
                 const h = carte.impacts.hidden || carte.impacts.cache;
@@ -10996,7 +11111,7 @@
                 // TRG après dépend de la capacité ajoutée
                 const trgAfter = capImpact > 0 ? trgBefore * (100 / (100 + capImpact)) : trgBefore;
                 
-                // Lead Time par produit
+                // Lead Time par produit (en jours)
                 const ltP1 = gameState.microFlux['MF1'] ? gameState.microFlux['MF1'].LT : 0;
                 const ltP2 = gameState.microFlux['MF2'] ? gameState.microFlux['MF2'].LT : 0;
                 const ltImpactVal = impacts.ltImpact || 0;
@@ -11012,21 +11127,21 @@
                         </span>
                     </div>
                     <div class="simulation-metric-row">
-                        <span>⬜ Lead Time P1 (Standard)</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltP1.toFixed(0)}h</span>
+                        <span>⬜ LT Standard</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltP1.toFixed(0)}j</span>
                         <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(ltP1 + ltImpactVal).toFixed(0)}h</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(ltP1 + ltImpactVal).toFixed(0)}j</span>
                         <span class="simulation-change ${ltImpactVal <= 0 ? 'positive' : 'negative'}">
-                            ${ltImpactVal > 0 ? '+' : ''}${ltImpactVal.toFixed(0)}h
+                            ${ltImpactVal > 0 ? '+' : ''}${ltImpactVal.toFixed(0)}j
                         </span>
                     </div>
                     <div class="simulation-metric-row">
-                        <span>💎 Lead Time P2 (Premium)</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltP2.toFixed(0)}h</span>
+                        <span>💎 LT Premium</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltP2.toFixed(0)}j</span>
                         <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(ltP2 + ltImpactVal).toFixed(0)}h</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(ltP2 + ltImpactVal).toFixed(0)}j</span>
                         <span class="simulation-change ${ltImpactVal <= 0 ? 'positive' : 'negative'}">
-                            ${ltImpactVal > 0 ? '+' : ''}${ltImpactVal.toFixed(0)}h
+                            ${ltImpactVal > 0 ? '+' : ''}${ltImpactVal.toFixed(0)}j
                         </span>
                     </div>
                 `;
@@ -11068,28 +11183,46 @@
                         </span>
                     </div>
                     <div class="simulation-metric-row">
-                        <span>⏱️ Lead Time Moy.</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltBefore.toFixed(0)}j</span>
+                        <span>⬜ LT Standard</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${gameState.microFlux.MF1.LT.toFixed(0)}j</span>
                         <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltAfter.toFixed(0)}j</span>
-                        <span class="simulation-change ${ltAfter <= ltBefore ? 'positive' : 'negative'}">
-                            ${ltAfter > ltBefore ? '+' : ''}${(ltAfter - ltBefore).toFixed(0)}j
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(gameState.microFlux.MF1.LT + impacts.ltImpact).toFixed(0)}j</span>
+                        <span class="simulation-change ${impacts.ltImpact <= 0 ? 'positive' : 'negative'}">
+                            ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact.toFixed(0)}j
+                        </span>
+                    </div>
+                    <div class="simulation-metric-row">
+                        <span>💎 LT Premium</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${gameState.microFlux.MF2.LT.toFixed(0)}j</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(gameState.microFlux.MF2.LT + impacts.ltImpact).toFixed(0)}j</span>
+                        <span class="simulation-change ${impacts.ltImpact <= 0 ? 'positive' : 'negative'}">
+                            ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact.toFixed(0)}j
                         </span>
                     </div>
                 `;
             }
             
             // Ajouter métriques communes pour tous (sauf J3 qui l'a déjà, J4 qui a LT par produit)
-            // J2 (Approvisionnement) ne voit pas le Lead Time en Manche 1
+            // Affichage des Lead Times par produit
             if (joueur !== 2 && joueur !== 3 && joueur !== 4) {
                 metricsHTML += `
                     <div class="simulation-metric-row">
-                        <span>⏱️ Lead Time</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltBefore.toFixed(0)}j</span>
+                        <span>⬜ LT Standard</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${gameState.microFlux.MF1.LT.toFixed(0)}j</span>
                         <span>→</span>
-                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltAfter.toFixed(0)}j</span>
-                        <span class="simulation-change ${ltAfter <= ltBefore ? 'positive' : 'negative'}">
-                            ${ltAfter > ltBefore ? '+' : ''}${(ltAfter - ltBefore).toFixed(0)}j
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(gameState.microFlux.MF1.LT + impacts.ltImpact).toFixed(0)}j</span>
+                        <span class="simulation-change ${impacts.ltImpact <= 0 ? 'positive' : 'negative'}">
+                            ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact.toFixed(0)}j
+                        </span>
+                    </div>
+                    <div class="simulation-metric-row">
+                        <span>💎 LT Premium</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${gameState.microFlux.MF2.LT.toFixed(0)}j</span>
+                        <span>→</span>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${(gameState.microFlux.MF2.LT + impacts.ltImpact).toFixed(0)}j</span>
+                        <span class="simulation-change ${impacts.ltImpact <= 0 ? 'positive' : 'negative'}">
+                            ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact.toFixed(0)}j
                         </span>
                     </div>
                 `;
@@ -11130,12 +11263,16 @@
             const vagBefore = calculerVAGTotal();
             const cgeBefore = calculerCGETotal();
             const rbeBefore = calculerRBE();
-            const ltBefore = calculerLTMoyen();
             const bfrBefore = calculerBFRTotal();
+            
+            // LT par produit
+            const ltMF1Before = gameState.microFlux.MF1.LT;
+            const ltMF2Before = gameState.microFlux.MF2.LT;
+            const ltMF1After = ltMF1Before + impacts.ltImpact;
+            const ltMF2After = ltMF2Before + impacts.ltImpact;
             
             const vagAfter = vagBefore * (1 + impacts.vagImpact / 100);
             const cgeAfter = cgeBefore + impacts.cgeImpact;
-            const ltAfter = ltBefore + impacts.ltImpact;
             const rbeAfter = vagAfter - cgeAfter;
             
             // Calculer l'impact BFR
@@ -11163,8 +11300,12 @@
                             <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">€${formatNumber(Math.round(bfrBefore))}</span>
                         </div>
                         <div class="simulation-metric-row">
-                            <span>Lead Time</span>
-                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltBefore.toFixed(0)}j</span>
+                            <span>⬜ LT Standard</span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltMF1Before.toFixed(0)}j</span>
+                        </div>
+                        <div class="simulation-metric-row">
+                            <span>💎 LT Premium</span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltMF2Before.toFixed(0)}j</span>
                         </div>
                     </div>
                     
@@ -11201,10 +11342,17 @@
                             </span>
                         </div>
                         <div class="simulation-metric-row">
-                            <span>Lead Time</span>
-                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltAfter.toFixed(0)}j</span>
-                            <span class="simulation-change ${ltAfter <= ltBefore ? 'positive' : 'negative'}">
-                                ${ltAfter > ltBefore ? '+' : ''}${(ltAfter - ltBefore).toFixed(0)}j
+                            <span>⬜ LT Standard</span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltMF1After.toFixed(0)}j</span>
+                            <span class="simulation-change ${impacts.ltImpact <= 0 ? 'positive' : 'negative'}">
+                                ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact.toFixed(0)}j
+                            </span>
+                        </div>
+                        <div class="simulation-metric-row">
+                            <span>💎 LT Premium</span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700;">${ltMF2After.toFixed(0)}j</span>
+                            <span class="simulation-change ${impacts.ltImpact <= 0 ? 'positive' : 'negative'}">
+                                ${impacts.ltImpact > 0 ? '+' : ''}${impacts.ltImpact.toFixed(0)}j
                             </span>
                         </div>
                     </div>
@@ -11423,14 +11571,22 @@
                     </div>
                 `;
             } else {
-                // J3 Logistique: Lead Time
-                const lt = calculerLTMoyen();
+                // J3 Logistique: Lead Time par produit
+                const ltMF1 = gameState.microFlux.MF1.LT;
+                const ltMF2 = gameState.microFlux.MF2.LT;
                 html += `
                     <div class="quick-stat">
-                        <span class="quick-stat-icon">🚚</span>
+                        <span class="quick-stat-icon">⬜</span>
                         <div>
-                            <div class="quick-stat-label">Lead Time Moy.</div>
-                            <div class="quick-stat-value ${getSeuilClass(lt, SEUILS.leadTime, true)}">${lt.toFixed(0)}j</div>
+                            <div class="quick-stat-label">LT Standard</div>
+                            <div class="quick-stat-value ${getSeuilClass(ltMF1, SEUILS.leadTime, true)}">${ltMF1.toFixed(0)}j</div>
+                        </div>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="quick-stat-icon">💎</span>
+                        <div>
+                            <div class="quick-stat-label">LT Premium</div>
+                            <div class="quick-stat-value ${getSeuilClass(ltMF2, SEUILS.leadTime, true)}">${ltMF2.toFixed(0)}j</div>
                         </div>
                     </div>
                 `;
